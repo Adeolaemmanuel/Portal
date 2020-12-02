@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 
 //Mongonodb Database connecntion
-let url = "mongodb+srv://Orisha:Neutron@cluster0.kuv4w.mongodb.net/portal?retryWrites=true&w=majority";
+let url = "";
 const client = new MongoClient(url, {useUnifiedTopology: true});
 client.connect().then(res=>{
     console.log('Connected!');
