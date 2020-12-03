@@ -46,7 +46,7 @@ class Register extends React.Component{
                                 <ul className='w3-ul w3-card-4 w3-margin-top w3-padding'>
                                     {
                                         this.state.user.map((arr,ind)=>{
-                                            <ul key={ind}>{ind['user']}</ul>
+                                            return <ul key={ind}>{ind['user']}</ul>
                                         })
                                     }
                                 </ul>
