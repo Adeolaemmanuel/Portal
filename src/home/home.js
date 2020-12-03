@@ -2,8 +2,8 @@ import React from 'react';
 import '../index.css';
 import './home.css';
 import Nav from '../nav/nav';
-import { Link } from "react-router-dom";
 import axios from "axios";
+//import $ from "jquery";
 import User from '../user/user';
 
 
@@ -14,6 +14,7 @@ class Home extends React.Component{
         super(props)
         this.state = {
             logged: this.props['isLogged']['isLogged'],
+            name: ''
         }
         this.log = this.log.bind(this)
     }
@@ -34,8 +35,8 @@ class Home extends React.Component{
         }else{
             return(
                 <div>
-                    <Nav />
-                    <Login log={this.log} />
+                    <Nav log = {this.state.logged} name={this.state.name} />
+                    <Login log = {this.log} />
                 </div>
             )
         }
@@ -47,7 +48,12 @@ const Login = (props)=>{
         e.preventDefault();
         var id = document.getElementById('id')
         var pass = document.getElementById('pass')
-        axios.post('http://localhost:1996/login', {id: id.value, pass: pass.value}, {headers:{ "Content-Type" : "application/json", 'Access-Control-Allow-Origin': '*' }}).then(data=>{
+        var data = {id: id.value, pass: pass.value} 
+    
+        axios.post('https://portal-me.herokuapp.com//login', data, {headers :{
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }}).then(data=>{
             if(data === true){
                 props.log()
             }

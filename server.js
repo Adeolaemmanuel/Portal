@@ -9,8 +9,8 @@ app.use(cors({origin:"*"}));
 app.use(express.static(path.join(__dirname, 'build')));
 
 
-//Mongonodb Database connecntion
-let url = "";
+//Mongodb Database connecntion
+let url = "mongodb+srv://Orisha:Neutron@cluster0.kuv4w.mongodb.net/portal?retryWrites=true&w=majority";
 const client = new MongoClient(url, {useUnifiedTopology: true});
 client.connect().then(res=>{
     console.log('Connected!');
@@ -21,13 +21,15 @@ client.connect().then(res=>{
 })
 
 app.get('/', function (req, res) {
-  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
-app.post('/login', (req,res)=>{
+
+
+app.post('/login',cors(), (req,res)=>{
     var db = client.db('portal')
     var usersColl = db.collection('Users')
-    console.log(req.body);
+    console.log(req.query);
     usersColl.findOne({"_id":'Admin'}, (err, user)=>{
         if(err){
             res.json('error')

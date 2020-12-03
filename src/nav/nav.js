@@ -1,18 +1,22 @@
 import React from 'react';
 import '../index.css';
 import './nav.css';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 class Nav extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            isLogged: this.props.isLogged
+            isLogged: this.props['log'],
+            name: ''
         }
     }
 
     render(){
-        if(this.state){
+        if(this.state.isLogged){
+            return (
+                <Student name={this.state.name} />
+            )
+        }else{
             return (
                 <Welcome />
             )
@@ -26,6 +30,18 @@ const Welcome = ()=>{
             <nav className="w3-bar w3-deep-orange w3-padding">
                 <div className="w3-bar-item">
                     <b>PORTAL</b>
+                </div>
+            </nav>
+        </div>
+    )
+}
+
+const Student = (props)=>{
+    return(
+        <div>
+            <nav className="w3-bar w3-deep-orange w3-padding">
+                <div className="w3-bar-item">
+                    <b>{props.name}</b>
                 </div>
             </nav>
         </div>
