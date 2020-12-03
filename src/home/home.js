@@ -43,7 +43,7 @@ class Home extends React.Component{
 }
 
 const Login = (props)=>{
-    const url = 'http://localhost:1996/'
+    const url = 'https://portal-mee.netlify.app/'
     function log(e){
         e.preventDefault();
         var data = {

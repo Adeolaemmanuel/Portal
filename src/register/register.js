@@ -13,7 +13,7 @@ class Register extends React.Component{
     }
 
     componentDidMount(){
-        let url = 'http://localhost:1996/'
+        let url = 'https://portal-mee.netlify.app/'
         axios.get(`${url}getUsers`).then(users=>{
             this.setState({
                 user: users.data['users']
