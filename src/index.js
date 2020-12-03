@@ -6,8 +6,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import User from "./user/user";
 import Home from "./home/home";
 import Dashboard from "./dashboard/dashboard";
-import Profile from "./profile/profile";
-import Result from "./result/result";
+//import Profile from "./profile/profile";
+//import Result from "./result/result";
 
 class Index extends React.Component{
   constructor(props){

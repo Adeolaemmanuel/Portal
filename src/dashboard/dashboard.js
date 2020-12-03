@@ -2,12 +2,13 @@ import React from 'react';
 import '../index.css';
 import './dashboard.css';
 import Nav from '../nav/nav';
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 
 class Dashboard extends React.Component{
     constructor(props){
         super(props)
+        this.state = {}
     }
 
     render(){
