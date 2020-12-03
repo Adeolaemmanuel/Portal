@@ -47,4 +47,14 @@ app.post('/home', (req,res)=>{
     })
 })
 
+app.get('/getUsers', (req,res)=>{
+    var db = client.db('portal')
+    var usersColl = db.collection('Users')
+    const data = usersColl.find({}).toArray().then(users=>{
+        res.json({
+            users: users
+        })
+    })
+})
+
 app.listen(process.env.PORT || 1996);

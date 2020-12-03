@@ -87,7 +87,7 @@ const Admin = ()=>{
         <div>
             <div className="w3-container w3-margin-right top">
                 <div className="w3-row">
-                    <Link to="/dashboard">
+                    <Link to="/register">
                         <div className="w3-col s6 m4 l4 w3-padding">
                             <div className="w3-card w3-padding w3-center w3-round">
                                 <img src={register} alt="dashboard" className="svg" />

@@ -18,10 +18,10 @@ class Home extends React.Component{
     }
 
     log(e){
-        this.setState({
+        this.setState(state=>({
             logged: true,
             user:e
-        })
+        }))
     }
 
     render(){
@@ -70,7 +70,7 @@ const Login = (props)=>{
                         <div className="w3-container topLog">
                             <form onSubmit = {log}>
                                 <input type="text" className="w3-input w3-border w3-round" placeholder="Reg No:" id="id" />
-                                <input type="pssword" className="w3-input w3-border w3-round w3-margin-top" placeholder="Password:" id="pass" />
+                                <input type="password" className="w3-input w3-border w3-round w3-margin-top" placeholder="Password:" id="pass" />
                                 <button className="w3-block w3-deep-orange w3-btn w3-margin-top w3-round">Login</button>
                             </form>
                         </div>

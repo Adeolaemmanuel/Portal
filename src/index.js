@@ -8,6 +8,7 @@ import Home from "./home/home";
 import Dashboard from "./dashboard/dashboard";
 //import Profile from "./profile/profile";
 //import Result from "./result/result";
+import Register from "./register/register";
 
 class Index extends React.Component{
   constructor(props){
@@ -28,6 +29,9 @@ class Index extends React.Component{
             </Route>
             <Route path="/dashboard" component={ Dashboard }>
               <Dashboard  />
+            </Route>
+            <Route path="/register" component={ Register }>
+              <Register  />
             </Route>
           </div>
         </Router>
