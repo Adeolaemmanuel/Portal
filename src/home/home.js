@@ -50,7 +50,7 @@ const Login = (props)=>{
         var pass = document.getElementById('pass')
         var data = {id: id.value, pass: pass.value} 
     
-        axios.post('https://portal-mee.netlify.app/login', data, {headers :{
+        axios.post('/login', data, {headers :{
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
         }}).then(data=>{
