@@ -47,7 +47,7 @@ const Login = (props)=>{
         e.preventDefault();
         var id = document.getElementById('id')
         var pass = document.getElementById('pass')
-        axios.post('/login', {id: id.value, pass: pass.value}, {headers:{ "Content-Type" : "application/json", 'Access-Control-Allow-Origin': '*' }}).then(data=>{
+        axios.post('http://localhost:1996/login', {id: id.value, pass: pass.value}, {headers:{ "Content-Type" : "application/json", 'Access-Control-Allow-Origin': '*' }}).then(data=>{
             if(data === true){
                 props.log()
             }
