@@ -50,10 +50,7 @@ const Login = (props)=>{
         var pass = document.getElementById('pass')
         var data = {id: id.value, pass: pass.value} 
     
-        axios.post('/login', data, {headers :{
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        }}).then(data=>{
+        axios.post('/home', data).then(data=>{
             if(data === true){
                 props.log()
             }

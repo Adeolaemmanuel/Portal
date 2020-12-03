@@ -26,7 +26,7 @@ app.get('/', function (req, res) {
 
 
 
-app.post('/login',cors(), (req,res)=>{
+app.post('/home',cors(), (req,res)=>{
     var db = client.db('portal')
     var usersColl = db.collection('Users')
     console.log(req.query);
