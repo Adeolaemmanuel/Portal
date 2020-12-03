@@ -7,21 +7,20 @@ import axios from "axios";
 import User from '../user/user';
 
 
-
-
 class Home extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             logged: this.props['isLogged']['isLogged'],
-            name: ''
+            user: {}
         }
         this.log = this.log.bind(this)
     }
 
-    log(){
-        this.setState(state=>{
-            return {logged : true}
+    log(e){
+        this.setState({
+            logged: true,
+            user:e
         })
     }
 
@@ -29,13 +28,13 @@ class Home extends React.Component{
         if(this.state.logged){
             return(
                 <div>
-                    <User />
+                    <User user={this.state}/>
                 </div>
             )
         }else{
             return(
                 <div>
-                    <Nav log = {this.state.logged} name={this.state.name} />
+                    <Nav />
                     <Login log = {this.log} />
                 </div>
             )
@@ -44,15 +43,20 @@ class Home extends React.Component{
 }
 
 const Login = (props)=>{
+    const url = 'http://localhost:1996/'
     function log(e){
         e.preventDefault();
-        var id = document.getElementById('id')
-        var pass = document.getElementById('pass')
-        var data = {id: id.value, pass: pass.value} 
-    
-        axios.post('/home', data).then(data=>{
-            if(data === true){
-                props.log()
+        var data = {
+            id:e.target.elements.id.value,
+            pass: e.target.elements.pass.value
+        }
+        axios.post(`${url}home`, data, {headers: {'contentType': "application/json"}}).then(data=>{
+            if(data.data['logged'] === true){
+                const user = {
+                    id: data.data['id'],
+                    user: data.data['user']
+                }
+                props.log(user)
             }
         }).catch(e=>{console.log(e);})
     }
@@ -64,10 +68,10 @@ const Login = (props)=>{
                     <div className="w3-col w3-hide-small m7 l7"><br /></div>
                     <div className="w3-rest">
                         <div className="w3-container topLog">
-                            <form>
+                            <form onSubmit = {log}>
                                 <input type="text" className="w3-input w3-border w3-round" placeholder="Reg No:" id="id" />
                                 <input type="pssword" className="w3-input w3-border w3-round w3-margin-top" placeholder="Password:" id="pass" />
-                                <button className="w3-block w3-deep-orange w3-btn w3-margin-top w3-round" onClick={log}>Login</button>
+                                <button className="w3-block w3-deep-orange w3-btn w3-margin-top w3-round">Login</button>
                             </form>
                         </div>
                     </div>

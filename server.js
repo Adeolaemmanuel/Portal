@@ -6,6 +6,8 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const app = express();
 app.use(cors({origin:"*"}));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json({'contentType': "application/json"}));
 app.use(express.static(path.join(__dirname, 'build')));
 
 
@@ -26,16 +28,20 @@ app.get('/', function (req, res) {
 
 
 
-app.post('/home',cors(), (req,res)=>{
+app.post('/home', (req,res)=>{
     var db = client.db('portal')
     var usersColl = db.collection('Users')
-    console.log(req.query);
-    usersColl.findOne({"_id":'Admin'}, (err, user)=>{
+    usersColl.findOne({"_id": req.body.id}, (err, user)=>{
         if(err){
             res.json('error')
         }else{
-            if(user['user'] == '' && user['password'] == ''){
-                res.json(true)
+            console.log(user);
+            if(user['_id'] == req.body.id && user['password'] == req.body.pass){
+                res.json({
+                    logged:true, 
+                    user: user['user'],
+                    id: user['_id']
+                })
             }
         }
     })
