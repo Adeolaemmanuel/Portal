@@ -13,7 +13,7 @@ class Register extends React.Component{
     }
 
     componentDidMount(){
-        let url = 'https://portal-mee.netlify.app/'
+        let url = 'https://portal-me.herokuapp.com/'
         axios.get(`${url}getUsers`).then(users=>{
             this.setState({
                 user: users.data['users']

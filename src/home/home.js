@@ -43,7 +43,7 @@ class Home extends React.Component{
 }
 
 const Login = (props)=>{
-    const url = 'https://portal-mee.netlify.app/'
+    const url = 'https://portal-me.herokuapp.com/'
     function log(e){
         e.preventDefault();
         var data = {
