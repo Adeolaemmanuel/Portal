@@ -50,7 +50,7 @@ const Login = (props)=>{
         var pass = document.getElementById('pass')
         var data = {id: id.value, pass: pass.value} 
     
-        axios.post('https://portal-me.herokuapp.com//login', data, {headers :{
+        axios.post('https://portal-me.herokuapp.com/login', data, {headers :{
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
         }}).then(data=>{
