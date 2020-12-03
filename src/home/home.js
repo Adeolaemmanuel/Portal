@@ -50,7 +50,7 @@ const Login = (props)=>{
         var pass = document.getElementById('pass')
         var data = {id: id.value, pass: pass.value} 
     
-        axios.post('/home', data).then(data=>{
+        axios.post('https://portal-mee.netlify.app/home', data).then(data=>{
             if(data === true){
                 props.log()
             }
