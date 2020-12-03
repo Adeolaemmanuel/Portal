@@ -35,20 +35,20 @@ const Students = ()=>{
                     <Link to="/dashboard">
                         <div className="w3-col s6 m4 l4 w3-padding">
                             <div className="w3-card w3-padding w3-center w3-round">
-                                <img src={dashboard} className="svg" />
+                                <img src={dashboard} alt="dashboard" className="svg" />
                                 <h4><b>Dashboard</b></h4>
                             </div>
                         </div>
                     </Link>
                     <div className="w3-col s6 m4 l4 w3-padding">
                         <div className="w3-card w3-padding w3-center w3-round">
-                            <img src={result} className="svg" />
+                            <img src={result} alt="result" className="svg" />
                             <h4><b>Result</b></h4>
                         </div>
                     </div>
                     <div className="w3-col s6 m4 l4 w3-padding">
                         <div className="w3-card w3-padding w3-center w3-round">
-                            <img src={profile} className="svg" />
+                            <img src={profile} alt="profile" className="svg" />
                             <h4><b>Profile</b></h4>
                         </div>
                     </div>
