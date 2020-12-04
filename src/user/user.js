@@ -7,31 +7,36 @@ import profile from './img/profile-user.svg';
 import result from './img/result.svg';
 import register from './img/stamped.svg';
 import { Link } from "react-router-dom";
+import { Cookies } from 'react-cookie'
 
 class User extends React.Component{
     constructor(props){
         super(props)
+        const cookie = new Cookies()
         this.state = {
-            settings: this.props
+            id: cookie.get('id'),
+            user: cookie.get('user'),
+            password: cookie.get('password'),
+            url: this.props['url']
         }
     }
 
     render(){
-        if(this.state.settings['user']['user']['user'] === 'Student'){
+        if(this.state.user === 'Student'){
             return(
                 <div>
                     <Nav />
                     <Student />
                 </div>
             )
-        }else if(this.state.settings['user']['user']['user'] === 'Admin'){
+        }else if(this.state.user === 'Admin'){
             return(
                 <div>
                     <Nav />
                     <Admin />
                 </div>
             )
-        }else if(this.state.settings['user']['user']['user'] === 'Teacher'){
+        }else if(this.state.user === 'Teacher'){
             return(
                 <div>
                     <Nav />
@@ -55,18 +60,22 @@ const Student = ()=>{
                             </div>
                         </div>
                     </Link>
-                    <div className="w3-col s6 m4 l4 w3-padding">
-                        <div className="w3-card w3-padding w3-center w3-round">
-                            <img src={result} alt="result" className="svg" />
-                            <h4><b>Result</b></h4>
+                    <Link to="/result">
+                        <div className="w3-col s6 m4 l4 w3-padding">
+                            <div className="w3-card w3-padding w3-center w3-round">
+                                <img src={result} alt="result" className="svg" />
+                                <h4><b>Result</b></h4>
+                            </div>
                         </div>
-                    </div>
-                    <div className="w3-col s6 m4 l4 w3-padding">
-                        <div className="w3-card w3-padding w3-center w3-round">
-                            <img src={profile} alt="profile" className="svg" />
-                            <h4><b>Profile</b></h4>
+                    </Link>
+                    <Link to='/profile'>
+                        <div className="w3-col s6 m4 l4 w3-padding">
+                            <div className="w3-card w3-padding w3-center w3-round">
+                                <img src={profile} alt="profile" className="svg" />
+                                <h4><b>Profile</b></h4>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
                 <p></p>
             </div>
@@ -95,18 +104,22 @@ const Admin = ()=>{
                             </div>
                         </div>
                     </Link>
-                    <div className="w3-col s6 m4 l4 w3-padding">
-                        <div className="w3-card w3-padding w3-center w3-round">
-                            <img src={result} alt="result" className="svg" />
-                            <h4><b>Result</b></h4>
+                    <Link to="/result">
+                        <div className="w3-col s6 m4 l4 w3-padding">
+                            <div className="w3-card w3-padding w3-center w3-round">
+                                <img src={result} alt="result" className="svg" />
+                                <h4><b>Result</b></h4>
+                            </div>
                         </div>
-                    </div>
-                    <div className="w3-col s6 m4 l4 w3-padding">
-                        <div className="w3-card w3-padding w3-center w3-round">
-                            <img src={profile} alt="profile" className="svg" />
-                            <h4><b>Profile</b></h4>
+                    </Link>
+                    <Link to='/profile'>
+                        <div className="w3-col s6 m4 l4 w3-padding">
+                            <div className="w3-card w3-padding w3-center w3-round">
+                                <img src={profile} alt="profile" className="svg" />
+                                <h4><b>Profile</b></h4>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
                 <p></p>
             </div>

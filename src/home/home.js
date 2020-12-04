@@ -5,19 +5,27 @@ import Nav from '../nav/nav';
 import axios from "axios";
 //import $ from "jquery";
 import User from '../user/user';
+import { Redirect } from "react-router-dom";
+import { Cookies } from 'react-cookie'
 
 
 class Home extends React.Component{
     constructor(props){
         super(props)
+
         this.state = {
-            logged: this.props['isLogged']['isLogged'],
-            user: {}
+            logged: this.props['settings']['isLogged'],
+            user: {},
+            url: this.props['settings']['url']
         }
         this.log = this.log.bind(this)
     }
 
     log(e){
+        const cookie =  new Cookies()
+        cookie.set('id', e['id'], '/')
+        cookie.set('password', e['password'], '/')
+        cookie.set('user', e['user'], '/')
         this.setState(state=>({
             logged: true,
             user:e
@@ -28,14 +36,16 @@ class Home extends React.Component{
         if(this.state.logged){
             return(
                 <div>
-                    <User user={this.state}/>
+                    <Redirect to='/user'>
+                        <User url={this.state.url} />
+                    </Redirect>
                 </div>
             )
         }else{
             return(
                 <div>
                     <Nav />
-                    <Login log = {this.log} />
+                    <Login log = {this.log} url={this.state.url} />
                 </div>
             )
         }
@@ -43,7 +53,7 @@ class Home extends React.Component{
 }
 
 const Login = (props)=>{
-    const url = 'https://portal-mee.netlify.app/'
+    const url = props['url']
     function log(e){
         e.preventDefault();
         var data = {
@@ -54,7 +64,8 @@ const Login = (props)=>{
             if(data.data['logged'] === true){
                 const user = {
                     id: data.data['id'],
-                    user: data.data['user']
+                    user: data.data['user'],
+                    password: data.data['password']
                 }
                 props.log(user)
             }

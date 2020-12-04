@@ -6,8 +6,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import User from "./user/user";
 import Home from "./home/home";
 import Dashboard from "./dashboard/dashboard";
-//import Profile from "./profile/profile";
-//import Result from "./result/result";
+import Profile from "./profile/profile";
+import Result from "./result/result";
 import Register from "./register/register";
 
 class Index extends React.Component{
@@ -15,6 +15,7 @@ class Index extends React.Component{
     super(props)
     this.state = {
       isLogged: false,
+      url: 'https://portal-mee.netlify.app/'
     }
   }
   render(){
@@ -22,16 +23,22 @@ class Index extends React.Component{
         <Router>
           <div>
             <Route path="/" exact component={ Home }>
-              <Home isLogged={this.state} />
+              <Home settings={this.state} />
             </Route>
             <Route path="/user" component={ User }>
-              <User isLogged={this.state} />
+              <User />
             </Route>
             <Route path="/dashboard" component={ Dashboard }>
               <Dashboard  />
             </Route>
             <Route path="/register" component={ Register }>
-              <Register  />
+              <Register url={this.state.url}  />
+            </Route>
+            <Route path="/result" component={ Result }>
+              <Result />
+            </Route>
+            <Route path="/profile" component={ Profile }>
+              <Profile />
             </Route>
           </div>
         </Router>

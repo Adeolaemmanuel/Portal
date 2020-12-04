@@ -40,7 +40,8 @@ app.post('/home', (req,res)=>{
                 res.json({
                     logged:true, 
                     user: user['user'],
-                    id: user['_id']
+                    id: user['_id'],
+                    password: user['password']
                 })
             }
         }
@@ -54,6 +55,18 @@ app.get('/getUsers', (req,res)=>{
         res.json({
             users: users
         })
+    })
+})
+
+app.post('/register', (req,res)=>{
+    var db = client.db('portal')
+    var usersColl = db.collection('Users')
+    usersColl.insertOne({
+        '_id': req.body.id,
+        user: req.body.user,
+        password: req.body.pass
+    }).then(arr=>{
+        console.log(arr);
     })
 })
 
