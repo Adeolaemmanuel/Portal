@@ -32,7 +32,7 @@ class User extends React.Component{
         }else if(this.state.user === 'Admin'){
             return(
                 <div>
-                    <Nav />
+                    <Nav user={this.state.user} />
                     <Admin />
                 </div>
             )
