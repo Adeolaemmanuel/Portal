@@ -8,28 +8,18 @@ class Nav extends React.Component{
         super(props)
         this.state = {
             isLogged: this.props['log'],
-            name: this.props['user']['user']
+            name: ''
         }
     }
 
     render(){
-        if(this.state.name === "Student"){
+        if(this.state.isLogged){
             return (
                 <Student name={this.state.name} />
             )
-        }else if(this.state.name === "Admin"){
-            return (
-                <Admin name={this.state.name} />
-            )
-        }else if(this.state.name === "Teacher"){
-            return (
-                <Teacher name={this.state.name} />
-            )
         }else{
-            return(
-                <div>
-                    <Welcome />
-                </div>
+            return (
+                <Welcome />
             )
         }
     }
@@ -53,35 +43,7 @@ const Student = (props)=>{
             <nav className="w3-bar w3-deep-orange w3-padding">
                 <div className="w3-bar-item">
                     <b>
-                        <Link to='/user'>{props.name}</Link>
-                    </b>
-                </div>
-            </nav>
-        </div>
-    )
-}
-
-const Teacher = (props)=>{
-    return(
-        <div>
-            <nav className="w3-bar w3-deep-orange w3-padding">
-                <div className="w3-bar-item">
-                    <b>
-                        <Link to='/user'>{props.name}</Link>
-                    </b>
-                </div>
-            </nav>
-        </div>
-    )
-}
-
-const Admin = (props)=>{
-    return(
-        <div>
-            <nav className="w3-bar w3-deep-orange w3-padding">
-                <div className="w3-bar-item">
-                    <b>
-                        <Link to='/user'>{props.name}</Link>
+                        <Link to='/user'>PORTAL</Link>
                     </b>
                 </div>
             </nav>
