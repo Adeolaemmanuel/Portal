@@ -13,15 +13,15 @@ class Nav extends React.Component{
     }
 
     render(){
-        if(this.state.name == "Student"){
+        if(this.state.name === "Student"){
             return (
                 <Student name={this.state.name} />
             )
-        }else if(this.state.name = "Admin"){
+        }else if(this.state.name === "Admin"){
             return (
                 <Admin name={this.state.name} />
             )
-        }else if(this.state.name = "Teacher"){
+        }else if(this.state.name === "Teacher"){
             return (
                 <Teacher name={this.state.name} />
             )
