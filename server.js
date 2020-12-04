@@ -22,7 +22,7 @@ client.connect().then(res=>{
     console.log(err);
 })
 
-app.get('/', function (req, res) {
+app.get('/*', function (req, res) {
   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
