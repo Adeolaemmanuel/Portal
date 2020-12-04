@@ -16,7 +16,7 @@ class Index extends React.Component{
     super(props)
     this.state = {
       isLogged: false,
-      url: 'https://portal-me.herokuapp.com/'
+      url: 'https://portal-mee.netlify.app/'
     }
   }
   render(){
