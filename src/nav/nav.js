@@ -10,12 +10,13 @@ class Nav extends React.Component{
             isLogged: this.props['log'],
             name: ''
         }
+        console.log(this.state);
     }
 
     render(){
         if(this.state.isLogged){
             return (
-                <Student name={this.state.name} />
+                <User  />
             )
         }else{
             return (
@@ -37,7 +38,7 @@ const Welcome = ()=>{
     )
 }
 
-const Student = (props)=>{
+const User = (props)=>{
     return(
         <div>
             <nav className="w3-bar w3-deep-orange w3-padding">

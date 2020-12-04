@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+const { ifError } = require('assert');
 const app = express();
 app.use(cors({origin:"*"}));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -61,13 +62,23 @@ app.get('/getUsers', (req,res)=>{
 app.post('/register', (req,res)=>{
     var db = client.db('portal')
     var usersColl = db.collection('Users')
-    usersColl.insertOne({
-        '_id': req.body.id,
-        user: req.body.user,
-        password: req.body.pass
-    }).then(arr=>{
-        console.log(arr);
+    usersColl.findOne({'_id':req.body.id},(err,arr)=>{
+        if(arr == req.body.id){
+            res.json({message:'id exist'})
+        }else{
+            usersColl.insertOne({
+                '_id': req.body.id,
+                user: req.body.user,
+                password: req.body.pass
+            }).then(arr=>{
+                console.log(arr);
+            })
+        }
     })
+})
+
+app.post('/courseForm',(req,res)=>{
+    console.log(res.body);
 })
 
 app.listen(process.env.PORT || 1996, ()=>{

@@ -51,12 +51,11 @@ class Register extends React.Component{
         e.preventDefault();
         this.state.user.filter((arr)=>{
             if(arr['_id'] === e.target.value){
-                this.setState(state=>({
+                this.setState({
                     search : arr
-                }))
+                })
                 document.getElementById('searchDisplay').classList.remove('w3-hide')
             }
-            return arr
         })
     }
 

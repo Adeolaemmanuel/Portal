@@ -6,6 +6,7 @@ import dashboard from './img/dashboard.svg';
 import profile from './img/profile-user.svg';
 import result from './img/result.svg';
 import register from './img/stamped.svg';
+import upload from './img/upload.svg';
 import { Link } from "react-router-dom";
 import { Cookies } from 'react-cookie'
 
@@ -117,6 +118,14 @@ const Admin = ()=>{
                             <div className="w3-card w3-padding w3-center w3-round">
                                 <img src={profile} alt="profile" className="svg" />
                                 <h4><b>Profile</b></h4>
+                            </div>
+                        </div>
+                    </Link>
+                    <Link to='/upload'>
+                        <div className="w3-col s6 m4 l4 w3-padding">
+                            <div className="w3-card w3-padding w3-center w3-round">
+                                <img src={upload} alt="upload" className="svg" />
+                                <h4><b>Upload</b></h4>
                             </div>
                         </div>
                     </Link>

@@ -9,6 +9,7 @@ import Dashboard from "./dashboard/dashboard";
 import Profile from "./profile/profile";
 import Result from "./result/result";
 import Register from "./register/register";
+import Upload from "./upload/upload";
 
 class Index extends React.Component{
   constructor(props){
@@ -38,7 +39,10 @@ class Index extends React.Component{
               <Result />
             </Route>
             <Route path="/profile" component={ Profile }>
-              <Profile />
+              <Profile url={this.state.url} />
+            </Route>
+            <Route path="/upload" component={ Upload }>
+              <Upload />
             </Route>
           </div>
         </Router>

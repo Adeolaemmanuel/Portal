@@ -12,7 +12,8 @@ import { Cookies } from 'react-cookie'
 class Home extends React.Component{
     constructor(props){
         super(props)
-
+        const cookie =  new Cookies()
+        console.log(cookie.get('logged'));
         this.state = {
             logged: this.props['settings']['isLogged'],
             user: {},
@@ -26,6 +27,7 @@ class Home extends React.Component{
         cookie.set('id', e['id'], '/')
         cookie.set('password', e['password'], '/')
         cookie.set('user', e['user'], '/')
+        cookie.set('logged', true, '/')
         this.setState(state=>({
             logged: true,
             user:e
@@ -80,8 +82,8 @@ const Login = (props)=>{
                     <div className="w3-rest">
                         <div className="w3-container topLog">
                             <form onSubmit = {log}>
-                                <input type="text" className="w3-input w3-border w3-round" placeholder="Reg No:" id="id" />
-                                <input type="password" className="w3-input w3-border w3-round w3-margin-top" placeholder="Password:" id="pass" />
+                                <input type="text" className="w3-input w3-border w3-round" placeholder="Reg No:" id="id" required />
+                                <input type="password" className="w3-input w3-border w3-round w3-margin-top" placeholder="Password:" id="pass" required />
                                 <button className="w3-block w3-deep-orange w3-btn w3-margin-top w3-round">Login</button>
                             </form>
                         </div>
