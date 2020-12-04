@@ -56,8 +56,8 @@ class Register extends React.Component{
                 })
                 document.getElementById('searchDisplay').classList.remove('w3-hide')
             }
+            return arr
         })
-        return arr
     }
 
     render(){
