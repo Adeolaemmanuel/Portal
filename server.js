@@ -70,4 +70,6 @@ app.post('/register', (req,res)=>{
     })
 })
 
-app.listen(process.env.PORT || 1996);
+app.listen(process.env.PORT || 1996, ()=>{
+    console.log(`http://localhost:${1996}`);
+});
