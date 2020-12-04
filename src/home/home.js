@@ -44,7 +44,7 @@ class Home extends React.Component{
         }else{
             return(
                 <div>
-                    <Nav />
+                    <Nav user={'portal'} />
                     <Login log = {this.log} url={this.state.url} />
                 </div>
             )
