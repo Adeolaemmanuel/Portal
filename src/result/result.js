@@ -2,7 +2,7 @@ import React from 'react';
 import '../index.css';
 import './result.css';
 import Nav from '../nav/nav';
-import axios from 'axios'
+//import axios from 'axios'
 
 class Result extends React.Component{
     constructor(props){

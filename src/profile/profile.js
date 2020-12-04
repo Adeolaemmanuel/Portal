@@ -2,7 +2,7 @@ import React from 'react';
 import '../index.css';
 import './profile.css';
 import Nav from '../nav/nav';
-import axios from 'axios'
+//import axios from 'axios'
 
 class Profile extends React.Component{
     constructor(props){
