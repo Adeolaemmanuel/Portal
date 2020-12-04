@@ -39,7 +39,7 @@ class Register extends React.Component{
             pass: e.target.elements.passR.value
         }
         
-        const url = 'http://localhost:1996/'
+        const url = this.state.url
         axios.post(`${url}register`, data, {headers: {'contentType': "application/json"}}).then(data=>{
             if(data.data['logged'] === true){
                 
@@ -49,8 +49,6 @@ class Register extends React.Component{
 
     search(e){
         e.preventDefault();
-        console.log(e.target.value);
-        console.log(this.state);
         this.state.user.filter((arr)=>{
             if(arr['_id'] === e.target.value){
                 this.setState(state=>({
@@ -58,7 +56,6 @@ class Register extends React.Component{
                 }))
                 document.getElementById('searchDisplay').classList.remove('w3-hide')
             }
-            return
         })
     }
 
