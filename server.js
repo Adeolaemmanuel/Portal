@@ -72,7 +72,25 @@ app.post('/register', (req,res)=>{
                 password: req.body.pass
             }).then(arr=>{
                 console.log(arr);
+                res.json({message:'success'})
             })
+        }
+    })
+})
+
+app.post('/profile', (req,res)=>{
+    var db = client.db('portal')
+    var usersColl = db.collection('Details')
+    usersColl.findOne({'_id':res.body.id}, (err,id)=>{
+        if(err){
+            console.log(err);
+            usersColl.insertOne(res.body)
+        }else{
+            if(id == res.body.id){
+                usersColl.updateOne({
+    
+                })
+            }
         }
     })
 })

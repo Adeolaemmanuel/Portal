@@ -7,19 +7,26 @@ class Nav extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            isLogged: this.props['log'],
-            name: ''
+            user: this.props['user']
         }
         console.log(this.state);
     }
 
     render(){
-        if(this.state.isLogged){
+        if(this.state.user === 'Admin'){
             return (
-                <User  />
+                <Admin  />
+            )
+        }else if(this.state.user === 'Student'){
+            return (
+                <Student user={this.state.user} />
+            )
+        }else if(this.state.user === 'Teacher'){
+            return (
+                <Teacher />
             )
         }else{
-            return (
+            return(
                 <Welcome />
             )
         }
@@ -38,14 +45,57 @@ const Welcome = ()=>{
     )
 }
 
-const User = (props)=>{
+const Admin = (props)=>{
     return(
         <div>
             <nav className="w3-bar w3-deep-orange w3-padding">
                 <div className="w3-bar-item">
                     <b>
-                        <Link to='/user'>PORTAL</Link>
+                        <Link to='/user'>HOME</Link>
                     </b>
+                </div>
+            </nav>
+            <div className='w3-right'>
+                    <p className='w3-bar-item'>
+                        {props['user']['user']}
+                    </p>
+                </div>
+        </div>
+    )
+}
+
+const Student = (props)=>{
+    return(
+        <div>
+            <nav className="w3-bar w3-deep-orange w3-padding">
+                <div className="w3-bar-item">
+                    <b>
+                        <Link to='/user' style={{textDecoration:'none'}}>HOME</Link>
+                    </b>
+                </div>
+                <div className='w3-right'>
+                    <p className='w3-bar-item'>
+                        {props['user']['user']}
+                    </p>
+                </div>
+            </nav>
+        </div>
+    )
+}
+
+const Teacher = (props)=>{
+    return(
+        <div>
+            <nav className="w3-bar w3-deep-orange w3-padding">
+                <div className="w3-bar-item">
+                    <b>
+                        <Link to='/user'>HOME</Link>
+                    </b>
+                </div>
+                <div className='w3-right'>
+                    <p className='w3-bar-item'>
+                        {props['user']['user']}
+                    </p>
                 </div>
             </nav>
         </div>

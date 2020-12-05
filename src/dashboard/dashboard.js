@@ -20,7 +20,7 @@ class Dashboard extends React.Component{
     render(){
         return(
             <div>
-                <Nav />
+                <Nav user={this.state.user} />
                 <div className="w3-container w3-margin-top">
                     <div className="w3-row">
                         <User user={this.state} />

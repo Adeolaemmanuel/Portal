@@ -4,18 +4,17 @@ import './profile.css';
 import Nav from '../nav/nav';
 import axios from 'axios'
 import $ from 'jquery'
+import { Cookies } from 'react-cookie'
 
 class Profile extends React.Component{
     constructor(props){
         super(props)
+        const cookies = new Cookies()
         this.state = {
-            class: ['JS1','JS2','JS3','SS1','SS2','SS3'],
-            term: ['1st Term','2nd Term'],
-            dapertment: ['Science','Art','Cormmercial'],
-            subject: ['Mathematics','English','Physics','Chemistry','French','Youruba','Bussiness Studies','Computer Science','Basic Technology','Home Economics','CRS','PHE','Acgricultural Science','Applied Arts','Civic Education','Basic Science','Futher Mathematics','Biology','Commerce','History','Goverment','Geography','Literature','Humanities','History'],
-            url: this.props
+            user: cookies.get('user'),
+            url: this.props['url'],
+            id: cookies.get('id'),
         }
-        this.courseFrom = this.courseFrom.bind(this)
     }
 
     courseFrom(e){
@@ -27,52 +26,106 @@ class Profile extends React.Component{
     }
 
     render(){
-        return(
-            <div>
-                <Nav />
-                <div className='w3-row'>
-                    <div className='w3-col s12 m6 l6'>
-                        <h2 className='w3-center'>Register Your Course</h2>
-                        <div className='w3-container'>
-                            <form className='top' id='course' onSubmit={this.courseFrom}>
-                                <select className='w3-input w3-border w3-round' name='class' id='class'>
-                                    {this.state.class.map(arr=>{
-                                        return <option value={arr} key={arr} id={arr}>{arr}</option>
-                                    })}
-                                </select>
-                                <select className='w3-input w3-border w3-round w3-margin-top' id='term' name='term'>
-                                    {this.state.term.map(arr=>{
-                                        return <option value={arr} key={arr} id={arr}>{arr}</option>
-                                    })}
-                                </select>
-                                <select className='w3-input w3-border w3-round w3-margin-top' id='dept' name='department'>
-                                    {this.state.dapertment.map(arr=>{
-                                        return <option value={arr} key={arr} id={arr}>{arr}</option>
-                                    })}
-                                </select>
+        if(this.state.user === 'Admin'){
+            return(
+                <div>
+                    <Nav user={this.state.user} />
+                    <Admin />
+                </div>
+            )
+        }else if(this.state.user === 'Student'){
+            return(
+                <div>
+                    <Nav user={this.state.user} />
+                    <Student user={this.state} />
+                </div>
+            )
+        }else if (this.state.user === 'Teacher'){
+            return(
+                <div>
+                    <Nav user={this.state.user} />
+                </div>
+            )
+        }
+    }
+}
 
-                                <div className='w3-container'>
-                                    {
-                                        this.state.subject.map(arr=>{
-                                            return(
-                                                <div className='w3-row w3-padding w3-margin-top w3-card w3-round'>
-                                                    <div className='w3-col s6 m6 l6'>{arr}</div>
-                                                    <div className='w3-col s6 m6 l6'>
-                                                        <input type='checkbox' className='w3-right' key={arr} name={arr} id={arr} />
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                                <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
-                            </form>
-                        </div>
+const Admin = ()=>{
+    return (
+        <div className='w3-row'>
+            <div className='w3-container'>
+                <div className='w3-col s12 m6 l6'>
+                    <h1 className='w3-center'>Search for User</h1>
+                    <div className='w3-row'>
+                        <form>
+                            <div className='w3-half'>
+                                <input type='search' placeholder='Reg number' className='w3-input w3-border w3-round' />
+                            </div>
+                            <div className='w3-half'>
+                                <button className='w3-btn w3-block w3-deep-orange w3-round'>Search</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
+}
+
+const Student = (props)=>{
+    console.log(props);
+    return (
+        <div className='w3-row'>
+            <div className='w3-container'>
+                <div className='w3-col s12 m5 l5 w3-padding'>
+                    <h1 className='w3-center'>PROFILE</h1>
+                    <table className='w3-table-all'>
+                        <tr>
+                            <td><b>Reg No</b></td>
+                            <td className='w3-right'>{props['user']['id']}</td>
+                        </tr>
+                        <tr>
+                            <td><b>User</b></td>
+                            <td className='w3-right'>{props['user']['user']}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div className='w3-rest w3-padding'>
+                    <h1 className='w3-center'>UPDATE PROFILE</h1>
+                    <form>
+                        <div className='w3-row'>
+                            <div className='w3-half w3-padding'>
+                                <input type="text" placeholder='First Name' className='w3-input w3-border w3-round' />   
+                            </div>
+                            <div className='w3-half w3-padding'>
+                                <input type="text" placeholder='Last Name' className='w3-input w3-border w3-round' />   
+                            </div>
+                        </div>
+                        <div className='w3-row'>
+                            <div className='w3-half w3-padding'>
+                                <input type="text" placeholder='Sponsor Name' className='w3-input w3-border w3-round' />   
+                            </div>
+                            <div className='w3-half w3-padding'>
+                                <input type="email" placeholder='Email' className='w3-input w3-border w3-round' />   
+                            </div>
+                        </div>
+                        <div className='w3-row'>
+                            <div className='w3-half w3-padding'>
+                                <select className='w3-input w3-border'>
+                                    <option value='male'>Male</option>
+                                    <option value='female'>Female</option>
+                                </select>   
+                            </div>
+                            <div className='w3-half w3-padding'>
+                                <input type="date" placeholder='DOB' className='w3-input w3-border w3-round' />   
+                            </div>
+                        </div>
+                        <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    )
 }
 
 export default Profile;

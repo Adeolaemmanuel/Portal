@@ -33,7 +33,7 @@ class User extends React.Component{
         }else if(this.state.user === 'Admin'){
             return(
                 <div>
-                    <Nav user={this.state.user} />
+                    <Nav />
                     <Admin />
                 </div>
             )
@@ -77,6 +77,14 @@ const Student = ()=>{
                             </div>
                         </div>
                     </Link>
+                    <Link to='/register'>
+                        <div className="w3-col s6 m4 l4 w3-padding">
+                            <div className="w3-card w3-padding w3-center w3-round">
+                                <img src={register} alt="register" className="svg" />
+                                <h4><b>Register</b></h4>
+                            </div>
+                        </div>
+                    </Link>
                 </div>
                 <p></p>
             </div>
@@ -100,7 +108,7 @@ const Admin = ()=>{
                     <Link to="/register">
                         <div className="w3-col s6 m4 l4 w3-padding">
                             <div className="w3-card w3-padding w3-center w3-round">
-                                <img src={register} alt="dashboard" className="svg" />
+                                <img src={register} alt="register" className="svg" />
                                 <h4><b>Register</b></h4>
                             </div>
                         </div>
