@@ -101,5 +101,5 @@ app.post('/courseForm',(req,res)=>{
 let port = 3000
 
 app.listen(process.env.PORT || port, ()=>{
-    console.log(`http://localhost:${port}`);
+    console.log(`https://portal-mee.netlify.app/`);
 });
