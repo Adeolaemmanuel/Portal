@@ -9,7 +9,6 @@ class Nav extends React.Component{
         this.state = {
             user: this.props['user']
         }
-        console.log(this.state);
     }
 
     render(){
@@ -57,7 +56,7 @@ const Admin = (props)=>{
             </nav>
             <div className='w3-right'>
                     <p className='w3-bar-item'>
-                        {props['user']['user']}
+                        {props['user']}
                     </p>
                 </div>
         </div>
@@ -75,7 +74,7 @@ const Student = (props)=>{
                 </div>
                 <div className='w3-right'>
                     <p className='w3-bar-item'>
-                        {props['user']['user']}
+                        {props['user']}
                     </p>
                 </div>
             </nav>
@@ -94,7 +93,7 @@ const Teacher = (props)=>{
                 </div>
                 <div className='w3-right'>
                     <p className='w3-bar-item'>
-                        {props['user']['user']}
+                        {props['user']}
                     </p>
                 </div>
             </nav>

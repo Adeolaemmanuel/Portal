@@ -13,22 +13,24 @@ class Register extends React.Component{
         this.state = {
             user: cookies.get('user'),
             url: this.props['url'],
-            users: ''
+            users: [],
+            search: ''
         }
-        console.log(this.state);
+
     }
     
 
     componentDidMount(){
         let url = this.state.url
         let data 
-        axios.get(`${url}getUsers`).then(users=>{
+        axios.post(`${url}getUsers`).then(users=>{
             data = users.data['users']
-        })
+        }).catch(e=>{console.log(e);})
         setTimeout(() => {
-            this.setState({
+                this.setState({
                 users: data
-            })  
+            })
+            
         }, 2500);
     }
 
@@ -55,22 +57,11 @@ class Register extends React.Component{
 }
 
 const Admin = (props)=>{
+    //console.log(props);
     var Data = {
         user: props['data']['users'],
-        search : [],
+        search : '',
         url: props['data']['url'],
-        password: 'password',
-        btn: {color: 'w3-green', text:'Show'}
-    }
-
-    function passwordToggle(){
-        if(Data.password === 'password'){
-            Data.password = 'text'
-            Data.btn = {color:'w3-red', text:'w3-hide'}
-        }else{
-            Data.password = 'password'
-            Data.btn = {color: 'w3-green', text:'Show'}
-        }
     }
 
     function register(e){
@@ -91,8 +82,10 @@ const Admin = (props)=>{
     function search(e){
         e.preventDefault();
         Data.user.filter((arr)=>{
-            if(arr['_id'] === e.target.value || arr['user'] === e.target.value || arr['password'] === e.target.value){
-                Data.search = [...arr]
+            if(arr['_id'] === e.target.value){
+                document.getElementById('id').innerHTML = arr['_id']
+                document.getElementById('user').innerHTML = arr['user']
+                document.getElementById('password').innerHTML = arr['password']
                 document.getElementById('searchDisplay').classList.remove('w3-hide')
             }else if(e.target.value === ''){
                 document.getElementById('searchDisplay').classList.add('w3-hide')
@@ -103,7 +96,6 @@ const Admin = (props)=>{
 
     return(
         <div>
-            <Nav />
             <div className='w3-row'>
                 <div className='w3-container'>
                     <div className='w3-col s12 m6 l6 w3-center w3-padding top'>
@@ -123,21 +115,15 @@ const Admin = (props)=>{
                         <div className='w3-margin-top'>
                             <input className='w3-input w3-border w3-round' type="search" placeholder="Search user" id='search' onChange={search} />
                             <div id="searchDisplay" className="w3-border w3-hide">
-                                {
-                                    Data.search.map(arr=>{
-                                        return (
-                                            <div className="w3-row w3-padding">
-                                                <div className="w3-col s4 m4 l4">{arr['_id']}</div>
-                                                <div className="w3-col s4 m4 l4">{arr['user']}</div>
-                                                <div className="w3-col s4 m4 l4">{arr['password']}</div>
-                                            </div>
-                                        )
-                                    })
-                                }
+                            <div className="w3-row w3-padding">
+                                <div className="w3-col s4 m4 l4" id="id"></div>
+                                <div className="w3-col s4 m4 l4" id='user'></div>
+                                <div className="w3-col s4 m4 l4" id='password'></div>
+                            </div>
                             </div>
                         </div>
                         <div className='w3-container' style={{marginTop: '50px'}}>
-                            <ul className='w3-ul w3-margin-top w3-container'>
+                            <ul className='w3-ul w3-margin-top w3-container' style={{overflow: 'scroll', height:'400px'}}>
                             <div className="w3-row">
                                 <div className="w3-col s4 m4 l4"><b>REG NO</b></div>
                                 <div className="w3-col s4 m4 l4"><b>USER</b></div>
@@ -146,19 +132,12 @@ const Admin = (props)=>{
                                 {
                                     Data.user.map((arr,ind)=>{
                                         return (
-                                            <div style={{overflow: 'auto'}}>
+                                            <div>
                                                 <li className="w3-card w3-margin-top w3-padding" key={ind}>
                                                     <div className="w3-row">
                                                         <div className="w3-col s4 m4 l4" key={arr['_id']}>{arr['_id']}</div>
                                                         <div className="w3-col s4 m4 l4" key={arr['user']}>{arr['user']}</div>
-                                                        <div className="w3-col s4 m4 l4" key={arr['password']}>
-                                                            <div className='w3-row'>
-                                                                <div className='w3-half'>
-                                                                    <input type={this.state.password} value={arr['password']} />
-                                                                </div>
-                                                                <button className={`w3-half w3-padding${Data.btn.color}`} onClick={passwordToggle}>{Data.btn.text}</button>
-                                                            </div>
-                                                        </div>
+                                                        <div className="w3-col s4 m4 l4" key={arr['password']}>{arr['password']}</div>
                                                     </div>
                                                 </li>
                                             </div>
@@ -175,6 +154,7 @@ const Admin = (props)=>{
 }
 
 const Student = (props)=>{
+    
     let state = {
         class: ['JS1','JS2','JS3','SS1','SS2','SS3'],
         term: ['1st Term','2nd Term'],
@@ -186,55 +166,55 @@ const Student = (props)=>{
     function courseFrom(e){
         e.preventDefault()
         let data = $('#course').serializeArray()
-        axios.post(`${state.url['url']}courseForm`, data, {headers: {'contentType': "application/json"}}).then(res=>{
+        axios.post(`${state.url}courseForm`, data, {headers: {'contentType': "application/json"}}).then(res=>{
 
-        })
+        }).catch(e=>{console.log(e);})
     }
 
 
     return(
         <div>
-                <div className='w3-row'>
-                    <div className='w3-col s12 m6 l6'>
-                        <h2 className='w3-center'>Register Your Course</h2>
-                        <div className='w3-container'>
-                            <form className='top' id='course' onSubmit={courseFrom}>
-                                <select className='w3-input w3-border w3-round' name='class' id='class'>
-                                    {state.class.map(arr=>{
-                                        return <option value={arr} key={arr} id={arr}>{arr}</option>
-                                    })}
-                                </select>
-                                <select className='w3-input w3-border w3-round w3-margin-top' id='term' name='term'>
-                                    {state.term.map(arr=>{
-                                        return <option value={arr} key={arr} id={arr}>{arr}</option>
-                                    })}
-                                </select>
-                                <select className='w3-input w3-border w3-round w3-margin-top' id='dept' name='department'>
-                                    {state.dapertment.map(arr=>{
-                                        return <option value={arr} key={arr} id={arr}>{arr}</option>
-                                    })}
-                                </select>
+            <div className='w3-row'>
+                <div className='w3-col s12 m6 l6'>
+                    <h2 className='w3-center'>Register Your Course</h2>
+                    <div className='w3-container'>
+                        <form className='top' id='course' onSubmit={courseFrom}>
+                            <select className='w3-input w3-border w3-round' name='class' id='class'>
+                                {state.class.map(arr=>{
+                                    return <option value={arr} key={arr} id={arr}>{arr}</option>
+                                })}
+                            </select>
+                            <select className='w3-input w3-border w3-round w3-margin-top' id='term' name='term'>
+                                {state.term.map(arr=>{
+                                    return <option value={arr} key={arr} id={arr}>{arr}</option>
+                                })}
+                            </select>
+                            <select className='w3-input w3-border w3-round w3-margin-top' id='dept' name='department'>
+                                {state.dapertment.map(arr=>{
+                                    return <option value={arr} key={arr} id={arr}>{arr}</option>
+                                })}
+                            </select>
 
-                                <div className='w3-container'>
-                                    {
-                                        state.subject.map(arr=>{
-                                            return(
-                                                <div className='w3-row w3-padding w3-margin-top w3-card w3-round'>
-                                                    <div className='w3-col s6 m6 l6'><label htmlFor={arr}>{arr}</label> </div>
-                                                    <div className='w3-col s6 m6 l6'>
-                                                        <input type='checkbox' className='w3-right' key={arr} name={arr} id={arr} />
-                                                    </div>
+                            <div className='w3-container'>
+                                {
+                                    state.subject.map(arr=>{
+                                        return(
+                                            <div className='w3-row w3-padding w3-margin-top w3-card w3-round'>
+                                                <div className='w3-col s6 m6 l6'><label htmlFor={arr}>{arr}</label> </div>
+                                                <div className='w3-col s6 m6 l6'>
+                                                    <input type='checkbox' className='w3-right' key={arr} name={arr} id={arr} />
                                                 </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                                <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
-                            </form>
-                        </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                            <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
     )
 }
 

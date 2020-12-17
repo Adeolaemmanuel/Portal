@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser')
+var request = require('request');
 const path = require('path');
 const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient;
@@ -17,8 +18,6 @@ let url = "mongodb+srv://Orisha:Neutron@cluster0.kuv4w.mongodb.net/portal?retryW
 const client = new MongoClient(url, {useUnifiedTopology: true});
 client.connect().then(res=>{
     console.log('Connected!');
-    const db = client.db('portal')
-    const usersColl = db.collection('Users')
 }, err=>{
     console.log(err);
 })
@@ -37,7 +36,7 @@ app.post('/home', (req,res)=>{
             res.json('error')
         }else{
             console.log(user);
-            if(user['_id'] == req.body.id && user['password'] == req.body.pass){
+            if(user['_id'] === req.body.id && user['password'] === req.body.pass){
                 res.json({
                     logged:true, 
                     user: user['user'],
@@ -49,10 +48,11 @@ app.post('/home', (req,res)=>{
     })
 })
 
-app.get('/getUsers', (req,res)=>{
+app.post('/getUsers', (req,res)=>{
     var db = client.db('portal')
     var usersColl = db.collection('Users')
-    const data = usersColl.find({}).toArray().then(users=>{
+    usersColl.find({}).toArray().then(users=>{
+        console.log(users);
         res.json({
             users: users
         })
@@ -63,7 +63,7 @@ app.post('/register', (req,res)=>{
     var db = client.db('portal')
     var usersColl = db.collection('Users')
     usersColl.findOne({'_id':req.body.id},(err,arr)=>{
-        if(arr == req.body.id){
+        if(arr === req.body.id){
             res.json({message:'id exist'})
         }else{
             usersColl.insertOne({
@@ -86,7 +86,7 @@ app.post('/profile', (req,res)=>{
             console.log(err);
             usersColl.insertOne(res.body)
         }else{
-            if(id == res.body.id){
+            if(id === res.body.id){
                 usersColl.updateOne({
     
                 })
@@ -96,9 +96,10 @@ app.post('/profile', (req,res)=>{
 })
 
 app.post('/courseForm',(req,res)=>{
-    console.log(res.body);
+    console.log(req.body);
 })
+let port = 3000
 
-app.listen(process.env.PORT || 1996, ()=>{
-    console.log(`http://localhost:${1996}`);
+app.listen(process.env.PORT || port, ()=>{
+    console.log(`http://localhost:${port}`);
 });
