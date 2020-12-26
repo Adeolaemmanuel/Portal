@@ -83,7 +83,6 @@ class Upload extends React.Component{
         e.preventDefault()
         let data = $('#upload').serializeArray()
         let subjects = [...this.state.subjects]
-        console.log(data)
         for(let x=0; x<subjects.length; x++){
             for(let y=0; y<data.length; y++){
                 if(subjects[x].name === data[y].name && data[y].value !== ''){
@@ -91,15 +90,19 @@ class Upload extends React.Component{
                 }
                 if(subjects[x].value >= 80 && subjects[x].value <= 100){
                     subjects[x].grade = 'A'
+                    subjects[x].color = 'w3-green'
                 }
                 if(subjects[x].value >= 60 && subjects[x].value <= 70){
                     subjects[x].grade = 'B'
+                    subjects[x].color = 'w3-green'
                 }
                 if(subjects[x].value >= 40 && subjects[x].value <= 50){
                     subjects[x].grade = 'C'
+                    subjects[x].color = 'w3-lime'
                 }
                 if(subjects[x].value >= 0 && subjects[x].value <= 40){
                     subjects[x].grade = 'F'
+                    subjects[x].color = 'w3-red'
                 }
             }
         }
