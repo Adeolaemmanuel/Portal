@@ -2,7 +2,7 @@ import React from 'react';
 import '../index.css';
 import './home.css';
 import Nav from '../nav/nav';
-import axios from "axios";
+import { db } from '../database'
 //import $ from "jquery";
 import User from '../user/user';
 import { Redirect } from "react-router-dom";
@@ -22,6 +22,7 @@ class Home extends React.Component{
 
     log(e){
         const cookie =  new Cookies()
+        console.log(e);
         cookie.set('id', e['id'], '/')
         cookie.set('password', e['password'], '/')
         cookie.set('user', e['user'], '/')
@@ -52,48 +53,56 @@ class Home extends React.Component{
     }
 }
 
-const Login = (props)=>{
-    const url = props['url']
-    function log(e){
+class Login extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state= {}
+        this.log = this.log.bind(this)
+    }
+    
+    
+    log(e){
         e.preventDefault();
         var data = {
             id:e.target.elements.id.value,
             pass: e.target.elements.pass.value
         }
-        axios.post(`${url}home`, data, {headers: {'contentType': "application/json"}}).then(data=>{
-            if(data.data['logged'] === true){
-                const user = {
-                    id: data.data['id'],
-                    user: data.data['user'],
-                    password: data.data['password']
+
+        db.collection('Users').doc(data.id).get().then(user=>{
+            if(user.exists){
+                if(data.id === user.data().regNo && data.pass === user.data().password){
+                    data['user'] = user.data().user
+                    this.props.log(data)
+                    //console.log(data);
                 }
-                props.log(user)
             }
         }).catch(e=>{console.log(e);})
     }
 
-    return (
-        <div>
-            <div className="w3-container">
-                <div className="w3-row">
-                    <div className="w3-col w3-hide-small m7 l7"><br /></div>
-                    <div className="w3-rest">
-                        <div className="w3-container topLog">
-                            <form onSubmit = {log}>
-                                <input type="text" className="w3-input w3-border w3-round" placeholder="Reg No:" id="id" required />
-                                <input type="password" className="w3-input w3-border w3-round w3-margin-top" placeholder="Password:" id="pass" required />
-                                <div className='w3-center'>
-                                    <label>Remember Login</label>
-                                    <input type='checkbox' />
-                                </div>
-                                <button className="w3-block w3-deep-orange w3-btn w3-margin-top w3-round">Login</button>
-                            </form>
+    render(){
+        return (
+            <div>
+                <div className="w3-container">
+                    <div className="w3-row">
+                        <div className="w3-col w3-hide-small m7 l7"><br /></div>
+                        <div className="w3-rest">
+                            <div className="w3-container topLog">
+                                <form onSubmit = {this.log}>
+                                    <input type="text" className="w3-input w3-border w3-round" placeholder="Reg No:" id="id" required />
+                                    <input type="password" className="w3-input w3-border w3-round w3-margin-top" placeholder="Password:" id="pass" required />
+                                    <div className='w3-center'>
+                                        <label>Remember Login</label>
+                                        <input type='checkbox' />
+                                    </div>
+                                    <button className="w3-block w3-deep-orange w3-btn w3-margin-top w3-round">Login</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default Home;

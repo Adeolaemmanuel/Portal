@@ -48,17 +48,13 @@ const Admin = (props)=>{
     return(
         <div>
             <nav className="w3-bar w3-deep-orange w3-padding">
-                <div className="w3-bar-item">
-                    <b>
-                        <Link to='/user'>HOME</Link>
-                    </b>
-                </div>
-            </nav>
-            <div className='w3-right'>
+                <Link to='/user' className='w3-bold w3-bar-item' style={{textDecoration:'none'}}>HOME</Link>
+                <div className='w3-right'>
                     <p className='w3-bar-item'>
                         {props['user']}
                     </p>
                 </div>
+            </nav>
         </div>
     )
 }
@@ -67,11 +63,7 @@ const Student = (props)=>{
     return(
         <div>
             <nav className="w3-bar w3-deep-orange w3-padding">
-                <div className="w3-bar-item">
-                    <b>
-                        <Link to='/user' style={{textDecoration:'none'}}>HOME</Link>
-                    </b>
-                </div>
+                <Link to='/user' className='w3-bold w3-bar-item' style={{textDecoration:'none'}}>HOME</Link>
                 <div className='w3-right'>
                     <p className='w3-bar-item'>
                         {props['user']}
@@ -86,11 +78,7 @@ const Teacher = (props)=>{
     return(
         <div>
             <nav className="w3-bar w3-deep-orange w3-padding">
-                <div className="w3-bar-item">
-                    <b>
-                        <Link to='/user'>HOME</Link>
-                    </b>
-                </div>
+                <Link to='/user' className='w3-bold w3-bar-item' style={{textDecoration:'none'}}>HOME</Link>
                 <div className='w3-right'>
                     <p className='w3-bar-item'>
                         {props['user']}

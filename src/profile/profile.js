@@ -2,8 +2,7 @@ import React from 'react';
 import '../index.css';
 import './profile.css';
 import Nav from '../nav/nav';
-import axios from 'axios'
-import $ from 'jquery'
+import { db } from '../database'
 import { Cookies } from 'react-cookie'
 
 class Profile extends React.Component{
@@ -17,13 +16,6 @@ class Profile extends React.Component{
         }
     }
 
-    courseFrom(e){
-        e.preventDefault()
-        let data = $('#course').serializeArray()
-        axios.post(`${this.state.url['url']}courseForm`, data, {headers: {'contentType': "application/json"}}).then(res=>{
-
-        })
-    }
 
     render(){
         if(this.state.user === 'Admin'){
@@ -50,82 +42,288 @@ class Profile extends React.Component{
     }
 }
 
-const Admin = ()=>{
-    return (
-        <div className='w3-row'>
-            <div className='w3-container'>
-                <div className='w3-col s12 m6 l6'>
-                    <h1 className='w3-center'>Search for User</h1>
-                    <div className='w3-row'>
-                        <form>
-                            <div className='w3-half'>
-                                <input type='search' placeholder='Reg number' className='w3-input w3-border w3-round' />
+class Admin extends React.Component{
+    constructor(props) {
+        super(props);
+        const cookies = new Cookies()
+        this.state = {
+            profile : [],
+            id: cookies.get('id'),
+            profileId: ''
+        }
+        this.getProfile = this.getProfile.bind(this)
+        this.profile = this.profile.bind(this)
+    }
+
+    componentDidMount(){
+        
+    }
+    
+    getProfile(e){
+        e.preventDefault()
+        let id = e.target.elements.search.value
+        db.collection('Users').doc(id).get().then(user=>{
+            if(user.exists){
+                console.log(user.data())
+                this.setState({profile: user.data(), profileId: id})
+            }
+        })
+        console.log(this.state.profile)
+        return id
+    }
+
+    profile(e){
+        e.preventDefault()
+        var data = {
+            firstname:e.target.elements.fn.value,
+            lastname: e.target.elements.ln.value,
+            sponsorname: e.target.elements.sn.value,
+            gender: e.target.elements.gender.value,
+            email: e.target.elements.email.value,
+            dob:e.target.elements.dob.value,
+        }
+        console.log(data);
+        if(this.state.profile >= 0){ alert('Search for user')}
+        else{
+            db.collection('Users').doc(this.state.profileId).update({
+                'First name': data.firstname,
+                'Last name': data.lastname,
+                Email: data.email,
+                Gender: data.gender,
+                'Sponsor name': data.sponsorname,
+                DOB: data.dob
+            }).then(()=>{
+                db.collection('Users').doc(this.state.profileId).get().then(user=>{
+                    if(user.exists){
+                        console.log(user.data())
+                        this.setState({profile: user.data()})
+                    }
+                })
+            }).catch(e=>{console.log(e)})
+        }
+    }
+
+    render(){
+        return (
+            <div className='w3-row'>
+                <div className='w3-center'>
+                    <h3>Search for users</h3>
+                <form onSubmit={this.getProfile}>
+                    <div className='w3-container w3-center'>
+                        <input type='search' id='search' placeholder='Reg number' className='w3-input w3-border w3-round' />
+                    </div>
+                    <div className='container w3-center w3-margin-top'>
+                        <button className='w3-btn w3-deep-orange w3-round'>Search</button>
+                    </div>
+                </form>
+                </div>
+                <div className='w3-container'>
+                <div className='w3-row'>
+                    <div className='w3-col m6 l6 w3-margin-top'>
+                        <table className='w3-table-all'>
+                            <tr>
+                                <td><b>Reg No</b></td>
+                                <td className='w3-right'>{this.state.profile['user']}</td>
+                            </tr>
+                            <tr> 
+                                <td><b>User</b></td>
+                                <td className='w3-right'>{this.state.profile['regNo']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Name</b></td>
+                                <td className='w3-right'>{this.state.profile['First name']} {this.state.profile['Last name']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Email</b></td>
+                                <td className='w3-right'>{this.state.profile['Email']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Sponsor Name</b></td>
+                                <td className='w3-right'>{this.state.profile['Sponsor name']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>DOB</b></td>
+                                <td className='w3-right'>{this.state.profile['DOB']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Gender</b></td>
+                                <td className='w3-right'>{this.state.profile['Gender']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Term</b></td>
+                                <td className='w3-right'>{this.state.profile['Term']}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div className="w3-col l6 m6 w3-padding">
+                        <div className='w3-container'>
+                            <p className='w3-center'><b>Update profile</b></p>
+                            <form id='profile' onSubmit={this.profile}>
+                                <div className='w3-row'>
+                                    <div className='w3-half w3-padding'>
+                                        <input type="text" value={this.state.profile['First name']} className='w3-input w3-border w3-round' id='fn' />   
+                                    </div>
+                                    <div className='w3-half w3-padding'>
+                                        <input type="text" value={this.state.profile['Last name']} className='w3-input w3-border w3-round' id='ln' />   
+                                    </div>
+                                </div>
+                                <div className='w3-row'>
+                                    <div className='w3-half w3-padding'>
+                                        <input type="text" value={this.state.profile['Sponsor name']} className='w3-input w3-border w3-round' id='sn' />   
+                                    </div>
+                                    <div className='w3-half w3-padding'>
+                                        <input type="email" value={this.state.profile['Email']} className='w3-input w3-border w3-round' id='email' />   
+                                    </div>
+                                </div>
+                                <div className='w3-row'>
+                                    <div className='w3-half w3-padding'>
+                                        <select className='w3-input w3-border' id='gender' >
+                                            <option value='Male'>Male</option>
+                                            <option value='FReemale'>Female</option>
+                                        </select>   
+                                    </div>
+                                    <div className='w3-half w3-padding'>
+                                        <input type="date" value={this.state.profile['DOB']} className='w3-input w3-border w3-round' id='dob' />   
+                                    </div>
+                                </div>
+                                <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+class Student extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: this.props['user']['user'],
+            id: this.props['user']['id'],
+            profile: ''
+        }
+        console.log(props);
+        this.profile = this.profile.bind(this)
+    }
+
+    componentDidMount(){
+        this.getProfile()
+    }
+
+    profile(e){
+        e.preventDefault()
+        var data = {
+            firstname:e.target.elements.fn.value,
+            lastname: e.target.elements.ln.value,
+            sponsorname: e.target.elements.sn.value,
+            gender: e.target.elements.gender.value,
+            email: e.target.elements.email.value,
+            dob:e.target.elements.dob.value,
+        }
+        console.log(data);
+        db.collection('Users').doc(this.state.id).update({
+            'First name': data.firstname,
+            'Last name': data.lastname,
+            Email: data.email,
+            Gender: data.gender,
+            'Sponsor name': data.sponsorname,
+            DOB: data.dob
+        }).catch(e=>{console.log(e)})
+    }
+
+    getProfile(){
+        db.collection('Users').doc(this.state.id).get().then(user=>{
+            //console.log(user.data())
+            this.setState(state =>({
+                profile: user.data()
+            }))
+
+        })
+        
+    }
+    
+
+    render(){
+        return (
+            <div className='w3-row'>
+                <div className=''>
+                    <div className='w3-col s12 m5 l5'>
+                        <h1 className='w3-center'>PROFILE</h1>
+                        <table className='w3-table-all'>
+                            <tr>
+                                <td><b>Reg No</b></td>
+                                <td className='w3-right'>{this.state.user}</td>
+                            </tr>
+                            <tr> 
+                                <td><b>User</b></td>
+                                <td className='w3-right'>{this.state.id}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Name</b></td>
+                                <td className='w3-right'>{this.state.profile['First name']} {this.state.profile['Last name']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Email</b></td>
+                                <td className='w3-right'>{this.state.profile['Email']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Sponsor Name</b></td>
+                                <td className='w3-right'>{this.state.profile['Sponsor name']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>DOB</b></td>
+                                <td className='w3-right'>{this.state.profile['DOB']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Gender</b></td>
+                                <td className='w3-right'>{this.state.profile['Gender']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Term</b></td>
+                                <td className='w3-right'>{this.state.profile['Term']}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div className='w3-rest w3-padding'>
+                        <h1 className='w3-center'>UPDATE PROFILE</h1>
+                        <form id='profile' onSubmit={this.profile}>
+                            <div className='w3-row'>
+                                <div className='w3-half w3-padding'>
+                                    <input type="text" value={this.state.profile['First name']} className='w3-input w3-border w3-round' id='fn' />   
+                                </div>
+                                <div className='w3-half w3-padding'>
+                                    <input type="text" value={this.state.profile['Last name']} className='w3-input w3-border w3-round' id='ln' />   
+                                </div>
                             </div>
-                            <div className='w3-half'>
-                                <button className='w3-btn w3-block w3-deep-orange w3-round'>Search</button>
+                            <div className='w3-row'>
+                                <div className='w3-half w3-padding'>
+                                    <input type="text" value={this.state.profile['Sponsor name']} className='w3-input w3-border w3-round' id='sn' />   
+                                </div>
+                                <div className='w3-half w3-padding'>
+                                    <input type="email" value={this.state.profile['Email']} className='w3-input w3-border w3-round' id='email' />   
+                                </div>
                             </div>
+                            <div className='w3-row'>
+                                <div className='w3-half w3-padding'>
+                                    <select className='w3-input w3-border' id='gender' >
+                                        <option value='Male'>Male</option>
+                                        <option value='FReemale'>Female</option>
+                                    </select>   
+                                </div>
+                                <div className='w3-half w3-padding'>
+                                    <input type="date" value={this.state.profile['DOB']} className='w3-input w3-border w3-round' id='dob' />   
+                                </div>
+                            </div>
+                            <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
-    )
-}
-
-const Student = (props)=>{
-    console.log(props);
-    return (
-        <div className='w3-row'>
-            <div className='w3-container'>
-                <div className='w3-col s12 m5 l5 w3-padding'>
-                    <h1 className='w3-center'>PROFILE</h1>
-                    <table className='w3-table-all'>
-                        <tr>
-                            <td><b>Reg No</b></td>
-                            <td className='w3-right'>{props['user']['id']}</td>
-                        </tr>
-                        <tr>
-                            <td><b>User</b></td>
-                            <td className='w3-right'>{props['user']['user']}</td>
-                        </tr>
-                    </table>
-                </div>
-                <div className='w3-rest w3-padding'>
-                    <h1 className='w3-center'>UPDATE PROFILE</h1>
-                    <form>
-                        <div className='w3-row'>
-                            <div className='w3-half w3-padding'>
-                                <input type="text" placeholder='First Name' className='w3-input w3-border w3-round' />   
-                            </div>
-                            <div className='w3-half w3-padding'>
-                                <input type="text" placeholder='Last Name' className='w3-input w3-border w3-round' />   
-                            </div>
-                        </div>
-                        <div className='w3-row'>
-                            <div className='w3-half w3-padding'>
-                                <input type="text" placeholder='Sponsor Name' className='w3-input w3-border w3-round' />   
-                            </div>
-                            <div className='w3-half w3-padding'>
-                                <input type="email" placeholder='Email' className='w3-input w3-border w3-round' />   
-                            </div>
-                        </div>
-                        <div className='w3-row'>
-                            <div className='w3-half w3-padding'>
-                                <select className='w3-input w3-border'>
-                                    <option value='male'>Male</option>
-                                    <option value='female'>Female</option>
-                                </select>   
-                            </div>
-                            <div className='w3-half w3-padding'>
-                                <input type="date" placeholder='DOB' className='w3-input w3-border w3-round' />   
-                            </div>
-                        </div>
-                        <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default Profile;

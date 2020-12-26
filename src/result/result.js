@@ -2,8 +2,9 @@ import React from 'react';
 import '../index.css';
 import './result.css';
 import Nav from '../nav/nav';
-//import axios from 'axios'
+import { db} from '../database'
 import { Cookies } from 'react-cookie'
+import { cookie } from 'request';
 
 class Result extends React.Component{
     constructor(props){
@@ -12,8 +13,35 @@ class Result extends React.Component{
         this.state = {
             user: cookies.get('user'),
             url: this.props['url'],
-            users: ''
+            id: cookies.get('id'),
+            subjects: [],
+            subjectIds: []
         }
+        this.subjectId = this.subjectId.bind(this)
+    }
+
+    componentDidMount(){
+        this.getSubject()
+    }
+
+
+    getSubject(){
+        db.collection('Users').doc(this.state.id).get().then(subId=>{
+            let data = subId.data().subjectId;
+            this.setState({subjectIds: data})
+        })
+    }
+
+    subjectId(e){
+        //get subject id for onlcick for getting result or setting
+        e.preventDefault()
+        let id = e.target.id
+        //console.log(id)
+        db.collection('Details').doc(this.state.id).collection('subjects').doc(id).get()
+        .then(a=>{
+            this.setState({subjects: a.data().subjects})
+            console.log(a.data().subjects)
+        })
     }
 
     render(){
@@ -21,23 +49,8 @@ class Result extends React.Component{
             <div>
                 <Nav user={this.state.user} />
                 <div className='w3-container'>
-                <h2 className='w3-center w3-padding'>Search for student Result</h2>
-                    <div className='w3-row'>
-                        <div className="w3-col s12 m3 l3 w3-padding">
-                            <input className='w3-input w3-border w3-round' type='text' id='id' placeholder="Input Reg" />
-                        </div>
-                        <div className="w3-col m3 l3 w3-padding">
-                            <input className='w3-input w3-border w3-round' type="text" id='class' placeholder="Class" />
-                        </div>
-                        <div className="w3-col s12 m3 l3 w3-padding">
-                            <input className='w3-input w3-border w3-round' type='text' id='term' placeholder="Term" />
-                        </div>
-                        <div className="w3-col s12 m3 l3 w3-padding">
-                            <button className='w3-btn w3-deep-orange w3-round w3-block'>Search</button>
-                        </div>
-                    </div>
-                    <div className="w3-container">
-                        <div className='w3-container w3-border'>
+                    <div className="w3-container w3-margin-top">
+                        <div className='w3-container'>
                             <div className='w3-row'>
                                 <div className='w3-col s3 m4 l4'>
                                     {
@@ -51,13 +64,37 @@ class Result extends React.Component{
                                 </div>
                             </div>
                         </div>
-                        <table className='w3-table w3-padding w3-border'>
-                            <thead>
-                                <th>SUBJECT</th>
-                                <th>GRADE</th>
-                                <th>SCORE</th>
-                            </thead>
-                        </table>
+                        <div className='w3-row'>
+                            <div className='w3-col s2 m2 l2'>
+                                {
+                                    this.state.subjectIds.map(arr=>{
+                                        return(
+                                            <div className='w3-btn w3-padding w3-card w3-margin-top w3-center' id={arr} onClick={this.subjectId} style={{width:'100%'}}>{arr}</div>
+                                        )
+                                    })
+                                }
+                            </div>
+                            <div className='w3-rest'>
+                                <table className='w3-table-all w3-padding w3-border'>
+                                    
+                                    <tbody>
+                                        {
+                                            this.state.subjects.map(arr=>{
+                                                return(
+                                                    <div>
+                                                        <tr>
+                                                            <td><input style={{border: 0, backgroundColor: 'none'}} disabled value={arr['name']} /></td>
+                                                            <td><input type='number' id={arr['value']} style={{border: 0, backgroundColor: 'none'}} disabled className='value' value={arr['value']} /></td>
+                                                            <td><input type='number' id={arr['grade']} style={{border: 0, backgroundColor: 'none'}} disabled className='score' value={arr['score']} /></td>
+                                                        </tr>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

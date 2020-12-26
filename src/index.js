@@ -16,9 +16,18 @@ class Index extends React.Component{
     super(props)
     this.state = {
       isLogged: false,
-      url: 'https://portal-mee.netlify.app/'
+      Home:{},
+      Profile: {
+        passedData:{}
+      }
     }
+    this.stateTrigger = this.stateTrigger.bind(this);
   }
+
+
+  stateTrigger(){}
+
+
   render(){
     return(
         <Router>

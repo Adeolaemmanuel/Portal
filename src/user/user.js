@@ -48,100 +48,107 @@ class User extends React.Component{
     }
 }
 
-const Student = ()=>{
-    return (
-        <div>
-            <div className="w3-container w3-margin-right top">
-                <div className="w3-row">
-                    <Link to="/dashboard">
-                        <div className="w3-col s6 m4 l4 w3-padding">
-                            <div className="w3-card w3-padding w3-center w3-round">
-                                <img src={dashboard} alt="dashboard" className="svg" />
-                                <h4><b>Dashboard</b></h4>
+class Student extends React.Component{
+
+    render(){
+        return (
+            <div>
+                <div className="w3-container w3-margin-right top">
+                    <div className="w3-row">
+                        <Link to="/dashboard">
+                            <div className="w3-col s6 m4 l4 w3-padding">
+                                <div className="w3-card w3-padding w3-center w3-round">
+                                    <img src={dashboard} alt="dashboard" className="svg" />
+                                    <h4><b>Dashboard</b></h4>
+                                </div>
                             </div>
-                        </div>
-                    </Link>
-                    <Link to="/result">
-                        <div className="w3-col s6 m4 l4 w3-padding">
-                            <div className="w3-card w3-padding w3-center w3-round">
-                                <img src={result} alt="result" className="svg" />
-                                <h4><b>Result</b></h4>
+                        </Link>
+                        <Link to="/result">
+                            <div className="w3-col s6 m4 l4 w3-padding">
+                                <div className="w3-card w3-padding w3-center w3-round">
+                                    <img src={result} alt="result" className="svg" />
+                                    <h4><b>Result</b></h4>
+                                </div>
                             </div>
-                        </div>
-                    </Link>
-                    <Link to='/profile'>
-                        <div className="w3-col s6 m4 l4 w3-padding">
-                            <div className="w3-card w3-padding w3-center w3-round">
-                                <img src={profile} alt="profile" className="svg" />
-                                <h4><b>Profile</b></h4>
+                        </Link>
+                        <Link to='/profile'>
+                            <div className="w3-col s6 m4 l4 w3-padding">
+                                <div className="w3-card w3-padding w3-center w3-round">
+                                    <img src={profile} alt="profile" className="svg" />
+                                    <h4><b>Profile</b></h4>
+                                </div>
                             </div>
-                        </div>
-                    </Link>
-                    <Link to='/register'>
-                        <div className="w3-col s6 m4 l4 w3-padding">
-                            <div className="w3-card w3-padding w3-center w3-round">
-                                <img src={register} alt="register" className="svg" />
-                                <h4><b>Register</b></h4>
+                        </Link>
+                        <Link to='/register'>
+                            <div className="w3-col s6 m4 l4 w3-padding">
+                                <div className="w3-card w3-padding w3-center w3-round">
+                                    <img src={register} alt="register" className="svg" />
+                                    <h4><b>Register</b></h4>
+                                </div>
                             </div>
-                        </div>
-                    </Link>
+                        </Link>
+                    </div>
+                    <p></p>
                 </div>
-                <p></p>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
-const Teacher = ()=>{
-    return(
-        <div>
-
-        </div>
-    )
+class Teacher extends React.Component{
+    render(){
+        return(
+            <div>
+    
+            </div>
+        )
+    }
 }
 
-const Admin = ()=>{
-    return(
-        <div>
-            <div className="w3-container w3-margin-right top">
-                <div className="w3-row">
-                    <Link to="/register">
-                        <div className="w3-col s6 m4 l4 w3-padding">
-                            <div className="w3-card w3-padding w3-center w3-round">
-                                <img src={register} alt="register" className="svg" />
-                                <h4><b>Register</b></h4>
+class Admin extends React.Component{
+    render(){
+        return(
+            <div>
+                <div className="w3-container w3-margin-right top">
+                    <div className="w3-row">
+                        <Link to="/register">
+                            <div className="w3-col s6 m4 l4 w3-padding">
+                                <div className="w3-card w3-padding w3-center w3-round">
+                                    <img src={register} alt="register" className="svg" />
+                                    <h4><b>Register</b></h4>
+                                </div>
                             </div>
-                        </div>
-                    </Link>
-                    <Link to="/result">
-                        <div className="w3-col s6 m4 l4 w3-padding">
-                            <div className="w3-card w3-padding w3-center w3-round">
-                                <img src={result} alt="result" className="svg" />
-                                <h4><b>Result</b></h4>
+                        </Link>
+                        <Link to="/result">
+                            <div className="w3-col s6 m4 l4 w3-padding">
+                                <div className="w3-card w3-padding w3-center w3-round">
+                                    <img src={result} alt="result" className="svg" />
+                                    <h4><b>Result</b></h4>
+                                </div>
                             </div>
-                        </div>
-                    </Link>
-                    <Link to='/profile'>
-                        <div className="w3-col s6 m4 l4 w3-padding">
-                            <div className="w3-card w3-padding w3-center w3-round">
-                                <img src={profile} alt="profile" className="svg" />
-                                <h4><b>Profile</b></h4>
+                        </Link>
+                        <Link to='/profile'>
+                            <div className="w3-col s6 m4 l4 w3-padding">
+                                <div className="w3-card w3-padding w3-center w3-round">
+                                    <img src={profile} alt="profile" className="svg" />
+                                    <h4><b>Profile</b></h4>
+                                </div>
                             </div>
-                        </div>
-                    </Link>
-                    <Link to='/upload'>
-                        <div className="w3-col s6 m4 l4 w3-padding">
-                            <div className="w3-card w3-padding w3-center w3-round">
-                                <img src={upload} alt="upload" className="svg" />
-                                <h4><b>Upload</b></h4>
+                        </Link>
+                        <Link to='/upload'>
+                            <div className="w3-col s6 m4 l4 w3-padding">
+                                <div className="w3-card w3-padding w3-center w3-round">
+                                    <img src={upload} alt="upload" className="svg" />
+                                    <h4><b>Upload</b></h4>
+                                </div>
                             </div>
-                        </div>
-                    </Link>
+                        </Link>
+                    </div>
+                    <p></p>
                 </div>
-                <p></p>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default User;
