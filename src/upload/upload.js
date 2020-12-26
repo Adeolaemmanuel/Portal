@@ -4,6 +4,7 @@ import './upload.css';
 import Nav from '../nav/nav';
 import { Cookies } from 'react-cookie'
 import { db } from '../database'
+import $ from 'jquery'
 
 class Upload extends React.Component{
     constructor(props){
@@ -19,6 +20,7 @@ class Upload extends React.Component{
         }
         this.getSubject = this.getSubject.bind(this)
         this.subjectId = this.subjectId.bind(this)
+        this.upload = this.upload.bind(this)
     }
 
 
@@ -50,6 +52,21 @@ class Upload extends React.Component{
             this.setState({subjects: a.data().subjects})
             //console.log(a.data().subjects)
         })
+    }
+
+    upload(e){
+        e.preventDefault()
+        let data = $('#upload').serializeArray()
+        let subjects = this.state.subjects
+        console.log(data)
+        for(let x=0; x<subjects; x++){
+            for(let y=0; data<data.length; y++){
+                if(subjects[x].name === data[x].name && data[y].value !== ''){
+                    subjects[x].push(data[y])
+                    console.log(subjects)
+                }
+            }
+        }
     }
 
     render(){
@@ -94,6 +111,7 @@ class Upload extends React.Component{
                                 }
                             </div>
                             <div className='w3-rest'>
+                            <form id='upload' onSubmit={this.upload}>
                                 <table className='w3-table-all w3-padding w3-border'>
                                     <thead>
                                         <tr>
@@ -108,9 +126,9 @@ class Upload extends React.Component{
                                                 return(
                                                     <div>
                                                         <tr>
-                                                            <td><input style={{border: 0, backgroundColor: 'none'}} disabled value={arr['name']} /></td>
-                                                            <td><input type='number' id={arr['value']} className='value' value={arr['value']} /></td>
-                                                            <td><input type='number' id={arr['grade']} className='score' value={arr['score']} /></td>
+                                                            <td><input style={{border: 0, backgroundColor: 'none'}} disabled placeholder={arr['name']} name={arr['name']} /></td>
+                                                            <td><input type='number' id={arr['value']} className='value' placeholder={arr['value']} name={arr['name']} /></td>
+                                                            <td><input type='number' id={arr['grade']} className='score' placeholder={arr['score']} name={arr['name']} /></td>
                                                         </tr>
                                                     </div>
                                                 )
@@ -118,6 +136,11 @@ class Upload extends React.Component{
                                         }
                                     </tbody>
                                 </table>
+                                <div className='w3-center'>
+                                    <button className='w3-btn w3-deep-orange w3-margin-top w3-round'>Upload</button>
+                                </div>
+                            </form>
+                                
                             </div>
                         </div>
                     </div>
