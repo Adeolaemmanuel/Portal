@@ -4,7 +4,6 @@ import './result.css';
 import Nav from '../nav/nav';
 import { db} from '../database'
 import { Cookies } from 'react-cookie'
-import { cookie } from 'request';
 
 class Result extends React.Component{
     constructor(props){

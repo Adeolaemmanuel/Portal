@@ -57,11 +57,11 @@ class Upload extends React.Component{
     upload(e){
         e.preventDefault()
         let data = $('#upload').serializeArray()
-        let subjects = this.state.subjects
-        console.log(data)
-        for(let x=0; x<subjects; x++){
-            for(let y=0; data<data.length; y++){
-                if(subjects[x].name === data[x].name && data[y].value !== ''){
+        let subjects = [...this.state.subjects]
+        //console.log(data)
+        for(let x=0; x<subjects.length; x++){
+            for(let y=0; y<data.length; y++){
+                if(subjects[x].name === data[y].name && data[y].value !== ''){
                     subjects[x].push(data[y])
                     console.log(subjects)
                 }
