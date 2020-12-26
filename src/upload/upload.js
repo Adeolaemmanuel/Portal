@@ -5,6 +5,7 @@ import Nav from '../nav/nav';
 import { Cookies } from 'react-cookie'
 import { db } from '../database'
 import $ from 'jquery'
+import folder from '../assets/img/folder.svg'
 
 class Upload extends React.Component{
     constructor(props){
@@ -46,7 +47,11 @@ class Upload extends React.Component{
         //get subject id for onlcick for getting result or setting
         e.preventDefault()
         let id = e.target.id
+        let resultId = document.getElementById('resultId');
+        let result =  document.getElementById('result')
         //console.log(id)
+        resultId.style.display = 'none'
+        result.style.display = 'block'
         db.collection('Details').doc(this.state.userId).collection('subjects').doc(id).get()
         .then(a=>{
             this.setState({subjects: a.data().subjects})
@@ -74,13 +79,12 @@ class Upload extends React.Component{
             <div>
                 <Nav user={this.state.user} />
                 <div className='w3-container'>
-                <h2 className='w3-center w3-padding'>Upload student Result</h2>
                     <div className='w3-container'>
                         <div className="w3-padding">
                             <form onSubmit ={this.getSubject}>
                                 <input className='w3-input w3-border w3-round' type='text' id='id' placeholder="Input Reg" />
                                 <div className="w3-center">
-                                    <button className='w3-btn w3-deep-orange w3-round'>Search</button>
+                                    <button className='w3-btn w3-deep-orange w3-round w3-margin-top'>Search</button>
                                 </div>
                             </form>
                         </div>
@@ -101,46 +105,43 @@ class Upload extends React.Component{
                             </div>
                         </div>
                         <div className='w3-row'>
-                            <div className='w3-col s2 m2 l2 w3-center'>
+                            <div className='w3-center' id='resultId'>
                                 {
                                     this.state.subjectIds.map(arr=>{
                                         return(
-                                            <div className='w3-btn w3-padding w3-card w3-margin-top' id={arr} onClick={this.subjectId}>{arr}</div>
+                                            <div className='w3-col s6 m4 l4 w3-padding' id={arr} onClick={this.subjectId}>
+                                                <div className='w3-padding w3-card w3-margin-top' id={arr} onClick={this.subjectId} >
+                                                    <img src={folder} alt='' id={arr} onClick={this.subjectId}  style={{width:'100%', height:'60px'}} />
+                                                    <div className='w3-padding w3-center w3-bold resultId' id={arr} onClick={this.subjectId} style={{width:'100%'}}>{arr}</div>
+                                                </div>
+                                            </div>
                                         )
                                     })
                                 }
                             </div>
-                            <div className='w3-rest'>
-                            <form id='upload' onSubmit={this.upload}>
-                                <table className='w3-table-all w3-padding w3-border'>
-                                    <thead>
-                                        <tr>
-                                            <th>SUBJECT</th>
-                                            <td>GRADE</td>
-                                            <th>SCORE</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            this.state.subjects.map(arr=>{
-                                                return(
-                                                    <div>
-                                                        <tr>
-                                                            <td><input style={{border: 0, backgroundColor: 'none'}} disabled placeholder={arr['name']} name={arr['name']} /></td>
-                                                            <td><input type='number' id={arr['value']} className='value' placeholder={arr['value']} name={arr['name']} /></td>
-                                                            <td><input type='number' id={arr['grade']} className='score' placeholder={arr['score']} name={arr['name']} /></td>
-                                                        </tr>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </tbody>
-                                </table>
-                                <div className='w3-center'>
-                                    <button className='w3-btn w3-deep-orange w3-margin-top w3-round'>Upload</button>
-                                </div>
-                            </form>
-                                
+                            <div className='w3-rest' id='result' style={{display: 'none'}}>
+                                <form id='upload' onSubmit={this.upload}>
+                                    <table className='w3-table-all w3-padding w3-border'>
+                                        <tbody>
+                                            {
+                                                this.state.subjects.map(arr=>{
+                                                    return(
+                                                        <div>
+                                                            <tr>
+                                                                <td><input style={{border: 0, backgroundColor: 'none'}} disabled placeholder={arr['name']} name={arr['name']} /></td>
+                                                                <td><input type='number' id={arr['value']} className='value' placeholder={arr['value']} name={arr['name']} /></td>
+                                                                <td><input type='number' id={arr['grade']} className='score' placeholder={arr['score']} name={arr['name']} /></td>
+                                                            </tr>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div className='w3-center'>
+                                        <button className='w3-btn w3-deep-orange w3-margin-top w3-round'>Upload</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

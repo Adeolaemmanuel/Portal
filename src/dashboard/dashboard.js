@@ -23,11 +23,7 @@ class Dashboard extends React.Component{
         return(
             <div>
                 <Nav user={this.state.user} />
-                <div className="w3-container w3-margin-top">
-                    <div className="w3-row">
-                        <User user={this.state} />
-                    </div>
-                </div>
+                <User user={this.state} />
             </div>
         )
     }
@@ -60,44 +56,42 @@ class User extends React.Component{
     render() {
         return(
             <div>
-                <div className="w3-container">
-                    <div className="w3-row">
-                        <div className='w3-col s6 m3 l3'>
-                            <table className='w3-table-all'>
-                                <tr>
-                                    <td><b>Reg No</b></td>
-                                    <td className='w3-right'>{this.props['user']['id']}</td>
-                                </tr>
-                                <tr>
-                                    <td><b>User</b></td>
-                                    <td className='w3-right'>{this.props['user']['user']}</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Name</b></td>
-                                    <td className='w3-right'>{this.state.profile['First name']} {this.state.profile['Last name']}</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Email</b></td>
-                                    <td className='w3-right'>{this.state.profile['Email']}</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Sponsor Name</b></td>
-                                    <td className='w3-right'>{this.state.profile['Sponsor name']}</td>
-                                </tr>
-                                <tr>
-                                    <td><b>DOB</b></td>
-                                    <td className='w3-right'>{this.state.profile['DOB']}</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Gender</b></td>
-                                    <td className='w3-right'>{this.state.profile['Gender']}</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Term</b></td>
-                                    <td className='w3-right'>{this.state.profile['Term']}</td>
-                                </tr>
-                            </table>
-                        </div>
+                <div className="w3-row">
+                    <div className='w3-col s6 m4 l4'>
+                        <table className='w3-table-all'>
+                            <tr>
+                                <td><b>Reg No</b></td>
+                                <td className='w3-right'>{this.props['user']['id']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>User</b></td>
+                                <td className='w3-right'>{this.props['user']['user']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Name</b></td>
+                                <td className='w3-right'>{this.state.profile['First name']} {this.state.profile['Last name']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Email</b></td>
+                                <td className='w3-right'>{this.state.profile['Email']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Sponsor Name</b></td>
+                                <td className='w3-right'>{this.state.profile['Sponsor name']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>DOB</b></td>
+                                <td className='w3-right'>{this.state.profile['DOB']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Gender</b></td>
+                                <td className='w3-right'>{this.state.profile['Gender']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Term</b></td>
+                                <td className='w3-right'>{this.state.profile['Term']}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>

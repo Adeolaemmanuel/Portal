@@ -2,12 +2,14 @@ import React from 'react';
 import '../index.css';
 import './nav.css';
 import { Link } from "react-router-dom";
+import { Cookies } from 'react-cookie'
 
 class Nav extends React.Component{
     constructor(props){
         super(props)
+        const cookies = new Cookies();
         this.state = {
-            user: this.props['user']
+            user: cookies.get('user')
         }
     }
 
@@ -31,62 +33,107 @@ class Nav extends React.Component{
         }
     }
 }
+class Welcome extends React.Component {
+    constructor(props){
+        super(props)
+        const cookies = new Cookies();
+        this.state = {
+            id: cookies.get('id')
+        }
+    }
 
-const Welcome = ()=>{
-    return(
-        <div>
-            <nav className="w3-bar w3-deep-orange w3-padding">
-                <div className="w3-bar-item">
-                    <b>PORTAL</b>
-                </div>
-            </nav>
-        </div>
-    )
+
+    render() {
+        return(
+            <div>
+                <nav className="w3-bar w3-deep-orange w3-padding">
+                    <div className="w3-bar-item">
+                        <b>PORTAL</b>
+                    </div>
+                </nav>
+            </div>
+        )
+    }
 }
 
-const Admin = (props)=>{
-    return(
-        <div>
-            <nav className="w3-bar w3-deep-orange w3-padding">
-                <Link to='/user' className='w3-bold w3-bar-item' style={{textDecoration:'none'}}>HOME</Link>
-                <div className='w3-right'>
-                    <p className='w3-bar-item'>
-                        {props['user']}
-                    </p>
-                </div>
-            </nav>
-        </div>
-    )
+
+class Admin extends React.Component {
+    constructor(props){
+        super(props)
+        const cookies = new Cookies();
+        this.state = {
+            user: cookies.get('user')
+        }
+    }
+
+
+    render() {
+        return(
+            <div>
+                <nav className="w3-bar w3-deep-orange">
+                    <Link to='/user' className='w3-bar-item w3-margin-top w3-bold' style={{textDecoration:'none'}}>HOME</Link>
+                    <div className='w3-right'>
+                        <p className='w3-bar-item'>
+                            {this.state.user}
+                        </p>
+                    </div>
+                </nav>
+            </div>
+        )
+    }
 }
 
-const Student = (props)=>{
-    return(
-        <div>
-            <nav className="w3-bar w3-deep-orange w3-padding">
-                <Link to='/user' className='w3-bold w3-bar-item' style={{textDecoration:'none'}}>HOME</Link>
-                <div className='w3-right'>
-                    <p className='w3-bar-item'>
-                        {props['user']}
-                    </p>
-                </div>
-            </nav>
-        </div>
-    )
+
+class Student extends React.Component {
+    constructor(props){
+        super(props)
+        const cookies = new Cookies();
+        this.state = {
+            user: cookies.get('user')
+        }
+    }
+
+
+    render() {
+        return(
+            <div>
+                <nav className="w3-bar w3-deep-orange">
+                    <Link to='/user' className='w3-bar-item w3-margin-top w3-bold' style={{textDecoration:'none'}}>HOME</Link>
+                    <div className='w3-right'>
+                        <p className='w3-bar-item'>
+                            {this.state.user}
+                        </p>
+                    </div>
+                </nav>
+            </div>
+        )
+    }
 }
 
-const Teacher = (props)=>{
-    return(
-        <div>
-            <nav className="w3-bar w3-deep-orange w3-padding">
-                <Link to='/user' className='w3-bold w3-bar-item' style={{textDecoration:'none'}}>HOME</Link>
-                <div className='w3-right'>
-                    <p className='w3-bar-item'>
-                        {props['user']}
-                    </p>
-                </div>
-            </nav>
-        </div>
-    )
+class Teacher extends React.Component {
+    constructor(props){
+        super(props)
+        const cookies = new Cookies();
+        this.state = {
+            user: cookies.get('user')
+        }
+    }
+
+
+    render() {
+        return(
+            <div>
+                <nav className="w3-bar w3-deep-orange">
+                    <Link to='/user' className='w3-bar-item w3-margin-top w3-bold' style={{textDecoration:'none'}}>HOME</Link>
+                    <div className='w3-right'>
+                        <p className='w3-bar-item'>
+                            {this.state.user}
+                        </p>
+                    </div>
+                </nav>
+            </div>
+        )
+    }
 }
 
 export default Nav;

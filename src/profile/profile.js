@@ -107,9 +107,8 @@ class Admin extends React.Component{
         return (
             <div className='w3-row'>
                 <div className='w3-center'>
-                    <h3>Search for users</h3>
                 <form onSubmit={this.getProfile}>
-                    <div className='w3-container w3-center'>
+                    <div className='w3-container w3-margin-top w3-center'>
                         <input type='search' id='search' placeholder='Reg number' className='w3-input w3-border w3-round' />
                     </div>
                     <div className='container w3-center w3-margin-top'>
@@ -251,7 +250,6 @@ class Student extends React.Component{
             <div className='w3-row'>
                 <div className=''>
                     <div className='w3-col s12 m5 l5'>
-                        <h1 className='w3-center'>PROFILE</h1>
                         <table className='w3-table-all'>
                             <tr>
                                 <td><b>Reg No</b></td>
@@ -280,6 +278,10 @@ class Student extends React.Component{
                             <tr>
                                 <td><b>Gender</b></td>
                                 <td className='w3-right'>{this.state.profile['Gender']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Class</b></td>
+                                <td className='w3-right'>{this.state.profile['Class']}</td>
                             </tr>
                             <tr>
                                 <td><b>Term</b></td>

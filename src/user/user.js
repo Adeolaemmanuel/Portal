@@ -2,11 +2,11 @@ import React from 'react';
 import '../index.css';
 import './user.css';
 import Nav from '../nav/nav';
-import dashboard from './img/dashboard.svg';
-import profile from './img/profile-user.svg';
-import result from './img/result.svg';
-import register from './img/stamped.svg';
-import upload from './img/upload.svg';
+import dashboard from '../assets/img/dashboard.svg';
+import profile from '../assets/img/profile-user.svg';
+import result from '../assets/img/result.svg';
+import register from '../assets/img/stamped.svg';
+import upload from '../assets/img/upload.svg';
 import { Link } from "react-router-dom";
 import { Cookies } from 'react-cookie'
 

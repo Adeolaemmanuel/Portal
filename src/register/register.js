@@ -5,7 +5,7 @@ import Nav from '../nav/nav';
 import { db, firebase } from '../database'
 import { Cookies } from 'react-cookie'
 import $ from 'jquery'
-import folder from './img/folder.svg'
+import folder from '../assets/img/folder.svg'
 
 class Register extends React.Component{
     constructor(props){
