@@ -16,7 +16,7 @@ class Dashboard extends React.Component{
             password: cookie.get('password'),
             url: this.props['url']
         }
-        console.log(this.state)
+        //console.log(this.state)
     }
 
     render(){
@@ -37,6 +37,7 @@ class User extends React.Component{
         this.state = {
             profile: '',
             id: cookie.get('id'),
+            subjects: [],
         }
     }
 
@@ -49,6 +50,14 @@ class User extends React.Component{
             this.setState({
                 profile: user.data()
             })
+            let subjectId = user.data().subjectId
+            let len = subjectId.length
+            db.collection('Details').doc(this.state.id).collection('subjects').doc(subjectId[len-1]).get()
+            .then(sub=>{
+                this.setState({subjects: sub.data().subjects})
+                //console.log(sub.data().subjects)
+            })
+            //console.log(subjectId[len -1])
         })
     }
     
@@ -57,7 +66,7 @@ class User extends React.Component{
         return(
             <div>
                 <div className="w3-row">
-                    <div className='w3-col s6 m4 l4'>
+                    <div className='w3-col m4 l4'>
                         <table className='w3-table-all'>
                             <tr>
                                 <td><b>Reg No</b></td>
@@ -92,6 +101,21 @@ class User extends React.Component{
                                 <td className='w3-right'>{this.state.profile['Term']}</td>
                             </tr>
                         </table>
+                    </div>
+                    <div className='w3-rest w3-padding'>
+                        <div className='w3-row'>
+                            {
+                                this.state.subjects.map(arr=>{
+                                    return(
+                                        <div className='w3-half w3-padding'>
+                                            <div className="w3-light-grey w3-round">
+                                                <div className="w3-container w3-red w3-padding w3-center w3-round" style={{width: `${arr['value']}%`}}>{arr['name']}</div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

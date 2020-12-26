@@ -6,6 +6,7 @@ import { Cookies } from 'react-cookie'
 import { db } from '../database'
 import $ from 'jquery'
 import folder from '../assets/img/folder.svg'
+import back from '../assets/img/arrow.svg'
 
 class Upload extends React.Component{
     constructor(props){
@@ -17,11 +18,13 @@ class Upload extends React.Component{
             id: '',
             userId: '',
             subjects: [],
-            subjectIds: []
+            subjectIds: [],
+            resultId: ''
         }
         this.getSubject = this.getSubject.bind(this)
         this.subjectId = this.subjectId.bind(this)
         this.upload = this.upload.bind(this)
+        this.backFolder = this.backFolder.bind(this)
     }
 
 
@@ -47,11 +50,17 @@ class Upload extends React.Component{
         //get subject id for onlcick for getting result or setting
         e.preventDefault()
         let id = e.target.id
+        this.setState({resultId: id})
         let resultId = document.getElementById('resultId');
         let result =  document.getElementById('result')
+        let back =  document.getElementById('back')
+        //let search =  document.getElementById('search')
         //console.log(id)
         resultId.style.display = 'none'
         result.style.display = 'block'
+        back.style.display = 'block'
+        //search.style.display = 'none'
+
         db.collection('Details').doc(this.state.userId).collection('subjects').doc(id).get()
         .then(a=>{
             this.setState({subjects: a.data().subjects})
@@ -59,19 +68,42 @@ class Upload extends React.Component{
         })
     }
 
+    backFolder(){
+        let resultId = document.getElementById('resultId');
+        let result =  document.getElementById('result')
+        let search =  document.getElementById('search')
+        let back =  document.getElementById('back')
+        resultId.style.display = 'block'
+        result.style.display = 'none'
+        back.style.display = 'none'
+        search.style.display = 'block'
+    }
+
     upload(e){
         e.preventDefault()
         let data = $('#upload').serializeArray()
         let subjects = [...this.state.subjects]
-        //console.log(data)
+        console.log(data)
         for(let x=0; x<subjects.length; x++){
             for(let y=0; y<data.length; y++){
                 if(subjects[x].name === data[y].name && data[y].value !== ''){
-                    subjects[x].push(data[y])
-                    console.log(subjects)
+                    subjects[x].value = data[y].value
+                }
+                if(subjects[x].value >= 80 && subjects[x].value <= 100){
+                    subjects[x].grade = 'A'
+                }
+                if(subjects[x].value >= 60 && subjects[x].value <= 70){
+                    subjects[x].grade = 'B'
+                }
+                if(subjects[x].value >= 40 && subjects[x].value <= 50){
+                    subjects[x].grade = 'C'
+                }
+                if(subjects[x].value >= 0 && subjects[x].value <= 40){
+                    subjects[x].grade = 'F'
                 }
             }
         }
+        db.collection('Details').doc(this.state.userId).collection('subjects').doc(this.state.resultId).update({subjects: subjects})
     }
 
     render(){
@@ -83,8 +115,15 @@ class Upload extends React.Component{
                         <div className="w3-padding">
                             <form onSubmit ={this.getSubject}>
                                 <input className='w3-input w3-border w3-round' type='text' id='id' placeholder="Input Reg" />
-                                <div className="w3-center">
-                                    <button className='w3-btn w3-deep-orange w3-round w3-margin-top'>Search</button>
+                                <div className="w3-row">
+                                    <div className='w3-col s1 m1 l1'>
+                                        <img src={back} alt='' id="back" className='w3-margin-top' onClick={this.backFolder} style={{display: 'none', width:'100%', height: '40px'}} />
+                                    </div>
+                                    <div className='w3-rest'>
+                                        <div className='w3-center'>
+                                            <button className='w3-btn w3-deep-orange w3-round w3-margin-top w3-margin-left' id='search'>Search</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -128,9 +167,9 @@ class Upload extends React.Component{
                                                     return(
                                                         <div>
                                                             <tr>
-                                                                <td><input style={{border: 0, backgroundColor: 'none'}} disabled placeholder={arr['name']} name={arr['name']} /></td>
-                                                                <td><input type='number' id={arr['value']} className='value' placeholder={arr['value']} name={arr['name']} /></td>
-                                                                <td><input type='number' id={arr['grade']} className='score' placeholder={arr['score']} name={arr['name']} /></td>
+                                                                <td>{<input style={{border: 0, backgroundColor: 'none'}} disabled value={arr['name']} />}</td>
+                                                                <td><input type='number' id={arr['name']} className='value' placeholder={arr['value']} name={arr['name']} /></td>
+                                                                <td><input type='text' id={arr['name']+'G'} className={arr['name']+'G'} placeholder={arr['grade']} name={arr['name']+'G'} /></td>
                                                             </tr>
                                                         </div>
                                                     )

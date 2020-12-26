@@ -179,7 +179,6 @@ class Student extends React.Component{
             <div>
                 <div className='w3-row'>
                     <div className='w3-col s12 m6 l6'>
-                        <h2 className='w3-center'>Subjects</h2>
                         <div className='w3-container'>
                             {
                                 this.state.class.map(arr=>{
