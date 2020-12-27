@@ -187,7 +187,7 @@ class Admin extends React.Component{
                                 </div>
                             </div>
                         </Link>
-                        <Link to='/ctb'>
+                        <Link to='/cbt'>
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={cbt} alt="profile" className="svg" />
