@@ -235,11 +235,179 @@ class Student extends Component {
 
 class Teacher extends Component {
     
+    constructor(props) {
+        super(props);
+        this.state = {
+            subject: ['Mathematics','English','Physics','Chemistry','French','Youruba','Bussiness Studies','Computer Science','Basic Technology','Home Economics','CRS','PHE','Acgricultural Science','Applied Arts','Civic Education','Basic Science','Futher Mathematics','Biology','Commerce','History','Goverment','Geography','Literature','Humanities','History'],
+            class: ['JS1','JS2','JS3','SS1','SS2','SS3'],
+            term: ['1st Term','2nd Term'],
+            department: ['Science','Art','Cormmercial'],
+            back: '',
+            forward: '',
+            folder: {},
+        }
+
+        this.folderClick = this.folderClick.bind(this);
+        this.tab = this.tab.bind(this)
+        this.submit = this.submit.bind(this)
+    }
+
+
+    folderClick(e,route,id){
+        e.preventDefault();
+        let row = document.getElementsByClassName('w3-row');
+        let date = new Date();
+        if(route === 'home'){
+            row[0].style.display = 'block'
+            row[1].style.display = 'block'
+            row[2].style.display = 'none'
+            row[3].style.display = 'none'
+            row[4].style.display = 'none'
+            this.setState({back:'home', forward: 'class', arr: id})
+        }else if(route === 'subjects'){
+            row[0].style.display = 'block'// nav
+            row[1].style.display = 'none'// subjects
+            row[2].style.display = 'block'// class
+            row[3].style.display = 'none'//  term
+            row[4].style.display = 'none'//
+            this.setState({back:'home', forward: 'class', arr: id, folder:{subject: id}})
+        }else if(route === 'class'){
+            row[0].style.display = 'block'
+            row[1].style.display = 'none'
+            row[2].style.display = 'none'
+            row[3].style.display = 'block'
+            row[4].style.display = 'none'
+            this.setState({back:'home', forward: 'term', arr: id, folder:{subject: this.state.folder.subject, class: id}})
+        }else if(route === 'term'){
+            row[0].style.display = 'block'
+            row[1].style.display = 'none'
+            row[2].style.display = 'none'
+            row[3].style.display = 'none'
+            row[4].style.display = 'block'
+            this.setState({back:'class', forward: 'term', arr: id, folder:{term: id, subject: this.state.folder.subject, class: this.state.folder.class, year: date.getFullYear()}})
+        }else if(route === 'cbt'){
+            row[0].style.display = 'block'
+            row[1].style.display = 'none'
+            row[2].style.display = 'none'
+            row[3].style.display = 'none'
+            row[4].style.display = 'block'
+            this.setState({back:'term', forward: 'cbt', arr: id})
+        }
+    }
+    
+    tab(route){
+        var i;
+        var x = document.getElementsByClassName("tab");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        document.getElementById(route).style.display = "block";
+    }
+
+    submit(e, pram){
+        e.preventDefault()
+        let data= {
+            question: e.target.elements.question.value,
+            O1: e.target.elements.O1.value, 
+            O2: e.target.elements.O2.value,
+            O3: e.target.elements.O3.value,
+            O4: e.target.elements.O4.value,
+            answer: e.target.elements.answer.value
+        }
+        db.collection('CBT').doc(pram['subject']).collection(pram['class']).doc(pram['term']).collection(pram['year']).doc('questions')
+        .get().then(ques=>{
+            if(ques.exists){
+                db.collection('CBT').doc(pram['subject']).collection(pram['class']).doc(pram['term']).collection(pram['year']).doc('questions')
+                .update({questions: firebase.firestore.FieldValue.arrayUnion(data)})
+            }else{
+                db.collection('CBT').doc(pram['subject']).collection(pram['class']).doc(pram['term']).collection(pram['year']).doc('questions')
+                .set({questions: firebase.firestore.FieldValue.arrayUnion(data)})
+            }
+        })
+    }
     render() {
         return (
-            <div>
-                
-            </div>
+            <>
+                <div className='w3-row' style={{display: 'none'}}>
+                    <div className='w3-half' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}}>
+                        <img src={back} alt='' id="back" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}} style={{width:'100%', height: '40px'}} />
+                    </div>
+                    <div className='w3-half'>
+                        <img src={forward} alt='' id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
+                    </div>
+                </div>
+                <div className='w3-row' id='subjects'>
+                    {
+                        this.state.subject.map(arr=>{
+                            return(
+                                <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>
+                                    <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}  />
+                                    <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>{arr}</p>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                <div className='w3-row' id='class' style={{display: 'none'}}>
+                    {
+                        this.state.class.map(arr=>{
+                            return(
+                                <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>
+                                    <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
+                                    <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>{arr}</p>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                <div className='w3-row' id='term' style={{display: 'none'}}>
+                    {
+                        this.state.term.map(arr=>{
+                            return(
+                                <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>
+                                    <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'term', arr)}}  id={arr}  />
+                                    <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>{arr}</p>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                <div className='w3-row' style={{display: 'none'}}>
+                    <div className='w3-half'>
+                    <div class="w3-bar w3-black">
+                        <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('obj')}>Objective</button>
+                        <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('theory')}>Therory</button>
+                    </div>
+                    <div id="obj" class="tab w3-container">
+                        <form onSubmit={(e)=>this.submit(e, this.state.folder)}>
+                            <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
+                            <div className='w3-row'>
+                                <div className='w3-half w3-padding'>
+                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 1' id='O1' />
+                                </div>
+                                <div className='w3-half w3-padding'>
+                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 2' id='O2' />
+                                </div>
+                                <div className='w3-half w3-padding'>
+                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 3' id='O3' />
+                                </div>
+                                <div className='w3-half w3-padding'>
+                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 4' id='O4' />
+                                </div>
+                            </div>
+                            <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Answer' id='answer' />
+                            <div className='w3-center w3-margin-top'>
+                                <button className='w3-btn w3-deep-orange w3-round'>Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="theory" class="tab" style={{display: 'none'}}>
+                        <textarea className='w3-input w3-margin-top' placeholder='Question...'></textarea>
+                    </div>
+                    </div>
+                </div>
+            </>
         )
     }
 }
