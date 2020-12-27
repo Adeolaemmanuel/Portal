@@ -10,6 +10,10 @@ import Profile from "./profile/profile";
 import Result from "./result/result";
 import Register from "./register/register";
 import Upload from "./upload/upload";
+import CBT from './cbt/cbt';
+import Notification from './notification/not';
+import Chat from './chat/chat';
+import Settings from './settings/settings';
 
 class Index extends React.Component{
   constructor(props){
@@ -52,6 +56,18 @@ class Index extends React.Component{
             </Route>
             <Route path="/upload" component={ Upload }>
               <Upload />
+            </Route>
+            <Route path="/cbt" component={ CBT }>
+              <CBT />
+            </Route>
+            <Route path="/not" component={ Notification }>
+              <Notification />
+            </Route>
+            <Route path="/chat" component={ Chat }>
+              <Chat />
+            </Route>
+            <Route path="/settings" component={ Settings }>
+              <Settings />
             </Route>
           </div>
         </Router>

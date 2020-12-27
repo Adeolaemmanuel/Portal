@@ -36,6 +36,7 @@ class Profile extends React.Component{
             return(
                 <div>
                     <Nav user={this.state.user} />
+                    <Teacher user={this.state} />
                 </div>
             )
         }
@@ -312,7 +313,140 @@ class Student extends React.Component{
                                 <div className='w3-half w3-padding'>
                                     <select className='w3-input w3-border' id='gender' >
                                         <option value='Male'>Male</option>
-                                        <option value='FReemale'>Female</option>
+                                        <option value='Female'>Female</option>
+                                    </select>   
+                                </div>
+                                <div className='w3-half w3-padding'>
+                                    <input type="date" value={this.state.profile['DOB']} className='w3-input w3-border w3-round' id='dob' />   
+                                </div>
+                            </div>
+                            <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+class Teacher extends React.Component{
+    constructor(props) {
+        super(props);
+        const cookies = new Cookies()
+        this.state = {
+            user: cookies.get('user'),
+            id: cookies.get('id'),
+            profile: ''
+        }
+        console.log(props);
+        this.profile = this.profile.bind(this)
+    }
+
+    componentDidMount(){
+        this.getProfile()
+    }
+
+    profile(e){
+        e.preventDefault()
+        var data = {
+            firstname:e.target.elements.fn.value,
+            lastname: e.target.elements.ln.value,
+            sponsorname: e.target.elements.nk.value,
+            gender: e.target.elements.gender.value,
+            email: e.target.elements.email.value,
+            dob:e.target.elements.dob.value,
+        }
+        console.log(data);
+        db.collection('Users').doc(this.state.id).update({
+            'First name': data.firstname,
+            'Last name': data.lastname,
+            Email: data.email,
+            Gender: data.gender,
+            'NextOfKin': data.sponsorname,
+            DOB: data.dob
+        }).catch(e=>{console.log(e)})
+    }
+
+    getProfile(){
+        db.collection('Users').doc(this.state.id).get().then(user=>{
+            //console.log(user.data())
+            this.setState(state =>({
+                profile: user.data()
+            }))
+
+        })
+        
+    }
+    
+
+    render(){
+        return (
+            <div className='w3-row'>
+                <div className=''>
+                    <div className='w3-col s12 m5 l5'>
+                        <table className='w3-table-all'>
+                            <tr>
+                                <td><b>Reg No</b></td>
+                                <td className='w3-right'>{this.state.id}</td>
+                            </tr>
+                            <tr> 
+                                <td><b>User</b></td>
+                                <td className='w3-right'>{this.state.user}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Name</b></td>
+                                <td className='w3-right'>{this.state.profile['First name']} {this.state.profile['Last name']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Email</b></td>
+                                <td className='w3-right'>{this.state.profile['Email']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Next of kin</b></td>
+                                <td className='w3-right'>{this.state.profile['NextOfKin']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>DOB</b></td>
+                                <td className='w3-right'>{this.state.profile['DOB']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Gender</b></td>
+                                <td className='w3-right'>{this.state.profile['Gender']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Class</b></td>
+                                <td className='w3-right'>{this.state.profile['Class']}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Term</b></td>
+                                <td className='w3-right'>{this.state.profile['Term']}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div className='w3-rest w3-padding'>
+                        <h1 className='w3-center'>UPDATE PROFILE</h1>
+                        <form id='profile' onSubmit={this.profile}>
+                            <div className='w3-row'>
+                                <div className='w3-half w3-padding'>
+                                    <input type="text" value={this.state.profile['First name']} placeholder='First Name'  className='w3-input w3-border w3-round' id='fn' />   
+                                </div>
+                                <div className='w3-half w3-padding'>
+                                    <input type="text" value={this.state.profile['Last name']} placeholder='Last Name' className='w3-input w3-border w3-round' id='ln' />   
+                                </div>
+                            </div>
+                            <div className='w3-row'>
+                                <div className='w3-half w3-padding'>
+                                    <input type="text" value={this.state.profile['NextOfKin']} placeholder='Next Of Kin' className='w3-input w3-border w3-round' id='nk' />   
+                                </div>
+                                <div className='w3-half w3-padding'>
+                                    <input type="email" value={this.state.profile['Email']} placeholder='Email' className='w3-input w3-border w3-round' id='email' />   
+                                </div>
+                            </div>
+                            <div className='w3-row'>
+                                <div className='w3-half w3-padding'>
+                                    <select className='w3-input w3-border' id='gender' >
+                                        <option value='Male'>Male</option>
+                                        <option value='Female'>Female</option>
                                     </select>   
                                 </div>
                                 <div className='w3-half w3-padding'>

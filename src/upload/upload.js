@@ -40,7 +40,7 @@ class Upload extends React.Component{
                 db.collection('Details').doc(userId).collection('subjects').doc(data[i]).get()
                 .then(a=>{
                     this.setState({subjects: a.data().subjects})
-                    console.log(a.data().subjects)
+                    //console.log(a.data().subjects)
                 })
             }
         })
@@ -87,25 +87,32 @@ class Upload extends React.Component{
             for(let y=0; y<data.length; y++){
                 if(subjects[x].name === data[y].name && data[y].value !== ''){
                     subjects[x].value = data[y].value
+                    subjects[x].remarks = data[x].remarks
                 }
                 if(subjects[x].value >= 80 && subjects[x].value <= 100){
                     subjects[x].grade = 'A'
                     subjects[x].color = 'w3-green'
+                    subjects[x].remarks = 'Excellent'
                 }
                 if(subjects[x].value >= 60 && subjects[x].value <= 70){
                     subjects[x].grade = 'B'
                     subjects[x].color = 'w3-green'
+                    subjects[x].remarks = 'Very good'
                 }
                 if(subjects[x].value >= 40 && subjects[x].value <= 50){
                     subjects[x].grade = 'C'
                     subjects[x].color = 'w3-lime'
+                    subjects[x].remarks = 'You can do better'
                 }
                 if(subjects[x].value >= 0 && subjects[x].value <= 40){
                     subjects[x].grade = 'F'
                     subjects[x].color = 'w3-red'
+                    subjects[x].remarks = 'Very poor'
                 }
+
             }
         }
+        console.log(subjects)
         db.collection('Details').doc(this.state.userId).collection('subjects').doc(this.state.resultId).update({subjects: subjects})
     }
 
@@ -173,6 +180,7 @@ class Upload extends React.Component{
                                                                 <td>{<input style={{border: 0, backgroundColor: 'none'}} disabled value={arr['name']} />}</td>
                                                                 <td><input type='number' id={arr['name']} className='value' placeholder={arr['value']} name={arr['name']} /></td>
                                                                 <td><input type='text' id={arr['name']+'G'} className={arr['name']+'G'} placeholder={arr['grade']} name={arr['name']+'G'} /></td>
+                                                                <td><textarea value={arr['remarks']} name={arr['name']+'R'}></textarea></td>
                                                             </tr>
                                                         </div>
                                                     )

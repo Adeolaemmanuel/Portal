@@ -174,6 +174,7 @@ class Admin extends React.Component{
                                                             <td><input style={{border: 0, backgroundColor: 'none'}} disabled value={arr['name']} /></td>
                                                             <td><input type='number' id={arr['value']} style={{border: 0, backgroundColor: 'none'}} disabled className='value' value={arr['value']} /></td>
                                                             <td><input type='number' id={arr['grade']} style={{border: 0, backgroundColor: 'none'}} disabled className='score' value={arr['score']} /></td>
+                                                            <td><textarea value={arr['remarks']} style={{border: 0, backgroundColor: 'none'}} disabled></textarea></td>
                                                         </tr>
                                                     </div>
                                                 )
@@ -294,6 +295,7 @@ class Student extends React.Component{
                                                             <td><input style={{border: 0, backgroundColor: 'none'}} disabled value={arr['name']} /></td>
                                                             <td><input type='number' id={arr['value']} style={{border: 0, backgroundColor: 'none'}} disabled className='value' value={arr['value']} /></td>
                                                             <td><input type='text' id={arr['grade']} style={{border: 0, backgroundColor: 'none'}} disabled className='grade' value={arr['grade']} /></td>
+                                                            <td><textarea value={arr['remarks']} style={{border: 0, backgroundColor: 'none'}} disabled></textarea></td>
                                                         </tr>
                                                     </div>
                                                 )
@@ -324,6 +326,7 @@ class Teacher extends React.Component{
         }
         this.getSubject = this.getSubject.bind(this)
         this.subjectId = this.subjectId.bind(this)
+        this.backFolder = this.backFolder.bind(this)
     }
 
 
@@ -349,12 +352,31 @@ class Teacher extends React.Component{
         //get subject id for onlcick for getting result or setting
         e.preventDefault()
         let id = e.target.id
+        let resultId = document.getElementById('resultId');
+        let result =  document.getElementById('result')
+        let search =  document.getElementById('search')
+        let back =  document.getElementById('back')
         //console.log(id)
+        resultId.style.display = 'none'
+        result.style.display = 'block'
+        back.style.display = 'block'
+        search.style.display = 'none'
         db.collection('Details').doc(this.state.userId).collection('subjects').doc(id).get()
         .then(a=>{
             this.setState({subjects: a.data().subjects})
             //console.log(a.data().subjects)
         })
+    }
+
+    backFolder(){
+        let resultId = document.getElementById('resultId');
+        let result =  document.getElementById('result')
+        let search =  document.getElementById('search')
+        let back =  document.getElementById('back')
+        resultId.style.display = 'block'
+        result.style.display = 'none'
+        back.style.display = 'none'
+        search.style.display = 'block'
     }
     
 
@@ -362,7 +384,6 @@ class Teacher extends React.Component{
         return(
             <div>
                 <div className='w3-container'>
-                <h2 className='w3-center w3-padding'>student Result</h2>
                     <div className='w3-container'>
                         <div className="w3-padding">
                             <form onSubmit ={this.getSubject}>
@@ -396,17 +417,22 @@ class Teacher extends React.Component{
                             </div>
                         </div>
                         <div className='w3-row'>
-                            <div className='w3-col s2 m2 l2 w3-center'>
+                            <div className='w3-center' id='resultId'>
                                 {
                                     this.state.subjectIds.map(arr=>{
                                         return(
-                                            <div className='w3-btn w3-padding w3-card w3-margin-top' id={arr} onClick={this.subjectId}>{arr}</div>
+                                            <div className='w3-col s6 m4 l4 w3-padding' id={arr} onClick={this.subjectId}>
+                                                <div className='w3-padding w3-card w3-margin-top' id={arr} onClick={this.subjectId} >
+                                                    <img src={folder} alt='' id={arr} onClick={this.subjectId}  style={{width:'100%', height:'60px'}} />
+                                                    <div className='w3-padding w3-center w3-bold resultId' id={arr} onClick={this.subjectId} style={{width:'100%'}}>{arr}</div>
+                                                </div>
+                                            </div>
                                         )
                                     })
                                 }
                             </div>
-                            <div className='w3-rest'>
-                                <table className='w3-table-all w3-padding w3-border'>
+                            <div className='w3-rest' id='result' style={{display: 'none'}}>
+                                <table className='w3-table-all w3-padding w3-border w3-mobile'>
                                     
                                     <tbody>
                                         {
@@ -417,6 +443,7 @@ class Teacher extends React.Component{
                                                             <td><input style={{border: 0, backgroundColor: 'none'}} disabled value={arr['name']} /></td>
                                                             <td><input type='number' id={arr['value']} style={{border: 0, backgroundColor: 'none'}} disabled className='value' value={arr['value']} /></td>
                                                             <td><input type='text' id={arr['grade']} style={{border: 0, backgroundColor: 'none'}} disabled className='grade' value={arr['grade']} /></td>
+                                                            <td><textarea value={arr['remarks']} style={{border: 0, backgroundColor: 'none'}} disabled></textarea></td>
                                                         </tr>
                                                     </div>
                                                 )
