@@ -247,30 +247,10 @@ class Admin extends Component {
                                         <button onClick={(e)=>{this.accordion(e, ind)}} class="w3-button w3-center w3-block w3-left-align">{arr['question']}</button>
 
                                         <div id={ind} class="w3-container w3-row w3-hide w3-marfin-top">
-                                            <div className='w3-half w3-padding w3-border'>
-                                                <div className='w3-half w3-padding'>
-                                                    <input type='radio' className='w3-padding w3-input' name={arr['O1']} />
-                                                </div>
-                                                <div className='w3-half w3-padding'>{arr['O1']}</div>
-                                            </div>
-                                            <div className='w3-half w3-padding w3-border'>
-                                                <div className='w3-half w3-padding'>
-                                                    <input type='radio' className='w3-padding w3-input' name={arr['O2']} />
-                                                </div>
-                                                <div className='w3-half w3-padding'>{arr['O2']}</div>
-                                            </div>
-                                            <div className='w3-half w3-padding w3-border'>
-                                                <div className='w3-half w3-padding'>
-                                                    <input type='radio' className='w3-padding w3-input' name={arr['O3']} />
-                                                </div>
-                                                <div className='w3-half w3-padding'>{arr['O3']}</div>
-                                            </div>
-                                            <div className='w3-half w3-padding w3-border'>
-                                                <div className='w3-half w3-padding'>
-                                                    <input type='radio' className='w3-padding w3-input' name={arr['O4']} />
-                                                </div>
-                                                <div className='w3-half w3-padding'>{arr['O4']}</div>
-                                            </div>
+                                            <div className='w3-half w3-padding w3-border'>{arr['O1']}</div>
+                                            <div className='w3-half w3-padding w3-border'>{arr['O2']}</div>
+                                            <div className='w3-half w3-padding w3-border'>{arr['O3']}</div>
+                                            <div className='w3-half w3-padding w3-border'>{arr['O4']}</div>
                                         </div>
                                     </div>
                                 )
