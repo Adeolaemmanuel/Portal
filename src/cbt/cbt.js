@@ -54,6 +54,8 @@ class Admin extends Component {
             back: '',
             forward: '',
             folder: {},
+            cbt: [],
+            year: 2020
         }
 
         this.folderClick = this.folderClick.bind(this);
@@ -93,7 +95,8 @@ class Admin extends Component {
             row[2].style.display = 'none'
             row[3].style.display = 'none'
             row[4].style.display = 'block'
-            this.setState({back:'class', forward: 'term', arr: id, folder:{term: id, subject: this.state.folder.subject, class: this.state.folder.class, year: date.getFullYear()}})
+            this.setState({back:'class', forward: 'cbt', arr: id, folder:{term: id, subject: this.state.folder.subject, class: this.state.folder.class, year: date.getFullYear()}})
+            this.getCbt()
         }else if(route === 'cbt'){
             row[0].style.display = 'block'
             row[1].style.display = 'none'
@@ -123,17 +126,39 @@ class Admin extends Component {
             O4: e.target.elements.O4.value,
             answer: e.target.elements.answer.value
         }
-        db.collection('CBT').doc(pram['subject']).collection(pram['class']).doc(pram['term']).collection(pram['year']).doc('questions')
+        
+        db.collection('CBT').doc(`${pram.subject}|${pram.class}|${pram.term}|${pram.year}`)
         .get().then(ques=>{
             if(ques.exists){
-                db.collection('CBT').doc(pram['subject']).collection(pram['class']).doc(pram['term']).collection(pram['year']).doc('questions')
+                db.collection('CBT').doc(`${pram.subject}|${pram.class}|${pram.term}|${pram.year}`)
                 .update({questions: firebase.firestore.FieldValue.arrayUnion(data)})
             }else{
-                db.collection('CBT').doc(pram['subject']).collection(pram['class']).doc(pram['term']).collection(pram['year']).doc('questions')
-                .set({questions: firebase.firestore.FieldValue.arrayUnion(data)})
+                db.collection('CBT').doc(`${pram.subject}|${pram.class}|${pram.term}|${pram.year}`)
+                .set({questions: [data]})
             }
         })
     }
+
+    getCbt(){
+        db.collection('CBT').doc(`${this.state.folder.subject}|${this.state.folder.class}|${this.state.folder.term}|${this.state.year}`)
+        .get().then(cbt=>{
+            if(cbt.exists){
+                this.setState({cbt: cbt.data().questions})
+                console.log(cbt.data().questions)
+            }
+        })
+        console.log(`${this.state.folder.subject}|${this.state.folder.class}|${this.state.folder.term}|${this.state.year}`)
+    }
+
+    accordion(e, ind){
+        var x = document.getElementById(ind);
+        if (x.className.indexOf("w3-show") === -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+
     render() {
         return (
             <>
@@ -183,37 +208,75 @@ class Admin extends Component {
                 </div>
                 <div className='w3-row' style={{display: 'none'}}>
                     <div className='w3-half'>
-                    <div class="w3-bar w3-black">
-                        <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('obj')}>Objective</button>
-                        <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('theory')}>Therory</button>
-                    </div>
-                    <div id="obj" class="tab w3-container">
-                        <form onSubmit={(e)=>this.submit(e, this.state.folder)}>
-                            <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
-                            <div className='w3-row'>
-                                <div className='w3-half w3-padding'>
-                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 1' id='O1' />
+                        <div class="w3-bar w3-black">
+                            <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('obj')}>Objective</button>
+                            <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('theory')}>Therory</button>
+                        </div>
+                        <div id="obj" class="tab w3-container">
+                            <form onSubmit={(e)=>this.submit(e, this.state.folder)}>
+                                <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
+                                <div className='w3-row'>
+                                    <div className='w3-half w3-padding'>
+                                        <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 1' id='O1' />
+                                    </div>
+                                    <div className='w3-half w3-padding'>
+                                        <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 2' id='O2' />
+                                    </div>
+                                    <div className='w3-half w3-padding'>
+                                        <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 3' id='O3' />
+                                    </div>
+                                    <div className='w3-half w3-padding'>
+                                        <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 4' id='O4' />
+                                    </div>
                                 </div>
-                                <div className='w3-half w3-padding'>
-                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 2' id='O2' />
+                                <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Answer' id='answer' />
+                                <div className='w3-center w3-margin-top'>
+                                    <button className='w3-btn w3-deep-orange w3-round'>Submit</button>
                                 </div>
-                                <div className='w3-half w3-padding'>
-                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 3' id='O3' />
-                                </div>
-                                <div className='w3-half w3-padding'>
-                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 4' id='O4' />
-                                </div>
-                            </div>
-                            <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Answer' id='answer' />
-                            <div className='w3-center w3-margin-top'>
-                                <button className='w3-btn w3-deep-orange w3-round'>Submit</button>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
 
-                    <div id="theory" class="tab" style={{display: 'none'}}>
+                        <div id="theory" class="tab" style={{display: 'none'}}>
                         <textarea className='w3-input w3-margin-top' placeholder='Question...'></textarea>
                     </div>
+                    </div>
+                    <div class='w3-half'>
+                        {
+                            this.state.cbt.map((arr,ind)=>{
+                                return(
+                                    <div>
+                                        <button onClick={(e)=>{this.accordion(e, ind)}} class="w3-button w3-block w3-left-align">{arr['question']}</button>
+
+                                        <div id={ind} class="w3-container w3-row w3-hide">
+                                            <div className='w3-half'>
+                                                <div className='w3-half'>
+                                                    <input type='radio' name={arr['O1']} />
+                                                </div>
+                                                <div className='w3-half'>{arr['O1']}</div>
+                                            </div>
+                                            <div className='w3-half'>
+                                                <div className='w3-half'>
+                                                    <input type='radio' name={arr['O2']} />
+                                                </div>
+                                                <div className='w3-half'>{arr['O2']}</div>
+                                            </div>
+                                            <div className='w3-half'>
+                                                <div className='w3-half'>
+                                                    <input type='radio' name={arr['O3']} />
+                                                </div>
+                                                <div className='w3-half'>{arr['O3']}</div>
+                                            </div>
+                                            <div className='w3-half'>
+                                                <div className='w3-half'>
+                                                    <input type='radio' name={arr['O4']} />
+                                                </div>
+                                                <div className='w3-half'>{arr['O4']}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
                 </div>
             </>
