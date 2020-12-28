@@ -38,12 +38,15 @@ class User extends React.Component{
             profile: '',
             id: cookie.get('id'),
             subjects: [],
+            notifications: [],
         }
         this.tab = this.tab.bind(this)
+        this.accordion = this.accordion.bind(this)
     }
 
     componentDidMount(){
         this.getProfile()
+        this.getNotifications()
     }
 
     getProfile(){
@@ -67,6 +70,24 @@ class User extends React.Component{
             //console.log(show)
             document.getElementById(show).style.display = 'block'
             document.getElementById(hide).style.display = 'none'
+        }
+    }
+
+    getNotifications(){
+        db.collection('Admin').doc('Notifications').get().then(not=>{
+            if(not.exists){
+                let notifications = not.data().not
+                this.setState({notifications: notifications})
+            }
+        })
+    }
+
+    accordion(e, ind){
+        var x = document.getElementById(ind);
+        if (x.className.indexOf("w3-show") === -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
         }
     }
 
@@ -112,6 +133,27 @@ class User extends React.Component{
                                     <td className='w3-right'>{this.state.profile['Term']}</td>
                                 </tr>
                             </table>
+
+                            <div className='w3-center w3-margin-top'>
+                                <span className='w3-padding w3-deep-orange'>Notifications</span>
+                            </div>
+
+                            <div id='created' className='w3-margin-top'>
+                                {
+                                    this.state.notifications.map((arr, ind)=>{
+                                        return(
+                                            <div className='w3-margin-top'>
+                                                <button onClick={(e)=>{this.accordion(e,ind)}} className="w3-btn w3-block w3-deep-orange" style={{marginTop: '50px'}}>{arr['Title']}</button>
+                                                <div id={ind} className="w3-hide w3-border w3-padding">
+                                                    <p>{arr['Subject']}</p>
+                                                    <div className='w3-padding'>{arr['Message']}</div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+
                         </div>
                         <div className='w3-rest w3-padding' id='statistics' style={{display: 'none'}}>
                             <div className='w3-row'>
@@ -170,6 +212,27 @@ class User extends React.Component{
                                     <td className='w3-right'>{this.state.profile['Term']}</td>
                                 </tr>
                             </table>
+
+                            <div className='w3-center w3-margin-top'>
+                                <span className='w3-padding w3-deep-orange'>Notifications</span>
+                            </div>
+
+                            <div id='created' className='w3-margin-top'>
+                                {
+                                    this.state.notifications.map((arr, ind)=>{
+                                        return(
+                                            <div className='w3-margin-top'>
+                                                <button onClick={(e)=>{this.accordion(e,ind)}} className="w3-btn w3-block w3-deep-orange" style={{marginTop: '50px'}}>{arr['Title']}</button>
+                                                <div id={ind} className="w3-hide w3-border w3-padding">
+                                                    <p>{arr['Subject']}</p>
+                                                    <div className='w3-padding'>{arr['Message']}</div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+
                         </div>
                         <div className='w3-rest w3-padding'>
                             <div className='w3-row'>
