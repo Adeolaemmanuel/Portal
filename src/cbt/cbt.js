@@ -147,9 +147,11 @@ class Admin extends Component {
             if(ques.exists){
                 db.collection('CBT').doc(`${pram.subject}|${pram.class}|${pram.term}|${pram.year}`)
                 .update({questions: firebase.firestore.FieldValue.arrayUnion(data)})
+                .then(()=>{alert('Sent to database')})
             }else{
                 db.collection('CBT').doc(`${pram.subject}|${pram.class}|${pram.term}|${pram.year}`)
                 .set({questions: [data], closed: true})
+                .then(()=>{alert('Sent to database')})
             }
         })
     }
@@ -716,9 +718,11 @@ class Teacher extends Component {
             if(ques.exists){
                 db.collection('CBT').doc(`${pram.subject}|${pram.class}|${pram.term}|${pram.year}`)
                 .update({questions: firebase.firestore.FieldValue.arrayUnion(data)})
+                .then(()=>{alert('Sent to database')})
             }else{
                 db.collection('CBT').doc(`${pram.subject}|${pram.class}|${pram.term}|${pram.year}`)
                 .set({questions: [data], closed: true})
+                .then(()=>{alert('Sent to database')})
             }
         })
     }

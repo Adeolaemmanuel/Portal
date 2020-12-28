@@ -94,7 +94,7 @@ class Student extends React.Component{
                             
                             db.collection('Details').doc(`${this.state.id}`).collection('subjects').doc(`${data[0].value}|${data[1].value.replace(/ /g, '')}|${this.month.getFullYear()}`).update({
                                 subjects: spliced
-                            })
+                            }).then(()=>{alert('Sent to database')})
                             this.getSubject()
                         }
                     }).catch(e=>{ console.log(e)})
@@ -441,7 +441,7 @@ class Admin extends React.Component{
         }).then(()=>{
             db.collection('Admin').doc('user').update({
                 id : firebase.firestore.FieldValue.arrayUnion(data.id)
-            })
+            }).then(()=>{alert('Sent to database')})
         }).catch(e=>{console.log(e)})        
     }
 

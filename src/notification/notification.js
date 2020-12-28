@@ -88,9 +88,9 @@ class Admin extends Component {
                     }
                     
                 }
-                db.collection('Admin').doc('Notifications').update({not: firebase.firestore.FieldValue.arrayUnion(Not)})
+                db.collection('Admin').doc('Notifications').update({not: firebase.firestore.FieldValue.arrayUnion(Not)}).then(()=>{alert('Sent to database')})
             }else{
-                db.collection('Admin').doc('Notifications').set({not: firebase.firestore.FieldValue.arrayUnion(Not)})  
+                db.collection('Admin').doc('Notifications').set({not: firebase.firestore.FieldValue.arrayUnion(Not)}).then(()=>{alert('Sent to database')})
             }
         })
     }

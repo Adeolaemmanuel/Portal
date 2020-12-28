@@ -113,7 +113,7 @@ class Upload extends React.Component{
             }
         }
         console.log(subjects)
-        db.collection('Details').doc(this.state.userId).collection('subjects').doc(this.state.resultId).update({subjects: subjects})
+        db.collection('Details').doc(this.state.userId).collection('subjects').doc(this.state.resultId).update({subjects: subjects}).then(()=>{alert('Sent to database')})
     }
 
     render(){
