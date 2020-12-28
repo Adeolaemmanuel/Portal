@@ -96,22 +96,27 @@ class Admin extends Component{
         
     }
 
-    replyChat(e){
+    replyChat(e,id){
         e.preventDefault()
         let data = $('#reply').serializeArray()
         let chat = {}
-        console.log(data)
         for(let x=0; x<data.length; x++){
             if(data[x].name === 'Topic'){
                 chat.Topic= data[x].value
             }
             if(data[x].name === 'Chat'){
-                chat.Chat= [{mesage: data[x].value, sender: this.state.id}]
+                chat.Chat = {mesage: data[x].value, sender: this.state.id}
+                db.collection('Admin').doc('Chats').collection(this.state.id).doc('chat').get().then(Chats=>{
+                    if(Chats.exists){
+                        let chats = Chats.data().messages
+                        chats[id]['Chat'].push(chat.Chat)
+                        //console.log(chats[id])
+                        db.collection('Admin').doc('Chats').collection(data[2].value).doc('chat').update({messages: firebase.firestore.FieldValue.arrayUnion(chats[id])})
+    
+                    }
+                })
             }
-            db.collection('Admin').doc('Chats').collection(data[2].value).doc('chat').update({messages: firebase.firestore.FieldValue.arrayUnion(chat)})
         }
-        console.log(data)
-    }
 
 
     getChat(){
@@ -318,7 +323,7 @@ class Student extends Component{
                                     <div className='w3-margin-top'>
                                         <button onClick={(e)=>{this.accordion(e,ind)}} className="w3-btn w3-block w3-deep-orange" style={{marginTop: '50px'}}>{arr['Topic']}</button>
                                         <div id={ind} className="w3-hide w3-padding">
-                                            <span className={this.state.id === arr['Chat'].map((ar, inn)=>{return ar['sender'][inn]}) ? 'w3-right w3-round w3-padding w3-deep-orange' :'w3-left w3-round w3-padding w3-deep-orange'}>{arr['Chat'].map((ar,inn)=>{return ar['mesage'][inn]})}</span>
+                                            <span className={this.state.id === arr['Chat'].map((ar, inn)=>{return ar[inn]}) ? 'w3-right w3-round w3-padding w3-deep-orange' :'w3-left w3-round w3-padding w3-deep-orange'}>{arr['Chat'].map((ar,inn)=>{return ar['mesage'][inn]})}</span>
                                             <form id='reply' className='w3-margin-top' onSubmit={(e)=>{this.replyChat(e,ind)}}>
                                                 <input type='text' className='w3-border w3-input w3-margin-top' name='Chat' placeholder='Reply...' />
                                                 <input type='hidden' value={arr['Topic']} name='Topic' />
