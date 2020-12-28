@@ -112,7 +112,7 @@ class Admin extends Component{
                         let chats = Chats.data().messages
                         chats[id]['Chat'].push(chat.Chat)
                         //console.log(chats[id])
-                        db.collection('Admin').doc('Chats').collection(data[2].value).doc('chat').update({messages: firebase.firestore.FieldValue.arrayUnion(chats[id])})
+                        db.collection('Admin').doc('Chats').collection(data[2].value).doc('chat').set({messages: firebase.firestore.FieldValue.arrayUnion(chats[id])})
                         .then(()=>{alert('sent')})
                     }
                 })
@@ -283,7 +283,6 @@ class Student extends Component{
             document.getElementById(hide).style.display = 'none'
         }
     }
-
     
 
     sendChat(e){
@@ -305,6 +304,7 @@ class Student extends Component{
 
     replyChat(e,id){
         e.preventDefault()
+        console.log(id)
         let data = $('#reply').serializeArray()
         let chat = {}
         for(let x=0; x<data.length; x++){
@@ -318,7 +318,7 @@ class Student extends Component{
                         let chats = Chats.data().messages
                         chats[id]['Chat'].push(chat.Chat)
                         //console.log(chats[id])
-                        db.collection('Admin').doc('Chats').collection(this.state.id).doc('chat').update({messages: firebase.firestore.FieldValue.arrayUnion(chats[id])})
+                        db.collection('Admin').doc('Chats').collection(this.state.id).doc('chat').set({messages: firebase.firestore.FieldValue.arrayUnion(chats[id])})
                         .then(()=>{alert('sent')})
                     }
                 })
@@ -505,7 +505,7 @@ class Teacher extends Component{
                         let chats = Chats.data().messages
                         chats[id]['Chat'].push(chat.Chat)
                         //console.log(chats[id])
-                        db.collection('Admin').doc('Chats').collection(this.state.id).doc('chat').update({messages: firebase.firestore.FieldValue.arrayUnion(chats[id])})
+                        db.collection('Admin').doc('Chats').collection(this.state.id).doc('chat').set({messages: firebase.firestore.FieldValue.arrayUnion(chats[id])})
                         .then(()=>{alert('sent')})
                     }
                 })
