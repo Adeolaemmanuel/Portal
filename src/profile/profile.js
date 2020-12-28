@@ -107,6 +107,9 @@ class Admin extends React.Component{
     render(){
         return (
             <div className='w3-row'>
+                <div className='w3-center w3-margin-top'>
+                    <span className='w3-padding w3-deep-orange'>SEARCH PROFILE</span>
+                </div>
                 <div className='w3-center'>
                 <form onSubmit={this.getProfile}>
                     <div className='w3-container w3-margin-top w3-center'>
@@ -157,22 +160,24 @@ class Admin extends React.Component{
                     </div>
                     <div className="w3-col l6 m6 w3-padding">
                         <div className='w3-container'>
-                            <p className='w3-center'><b>Update profile</b></p>
-                            <form id='profile' onSubmit={this.profile}>
+                            <div className='w3-center w3-margin-top'>
+                                <span className='w3-padding w3-deep-orange'>UPDATE PROFILE</span>
+                            </div>
+                            <form id='profile' className='w3-margin-top' onSubmit={this.profile}>
                                 <div className='w3-row'>
                                     <div className='w3-half w3-padding'>
-                                        <input type="text" value={this.state.profile['First name']} className='w3-input w3-border w3-round' id='fn' />   
+                                        <input type="text" className='w3-input w3-border w3-round' id='fn' />   
                                     </div>
                                     <div className='w3-half w3-padding'>
-                                        <input type="text" value={this.state.profile['Last name']} className='w3-input w3-border w3-round' id='ln' />   
+                                        <input type="text"  className='w3-input w3-border w3-round' id='ln' />   
                                     </div>
                                 </div>
                                 <div className='w3-row'>
                                     <div className='w3-half w3-padding'>
-                                        <input type="text" value={this.state.profile['Sponsor name']} className='w3-input w3-border w3-round' id='sn' />   
+                                        <input type="text" className='w3-input w3-border w3-round' id='sn' />   
                                     </div>
                                     <div className='w3-half w3-padding'>
-                                        <input type="email" value={this.state.profile['Email']} className='w3-input w3-border w3-round' id='email' />   
+                                        <input type="email" className='w3-input w3-border w3-round' id='email' />   
                                     </div>
                                 </div>
                                 <div className='w3-row'>
@@ -183,7 +188,7 @@ class Admin extends React.Component{
                                         </select>   
                                     </div>
                                     <div className='w3-half w3-padding'>
-                                        <input type="date" value={this.state.profile['DOB']} className='w3-input w3-border w3-round' id='dob' />   
+                                        <input type="date"  className='w3-input w3-border w3-round' id='dob' />   
                                     </div>
                                 </div>
                                 <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
@@ -291,8 +296,10 @@ class Student extends React.Component{
                         </table>
                     </div>
                     <div className='w3-rest w3-padding'>
-                        <h1 className='w3-center'>UPDATE PROFILE</h1>
-                        <form id='profile' onSubmit={this.profile}>
+                        <div className='w3-center w3-margin-top'>
+                            <span className='w3-padding w3-deep-orange'>UPDATE PROFILE</span>
+                        </div>
+                        <form id='profile' className='w3-margin-top' onSubmit={this.profile}>
                             <div className='w3-row'>
                                 <div className='w3-half w3-padding'>
                                     <input type="text" value={this.state.profile['First name']} className='w3-input w3-border w3-round' id='fn' />   
@@ -424,7 +431,9 @@ class Teacher extends React.Component{
                         </table>
                     </div>
                     <div className='w3-rest w3-padding'>
-                        <h1 className='w3-center'>UPDATE PROFILE</h1>
+                        <div className='w3-center w3-margin-top'>
+                            <span className='w3-padding w3-deep-orange'>UPDATE PROFILE</span>
+                        </div>
                         <form id='profile' onSubmit={this.profile}>
                             <div className='w3-row'>
                                 <div className='w3-half w3-padding'>

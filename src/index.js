@@ -11,7 +11,7 @@ import Result from "./result/result";
 import Register from "./register/register";
 import Upload from "./upload/upload";
 import CBT from './cbt/cbt';
-import Notification from './notification/not';
+import Notification from './notification/notification';
 import Chat from './chat/chat';
 import Settings from './settings/settings';
 
@@ -60,7 +60,7 @@ class Index extends React.Component{
             <Route path="/cbt" component={ CBT }>
               <CBT />
             </Route>
-            <Route path="/not" component={ Notification }>
+            <Route path="/notification" component={ Notification }>
               <Notification />
             </Route>
             <Route path="/chat" component={ Chat }>

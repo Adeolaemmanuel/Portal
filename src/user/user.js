@@ -92,7 +92,7 @@ class Student extends React.Component{
                                 </div>
                             </div>
                         </Link>
-                        <Link to='/ctb'>
+                        <Link to='/cbt'>
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={cbt} alt="profile" className="svg" />
@@ -136,7 +136,7 @@ class Teacher extends React.Component{
                         </div>
                     </div>
                 </Link>
-                <Link to='/ctb'>
+                <Link to='/cbt'>
                     <div className="w3-col s6 m4 l4 w3-padding">
                         <div className="w3-card w3-padding w3-center w3-round">
                             <img src={cbt} alt="profile" className="svg" />
@@ -195,7 +195,7 @@ class Admin extends React.Component{
                                 </div>
                             </div>
                         </Link>
-                        <Link to='/not'>
+                        <Link to='/notification'>
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={not} alt="profile" className="svg" />
@@ -203,7 +203,7 @@ class Admin extends React.Component{
                                 </div>
                             </div>
                         </Link>
-                        <Link to='/ctb'>
+                        <Link to='/chat'>
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={chat} alt="profile" className="svg" />

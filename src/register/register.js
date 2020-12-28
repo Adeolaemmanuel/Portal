@@ -52,6 +52,7 @@ class Student extends React.Component{
         }
         this.subjectFrom = this.subjectFrom.bind(this)
         this.getSubject = this.getSubject.bind(this)
+        this.tab = this.tab.bind(this)
     }
     
     day = new Date()
@@ -173,105 +174,220 @@ class Student extends React.Component{
         }
     }
 
+    tab(show='folders',hide='registers'){
+        if(show){
+            //console.log(show)
+            document.getElementById(show).style.display = 'block'
+            document.getElementById(hide).style.display = 'none'
+        }
+    }
+
 
     render() {
-        return(
-            <div>
-                <div className='w3-row'>
-                    <div className='w3-col s12 m6 l6'>
-                        <div className='w3-container'>
-                            {
-                                this.state.class.map(arr=>{
-                                    return (
-                                        <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center class' id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>
-                                            <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.getSubject(e, 'class', arr)}} />
-                                            <p  id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>{arr}</p>
-                                        </div>
-                                    )
-                                })
-                            }
-                            <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center terms'id='terms' style={{display:'none'}}>
-                                   <select id='term' className='w3-input w3-border'>
+        if(window.matchMedia("(max-width: 767px)").matches){
+            return(
+                <div>
+                    <div className='w3-row'>
+                        <div className='w3-col s6 w3-btn w3-deep-orange' onClick={(e)=>this.tab('folders','registers')}>Registered Course</div>
+                        <div className='w3-col s6 w3-btn w3-deep-orange' onClick={(e)=>this.tab('registers','folders')}>Register Course</div>
+
+                        <div className='w3-row' id='folders'>
+                            <div className='w3-container'>
+                                {
+                                    this.state.class.map(arr=>{
+                                        return (
+                                            <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center class' id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>
+                                                <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.getSubject(e, 'class', arr)}} />
+                                                <p  id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>{arr}</p>
+                                            </div>
+                                        )
+                                    })
+                                }
+                                <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center terms'id='terms' style={{display:'none'}}>
+                                       <select id='term' className='w3-input w3-border'>
+                                            {
+                                                this.state.term.map(arr=>{
+                                                    return (
+                                                        <option value={arr} key={arr}>{arr}</option>
+                                                    )
+                                                })
+                                            }
+                                        </select>  
+                                        <button className='w3-btn w3-margin-top w3-orange' onClick={(e)=>{this.getSubject(e, 'term')}}>Submit</button>       
+                                </div>
+                                <form id='year' style={{display:'none'}}>
+                                    <div className='w3-card w3-padding w3-round w3-margin-top w3-center'>
+                                        <input type='number' className='w3-input w3-border' placeholder='Year' id='num' />
+                                        <button className='w3-btn w3-margin-top w3-orange' onClick={(e)=>{this.getSubject(e, 'sub')}}>Submit</button>
+                                    </div>
+                                </form>
+                                {
+                                    this.state.regSub.map(arr=>{
+                                        if(this.state.regSub.length === 0){
+                                            return(
+                                                <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center sub' style={{display:'none'}}>
+                                                    <img src={folder} style={{width: '70px', height: '70px'}} alt=''  id={arr} />
+                                                    <p key={arr}>{arr}</p>
+                                                </div>
+                                            )
+                                        }else{
+                                            return(
+                                                <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center sub' style={{display:'none'}}>
+                                                    <p id={arr['name']}>{arr['name']}</p>
+                                                </div>
+                                            )
+                                        }
+                                    })
+                                }
+                            </div>
+                        </div>
+                        <div className='w3-row' id='registers' style={{display: 'none'}}>
+                            <div className='w3-container'>
+                                <form className='w3-margin-top' id='subjects' onSubmit={this.subjectFrom}>
+                                    <select className='w3-input w3-border w3-round' name='class' id='class'>
+    
                                         {
-                                            this.state.term.map(arr=>{
-                                                return (
-                                                    <option value={arr} key={arr}>{arr}</option>
+                                                this.state.class.map(arr=>{
+                                                    return <option value={arr} key={arr} id={arr}>{arr}</option>
+                                                })}
+                                            </select>
+                                            <select className='w3-input w3-border w3-round w3-margin-top' id='term' name='term'>
+                                                {this.state.term.map(arr=>{
+                                                    return <option value={arr} key={arr} id={arr}>{arr}</option>
+                                                })}
+                                            </select>
+                                            <select className='w3-input w3-border w3-round w3-margin-top' id='dept' name='department'>
+                                                {this.state.department.map(arr=>{
+                                                    return <option value={arr} key={arr} id={arr}>{arr}</option>
+                                                })
+                                                }
+                                            </select>
+        
+                                    <div className='w3-container'>
+                                        {
+                                            this.state.subject.map(arr=>{
+                                                return(
+                                                    <div className='w3-row w3-padding w3-margin-top w3-card w3-round'>
+                                                        <div className='w3-col s6 m6 l6'><label htmlFor={arr}>{arr}</label> </div>
+                                                        <div className='w3-col s6 m6 l6'>
+                                                            <input type='checkbox' className='w3-right' key={arr} name={arr} id={arr} />
+                                                        </div>
+                                                    </div>
                                                 )
                                             })
                                         }
-                                    </select>  
-                                    <button className='w3-btn w3-margin-top w3-orange' onClick={(e)=>{this.getSubject(e, 'term')}}>Submit</button>       
+                                    </div>
+                                    <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
+                                </form>
                             </div>
-                            <form id='year' style={{display:'none'}}>
-                                <div className='w3-card w3-padding w3-round w3-margin-top w3-center'>
-                                    <input type='number' className='w3-input w3-border' placeholder='Year' id='num' />
-                                    <button className='w3-btn w3-margin-top w3-orange' onClick={(e)=>{this.getSubject(e, 'sub')}}>Submit</button>
-                                </div>
-                            </form>
-                            {
-                                this.state.regSub.map(arr=>{
-                                    if(this.state.regSub.length === 0){
-                                        return(
-                                            <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center sub' style={{display:'none'}}>
-                                                <img src={folder} style={{width: '70px', height: '70px'}} alt=''  id={arr} />
-                                                <p key={arr}>{arr}</p>
-                                            </div>
-                                        )
-                                    }else{
-                                        return(
-                                            <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center sub' style={{display:'none'}}>
-                                                <p id={arr['name']}>{arr['name']}</p>
-                                            </div>
-                                        )
-                                    }
-                                })
-                            }
-                        </div>
-                    </div>
-                    <div className='w3-col s12 m6 l6'>
-                        <h2 className='w3-center'>Register Your Course</h2>
-                        <div className='w3-container'>
-                            <form className='w3-margin-top' id='subjects' onSubmit={this.subjectFrom}>
-                                <select className='w3-input w3-border w3-round' name='class' id='class'>
-
-                                    {
-                                            this.state.class.map(arr=>{
-                                                return <option value={arr} key={arr} id={arr}>{arr}</option>
-                                            })}
-                                        </select>
-                                        <select className='w3-input w3-border w3-round w3-margin-top' id='term' name='term'>
-                                            {this.state.term.map(arr=>{
-                                                return <option value={arr} key={arr} id={arr}>{arr}</option>
-                                            })}
-                                        </select>
-                                        <select className='w3-input w3-border w3-round w3-margin-top' id='dept' name='department'>
-                                            {this.state.department.map(arr=>{
-                                                return <option value={arr} key={arr} id={arr}>{arr}</option>
-                                            })
-                                            }
-                                        </select>
-    
-                                <div className='w3-container'>
-                                    {
-                                        this.state.subject.map(arr=>{
-                                            return(
-                                                <div className='w3-row w3-padding w3-margin-top w3-card w3-round'>
-                                                    <div className='w3-col s6 m6 l6'><label htmlFor={arr}>{arr}</label> </div>
-                                                    <div className='w3-col s6 m6 l6'>
-                                                        <input type='checkbox' className='w3-right' key={arr} name={arr} id={arr} />
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                                <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
-                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
-        )
+            )
+        }else{
+            return(
+                <div>
+                    <div className='w3-row'>
+                        <div className='w3-col s12 m6 l6'>
+                            <div className='w3-center w3-margin-top'>
+                                <span className='w3-padding w3-deep-orange'>Registered Subjetcs</span>
+                            </div>
+                            <div className='w3-container'>
+                                {
+                                    this.state.class.map(arr=>{
+                                        return (
+                                            <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center class' id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>
+                                                <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.getSubject(e, 'class', arr)}} />
+                                                <p  id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>{arr}</p>
+                                            </div>
+                                        )
+                                    })
+                                }
+                                <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center terms'id='terms' style={{display:'none'}}>
+                                       <select id='term' className='w3-input w3-border'>
+                                            {
+                                                this.state.term.map(arr=>{
+                                                    return (
+                                                        <option value={arr} key={arr}>{arr}</option>
+                                                    )
+                                                })
+                                            }
+                                        </select>  
+                                        <button className='w3-btn w3-margin-top w3-orange' onClick={(e)=>{this.getSubject(e, 'term')}}>Submit</button>       
+                                </div>
+                                <form id='year' style={{display:'none'}}>
+                                    <div className='w3-card w3-padding w3-round w3-margin-top w3-center'>
+                                        <input type='number' className='w3-input w3-border' placeholder='Year' id='num' />
+                                        <button className='w3-btn w3-margin-top w3-orange' onClick={(e)=>{this.getSubject(e, 'sub')}}>Submit</button>
+                                    </div>
+                                </form>
+                                {
+                                    this.state.regSub.map(arr=>{
+                                        if(this.state.regSub.length === 0){
+                                            return(
+                                                <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center sub' style={{display:'none'}}>
+                                                    <img src={folder} style={{width: '70px', height: '70px'}} alt=''  id={arr} />
+                                                    <p key={arr}>{arr}</p>
+                                                </div>
+                                            )
+                                        }else{
+                                            return(
+                                                <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center sub' style={{display:'none'}}>
+                                                    <p id={arr['name']}>{arr['name']}</p>
+                                                </div>
+                                            )
+                                        }
+                                    })
+                                }
+                            </div>
+                        </div>
+                        <div className='w3-col s12 m6 l6'>
+                            <div className='w3-center w3-margin-top'>
+                                <span className='w3-padding w3-deep-orange'>Register Your Course</span>
+                            </div>
+                            <div className='w3-container'>
+                                <form className='w3-margin-top' id='subjects' onSubmit={this.subjectFrom}>
+                                    <select className='w3-input w3-border w3-round' name='class' id='class'>
+    
+                                        {
+                                                this.state.class.map(arr=>{
+                                                    return <option value={arr} key={arr} id={arr}>{arr}</option>
+                                                })}
+                                            </select>
+                                            <select className='w3-input w3-border w3-round w3-margin-top' id='term' name='term'>
+                                                {this.state.term.map(arr=>{
+                                                    return <option value={arr} key={arr} id={arr}>{arr}</option>
+                                                })}
+                                            </select>
+                                            <select className='w3-input w3-border w3-round w3-margin-top' id='dept' name='department'>
+                                                {this.state.department.map(arr=>{
+                                                    return <option value={arr} key={arr} id={arr}>{arr}</option>
+                                                })
+                                                }
+                                            </select>
+        
+                                    <div className='w3-container'>
+                                        {
+                                            this.state.subject.map(arr=>{
+                                                return(
+                                                    <div className='w3-row w3-padding w3-margin-top w3-card w3-round'>
+                                                        <div className='w3-col s6 m6 l6'><label htmlFor={arr}>{arr}</label> </div>
+                                                        <div className='w3-col s6 m6 l6'>
+                                                            <input type='checkbox' className='w3-right' key={arr} name={arr} id={arr} />
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                    <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
     }
 }
 
@@ -346,7 +462,9 @@ class Admin extends React.Component{
                 <div className='w3-row'>
                     <div className='w3-container'>
                         <div className='w3-col s12 m6 l6 w3-center w3-padding top'>
-                            <h3 className='w3-center'>Register Student / Teacher</h3>
+                            <div className='w3-center w3-margin-top'>
+                                <span className='w3-padding w3-deep-orange'>Register Students | Teachers</span>
+                            </div>
                             <form className='w3-padding w3-mobile w3-margin-top' onSubmit={this.register}>
                                 <input type="text" className="w3-input w3-border w3-round" placeholder="Reg No:" id="idR" />
                                 <select className='w3-input w3-border w3-round w3-margin-top' id='userR' >
@@ -359,6 +477,9 @@ class Admin extends React.Component{
                             </form>
                         </div>
                         <div className='w3-col s12 m6 l6 w3-center w3-padding'>
+                            <div className='w3-center w3-margin-top'>
+                                <span className='w3-padding w3-deep-orange'>Search Registered User</span>
+                            </div>
                             <div className='w3-margin-top'>
                                 <input className='w3-input w3-border w3-round' type="search" placeholder="Search user" id='search' onChange={this.search} />
                             </div>

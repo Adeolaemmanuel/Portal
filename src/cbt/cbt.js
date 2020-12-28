@@ -5,7 +5,7 @@ import { Cookies } from 'react-cookie'
 import back from '../assets/img/arrow.svg'
 import forward from '../assets/img/right-arrow.svg'
 import { db, firebase, } from '../database'
-
+import $ from 'jquery'
 
 export default  class CBT extends Component {
     constructor(props) {
@@ -61,6 +61,7 @@ class Admin extends Component {
         this.folderClick = this.folderClick.bind(this);
         this.tab = this.tab.bind(this)
         this.submit = this.submit.bind(this)
+        this.accordion = this.accordion.bind(this)
     }
 
 
@@ -277,14 +278,16 @@ class Student extends Component {
             forward: '',
             folder: {},
             cbt: [],
-            year: 2020
+            correct: 0,
+            year: 2020,
         }
 
         this.folderClick = this.folderClick.bind(this);
         this.tab = this.tab.bind(this)
-        this.submit = this.submit.bind(this)
+        this.answer = this.answer.bind(this)
     }
 
+    //Note: work on getting correct score from CBT test
 
     folderClick(e,route,id){
         e.preventDefault();
@@ -338,46 +341,48 @@ class Student extends Component {
         document.getElementById(route).style.display = "block";
     }
 
-    submit(e, pram){
-        e.preventDefault()
-        let data= {
-            question: e.target.elements.question.value,
-            O1: e.target.elements.O1.value, 
-            O2: e.target.elements.O2.value,
-            O3: e.target.elements.O3.value,
-            O4: e.target.elements.O4.value,
-            answer: e.target.elements.answer.value
-        }
-        
-        db.collection('CBT').doc(`${pram.subject}|${pram.class}|${pram.term}|${pram.year}`)
-        .get().then(ques=>{
-            if(ques.exists){
-                db.collection('CBT').doc(`${pram.subject}|${pram.class}|${pram.term}|${pram.year}`)
-                .update({questions: firebase.firestore.FieldValue.arrayUnion(data)})
-            }else{
-                db.collection('CBT').doc(`${pram.subject}|${pram.class}|${pram.term}|${pram.year}`)
-                .set({questions: [data]})
-            }
-        })
-    }
-
     getCbt(id){
         db.collection('CBT').doc(`${this.state.folder.subject}|${this.state.folder.class}|${id}|${this.state.year}`)
         .get().then(cbt=>{
             if(cbt.exists){
-                this.setState({cbt: cbt.data().questions})
-                console.log(cbt.data().questions)
+                let question = [...cbt.data().questions]
+                this.setState({cbt: [question[0]]})
+                //console.log(cbt.data().questions)
             }
         })
     }
 
-    accordion(e, ind){
-        var x = document.getElementById(ind);
-        if (x.className.indexOf("w3-show") === -1) {
-            x.className += " w3-show";
-        } else {
-            x.className = x.className.replace(" w3-show", "");
+    answer(e){
+        e.preventDefault()
+        let data = $('#cbt').serializeArray() 
+        if(data.length === 1){
+            if(data.value === this.state.cbt.answer){
+                this.setState({correct: this.state.correct + 1})
+                db.collection('CBT').doc(`${this.state.folder.subject}|${this.state.folder.class}|${this.state.folder.term}|${this.state.year}`)
+                .get().then(cbt=>{
+                    if(cbt.exists){
+                        let question = [...cbt.data().questions]
+                        question.shift()
+                        this.setState({cbt: [question[0]]})
+                        //console.log(cbt.data().questions)
+                    }
+                })
+            }else{
+                db.collection('CBT').doc(`${this.state.folder.subject}|${this.state.folder.class}|${this.state.folder.term}|${this.state.year}`)
+                .get().then(cbt=>{
+                    if(cbt.exists){
+                        let question = [...cbt.data().questions]
+                        question.shift()
+                        this.setState({cbt: [question[0]]})
+                        //console.log(cbt.data().questions)
+                    }
+                })
+            }
+            
+        }else{
+            alert('Please Choose just one answer')
         }
+        console.log(this.state.correct)
     }
 
     render() {
@@ -427,48 +432,51 @@ class Student extends Component {
                         })
                     }
                 </div>
-                <div className='w3-row' style={{display: 'none'}}>
-                    <form class='w3-padding'>
+                <div className='w3-row' style={{display: 'none', marginTop: '150px'}}>
+                    <div class='w3-padding'>
                         {
                             this.state.cbt.map((arr,ind)=>{
                                 return(
-                                    <div>
-                                        <button onClick={(e)=>{this.accordion(e, ind)}} class="w3-button w3-center w3-block w3-margin-top">{arr['question']}</button>
+                                    <form onSubmit={this.answer} id='cbt'>
+                                        <div class="w3-button w3-center w3-block w3-margin-top">{arr['question']}</div>
 
-                                        <div id={ind} class="w3-container w3-row w3-hide w3-margin-top">
+                                        <div id={ind} class="w3-container w3-row w3-margin-top">
                                             <div className='w3-half w3-padding w3-border'>
                                                 <div className='w3-half w3-padding'>
-                                                    <input type='radio' className='w3-padding w3-input' name={arr['O1']} />
+                                                    <input type='checkbox' name='Option 1' id={arr['O1']} value={arr['O1']} />
                                                 </div>
-                                                <div className='w3-half w3-padding'>{arr['O1']}</div>
+                                                <label className='w3-half w3-padding' htmlFor={arr['O1']}>{arr['O1']}</label>
                                             </div>
 
                                             <div className='w3-half w3-padding w3-border'>
                                                 <div className='w3-half w3-padding'>
-                                                    <input type='radio' className='w3-padding w3-input' name={arr['O2']} />
+                                                    <input type='checkbox' name='Option 2'  id={arr['O2']}value={arr['O2']} />
                                                 </div>
-                                                <div className='w3-half w3-padding'>{arr['O2']}</div>
+                                                <label className='w3-half w3-padding' htmlFor={arr['O2']}>{arr['O2']}</label>
                                             </div>
 
                                             <div className='w3-half w3-padding w3-border'>
                                                 <div className='w3-half w3-padding'>
-                                                    <input type='radio' className='w3-padding w3-input' name={arr['O3']} />
+                                                    <input type='checkbox'  name='Option 3'  id='O3' value={arr['O3']} />
                                                 </div>
-                                                <div className='w3-half w3-padding'>{arr['O3']}</div>
+                                                <label className='w3-half w3-padding' htmlFor={arr['O3']}>{arr['O3']}</label>
                                             </div>
 
                                             <div className='w3-half w3-padding w3-border'>
                                                 <div className='w3-half w3-padding'>
-                                                    <input type='radio' className='w3-padding w3-input' name={arr['O4']} />
+                                                    <input type='checkbox' name='Option 4'  id='O4' value={arr['O4']} />
                                                 </div>
-                                                <div className='w3-half w3-padding'>{arr['O4']}</div>
+                                                <label className='w3-half w3-padding' htmlFor={arr['O4']}>{arr['O4']}</label>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div className='w3-center'>
+                                            <button className='w3-btn w3-deep-orange w3-round w3-margin-top'>Next</button>
+                                        </div>
+                                    </form>
                                 )
                             })
                         }
-                    </form>
+                    </div>
                 </div>
             </>
         )
@@ -494,6 +502,7 @@ class Teacher extends Component {
         this.folderClick = this.folderClick.bind(this);
         this.tab = this.tab.bind(this)
         this.submit = this.submit.bind(this)
+        this.accordion = this.accordion.bind(this)
     }
 
 
