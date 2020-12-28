@@ -250,7 +250,7 @@ class Admin extends Component {
                                             <div className='w3-half w3-padding w3-border'>{arr['O1']}</div>
                                             <div className='w3-half w3-padding w3-border'>{arr['O2']}</div>
                                             <div className='w3-half w3-padding w3-border'>{arr['O3']}</div>
-                                            <div className='w3-half w3-padding w3-border'>{arr['O4']}</div>
+                                            <div className='w3-half w3-padding w3-border'>{arr['O4']} </div>
                                         </div>
                                     </div>
                                 )
@@ -261,6 +261,7 @@ class Admin extends Component {
             </>
         )
     }
+
 }
 
 
@@ -427,65 +428,35 @@ class Student extends Component {
                     }
                 </div>
                 <div className='w3-row' style={{display: 'none'}}>
-                    <div className='w3-half'>
-                        <div class="w3-bar w3-black">
-                            <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('obj')}>Objective</button>
-                            <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('theory')}>Therory</button>
-                        </div>
-                        <div id="obj" class="tab w3-container">
-                            <form onSubmit={(e)=>this.submit(e, this.state.folder)}>
-                                <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
-                                <div className='w3-row'>
-                                    <div className='w3-half w3-padding'>
-                                        <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 1' id='O1' />
-                                    </div>
-                                    <div className='w3-half w3-padding'>
-                                        <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 2' id='O2' />
-                                    </div>
-                                    <div className='w3-half w3-padding'>
-                                        <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 3' id='O3' />
-                                    </div>
-                                    <div className='w3-half w3-padding'>
-                                        <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 4' id='O4' />
-                                    </div>
-                                </div>
-                                <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Answer' id='answer' />
-                                <div className='w3-center w3-margin-top'>
-                                    <button className='w3-btn w3-deep-orange w3-round'>Submit</button>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div id="theory" class="tab" style={{display: 'none'}}>
-                        <textarea className='w3-input w3-margin-top' placeholder='Question...'></textarea>
-                    </div>
-                    </div>
-                    <div class='w3-half w3-padding'>
+                    <form class='w3-padding'>
                         {
                             this.state.cbt.map((arr,ind)=>{
                                 return(
                                     <div>
-                                        <button onClick={(e)=>{this.accordion(e, ind)}} class="w3-button w3-center w3-block w3-left-align">{arr['question']}</button>
+                                        <button onClick={(e)=>{this.accordion(e, ind)}} class="w3-button w3-center w3-block w3-margin-top">{arr['question']}</button>
 
-                                        <div id={ind} class="w3-container w3-row w3-hide w3-marfin-top">
+                                        <div id={ind} class="w3-container w3-row w3-hide w3-margin-top">
                                             <div className='w3-half w3-padding w3-border'>
                                                 <div className='w3-half w3-padding'>
                                                     <input type='radio' className='w3-padding w3-input' name={arr['O1']} />
                                                 </div>
                                                 <div className='w3-half w3-padding'>{arr['O1']}</div>
                                             </div>
+
                                             <div className='w3-half w3-padding w3-border'>
                                                 <div className='w3-half w3-padding'>
                                                     <input type='radio' className='w3-padding w3-input' name={arr['O2']} />
                                                 </div>
                                                 <div className='w3-half w3-padding'>{arr['O2']}</div>
                                             </div>
+
                                             <div className='w3-half w3-padding w3-border'>
                                                 <div className='w3-half w3-padding'>
                                                     <input type='radio' className='w3-padding w3-input' name={arr['O3']} />
                                                 </div>
                                                 <div className='w3-half w3-padding'>{arr['O3']}</div>
                                             </div>
+
                                             <div className='w3-half w3-padding w3-border'>
                                                 <div className='w3-half w3-padding'>
                                                     <input type='radio' className='w3-padding w3-input' name={arr['O4']} />
@@ -497,7 +468,7 @@ class Student extends Component {
                                 )
                             })
                         }
-                    </div>
+                    </form>
                 </div>
             </>
         )
@@ -706,33 +677,13 @@ class Teacher extends Component {
                             this.state.cbt.map((arr,ind)=>{
                                 return(
                                     <div>
-                                        <button onClick={(e)=>{this.accordion(e, ind)}} class="w3-button w3-center w3-block w3-left-align">{arr['question']}</button>
+                                        <button onClick={(e)=>{this.accordion(e, ind)}} class="w3-button w3-center w3-block w3-margin-top">{arr['question']}</button>
 
-                                        <div id={ind} class="w3-container w3-row w3-hide w3-marfin-top">
-                                            <div className='w3-half w3-padding w3-border'>
-                                                <div className='w3-half w3-padding'>
-                                                    <input type='radio' className='w3-padding w3-input' name={arr['O1']} />
-                                                </div>
-                                                <div className='w3-half w3-padding'>{arr['O1']}</div>
-                                            </div>
-                                            <div className='w3-half w3-padding w3-border'>
-                                                <div className='w3-half w3-padding'>
-                                                    <input type='radio' className='w3-padding w3-input' name={arr['O2']} />
-                                                </div>
-                                                <div className='w3-half w3-padding'>{arr['O2']}</div>
-                                            </div>
-                                            <div className='w3-half w3-padding w3-border'>
-                                                <div className='w3-half w3-padding'>
-                                                    <input type='radio' className='w3-padding w3-input' name={arr['O3']} />
-                                                </div>
-                                                <div className='w3-half w3-padding'>{arr['O3']}</div>
-                                            </div>
-                                            <div className='w3-half w3-padding w3-border'>
-                                                <div className='w3-half w3-padding'>
-                                                    <input type='radio' className='w3-padding w3-input' name={arr['O4']} />
-                                                </div>
-                                                <div className='w3-half w3-padding'>{arr['O4']}</div>
-                                            </div>
+                                        <div id={ind} class="w3-container w3-row w3-hide">
+                                            <div className='w3-half w3-padding w3-border'>{arr['O1']}</div>
+                                            <div className='w3-half w3-padding w3-border'>{arr['O2']}</div>
+                                            <div className='w3-half w3-padding w3-border'>{arr['O3']}</div>
+                                            <div className='w3-half w3-padding w3-border'>{arr['O4']} </div>
                                         </div>
                                     </div>
                                 )
@@ -743,4 +694,5 @@ class Teacher extends Component {
             </>
         )
     }
+
 }
