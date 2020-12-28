@@ -39,34 +39,34 @@ class Index extends React.Component{
             <Route path="/" exact component={ Home }>
               <Home settings={this.state} />
             </Route>
-            <Route path="/user" component={ User }>
+            <Route path="/User" component={ User }>
               <User />
             </Route>
-            <Route path="/dashboard" component={ Dashboard }>
+            <Route path="/Dashboard" component={ Dashboard }>
               <Dashboard  />
             </Route>
-            <Route path="/register" component={ Register }>
+            <Route path="/Register" component={ Register }>
               <Register url={this.state.url}  />
             </Route>
-            <Route path="/result" component={ Result }>
+            <Route path="/Result" component={ Result }>
               <Result />
             </Route>
-            <Route path="/profile" component={ Profile }>
+            <Route path="/Profile" component={ Profile }>
               <Profile url={this.state.url} />
             </Route>
-            <Route path="/upload" component={ Upload }>
+            <Route path="/Upload" component={ Upload }>
               <Upload />
             </Route>
-            <Route path="/cbt" component={ CBT }>
+            <Route path="/CBT" component={ CBT }>
               <CBT />
             </Route>
-            <Route path="/notification" component={ Notification }>
+            <Route path="/Notification" component={ Notification }>
               <Notification />
             </Route>
-            <Route path="/chat" component={ Chat }>
+            <Route path="/Chat" component={ Chat }>
               <Chat />
             </Route>
-            <Route path="/settings" component={ Settings }>
+            <Route path="/Settings" component={ Settings }>
               <Settings />
             </Route>
           </div>

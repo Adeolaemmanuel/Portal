@@ -37,7 +37,7 @@ class Home extends React.Component{
         if(this.state.logged){
             return(
                 <div>
-                    <Redirect to='/user'>
+                    <Redirect to='/User'>
                         <User url={this.state.url} />
                     </Redirect>
                 </div>
