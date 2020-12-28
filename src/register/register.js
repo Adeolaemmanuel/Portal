@@ -466,7 +466,7 @@ class Admin extends React.Component{
     }
 
     render(){
-        if(window.matchMedia("").matches){
+        if(window.matchMedia("(max-width: 767px)").matches){
             return(
                 <div>
                     <div className='w3-row'>

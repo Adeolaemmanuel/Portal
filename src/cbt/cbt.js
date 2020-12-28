@@ -516,10 +516,10 @@ class Student extends Component {
         return (
             <>
                 <div className='w3-row' style={{display: 'none'}}>
-                    <div className='w3-half' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}}>
-                        <img src={back} alt='' id="back" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}} style={{width:'100%', height: '40px'}} />
+                    <div className='w3-col s6' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}}>
+                        <img src={back} alt='' id="back" className='w3-margin-top'  style={{width:'100%', height: '40px'}} />
                     </div>
-                    <div className='w3-half'>
+                    <div className='w3-col s6'>
                         <img src={forward} alt='' id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
                     </div>
                 </div>
@@ -568,32 +568,32 @@ class Student extends Component {
                                         <div class="w3-button w3-center w3-block w3-margin-top">{arr['question']}</div>
 
                                         <div id={ind} class="w3-container w3-row w3-margin-top">
-                                            <div className='w3-half w3-padding w3-border'>
-                                                <div className='w3-half w3-padding'>
+                                            <div className='w3-col s6 m6 l6 w3-padding w3-border'>
+                                                <div className='w3-col s6 m6 l6 w3-padding'>
                                                     <input type='checkbox' name='Option 1' id={arr['O1']} value={arr['O1']} />
                                                 </div>
-                                                <label className='w3-half w3-padding' htmlFor={arr['O1']}>{arr['O1']}</label>
+                                                <label className='w3-col s6 m6 l6 w3-padding' htmlFor={arr['O1']}>{arr['O1']}</label>
                                             </div>
 
-                                            <div className='w3-half w3-padding w3-border'>
-                                                <div className='w3-half w3-padding'>
+                                            <div className='w3-col s6 m6 l6 w3-padding w3-border'>
+                                                <div className='w3-col s6 m6 l6 w3-padding'>
                                                     <input type='checkbox' name='Option 2'  id={arr['O2']}value={arr['O2']} />
                                                 </div>
-                                                <label className='w3-half w3-padding' htmlFor={arr['O2']}>{arr['O2']}</label>
+                                                <label className='w3-col s6 m6 l6 w3-padding' htmlFor={arr['O2']}>{arr['O2']}</label>
                                             </div>
 
-                                            <div className='w3-half w3-padding w3-border'>
-                                                <div className='w3-half w3-padding'>
+                                            <div className='w3-col s6 m6 l6 w3-padding w3-border'>
+                                                <div className='w3-col s6 m6 l6 w3-padding'>
                                                     <input type='checkbox'  name='Option 3'  id='O3' value={arr['O3']} />
                                                 </div>
-                                                <label className='w3-half w3-padding' htmlFor={arr['O3']}>{arr['O3']}</label>
+                                                <label className='w3-col s6 m6 l6 w3-padding' htmlFor={arr['O3']}>{arr['O3']}</label>
                                             </div>
 
-                                            <div className='w3-half w3-padding w3-border'>
-                                                <div className='w3-half w3-padding'>
+                                            <div className='w3-col s6 m6 l6 w3-padding w3-border'>
+                                                <div className='w3-col s6 m6 l6 w3-padding'>
                                                     <input type='checkbox' name='Option 4'  id='O4' value={arr['O4']} />
                                                 </div>
-                                                <label className='w3-half w3-padding' htmlFor={arr['O4']}>{arr['O4']}</label>
+                                                <label className='w3-col s6 m6 l6 w3-padding' htmlFor={arr['O4']}>{arr['O4']}</label>
                                             </div>
                                         </div>
                                         <div className='w3-center'>
