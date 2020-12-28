@@ -185,9 +185,9 @@ class Admin extends Component {
             return (
                 <>
                     <div className='w3-row' style={{display: 'none'}}>
-                        <button className='w3-col s6' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}}>
+                        <div className='w3-col s6' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}}>
                             <img src={back} alt='' id="back" className='w3-margin-top'  style={{width:'100%', height: '40px'}} />
-                        </button>
+                        </div>
                         <div className='w3-col s6'>
                             <img src={forward} alt='' id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
                         </div>
