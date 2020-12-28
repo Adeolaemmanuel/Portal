@@ -111,12 +111,13 @@ class Admin extends Component{
                         let chats = Chats.data().messages
                         chats[id]['Chat'].push(chat.Chat)
                         //console.log(chats[id])
-                        db.collection('Admin').doc('Chats').collection(data[2].value).doc('chat').update({messages: firebase.firestore.FieldValue.arrayUnion(chats[id])})
+                        db.collection('Admin').doc('Chats').collection(this.state.id).doc('chat').update({messages: firebase.firestore.FieldValue.arrayUnion(chats[id])})
     
                     }
                 })
             }
         }
+    }
 
 
     getChat(){
