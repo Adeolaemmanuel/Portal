@@ -13,7 +13,6 @@ class Result extends React.Component{
         const cookies = new Cookies()
         this.state = {
             user: cookies.get('user'),
-            url: this.props['url'],
             id: cookies.get('id'),
         }
     }
@@ -49,7 +48,6 @@ class Admin extends React.Component{
         const cookies = new Cookies()
         this.state = {
             user: cookies.get('user'),
-            url: this.props['url'],
             id: '',
             userId: '',
             subjects: [],
@@ -198,7 +196,6 @@ class Student extends React.Component{
         const cookies = new Cookies()
         this.state = {
             user: cookies.get('user'),
-            url: this.props['url'],
             id: cookies.get('id'),
             subjects: [],
             subjectIds: []
