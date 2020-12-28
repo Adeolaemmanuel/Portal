@@ -244,9 +244,9 @@ class Admin extends Component {
                             this.state.cbt.map((arr,ind)=>{
                                 return(
                                     <div>
-                                        <button onClick={(e)=>{this.accordion(e, ind)}} class="w3-button w3-center w3-block w3-left-align">{arr['question']}</button>
+                                        <button onClick={(e)=>{this.accordion(e, ind)}} class="w3-button w3-center w3-block w3-margin-top">{arr['question']}</button>
 
-                                        <div id={ind} class="w3-container w3-row w3-hide w3-marfin-top">
+                                        <div id={ind} class="w3-container w3-row w3-hide">
                                             <div className='w3-half w3-padding w3-border'>{arr['O1']}</div>
                                             <div className='w3-half w3-padding w3-border'>{arr['O2']}</div>
                                             <div className='w3-half w3-padding w3-border'>{arr['O3']}</div>
