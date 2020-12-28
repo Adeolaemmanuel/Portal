@@ -39,6 +39,7 @@ class User extends React.Component{
             id: cookie.get('id'),
             subjects: [],
         }
+        this.tab = this.tab.bind(this)
     }
 
     componentDidMount(){
@@ -61,65 +62,134 @@ class User extends React.Component{
         })
     }
     
+    tab(show='profiles',hide='statistics'){
+        if(show){
+            //console.log(show)
+            document.getElementById(show).style.display = 'block'
+            document.getElementById(hide).style.display = 'none'
+        }
+    }
 
     render() {
-        return(
-            <div>
-                <div className="w3-row">
-                    <div className='w3-col m4 l4'>
-                        <table className='w3-table-all'>
-                            <tr>
-                                <td><b>Reg No</b></td>
-                                <td className='w3-right'>{this.props['user']['id']}</td>
-                            </tr>
-                            <tr>
-                                <td><b>User</b></td>
-                                <td className='w3-right'>{this.props['user']['user']}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Name</b></td>
-                                <td className='w3-right'>{this.state.profile['First name']} {this.state.profile['Last name']}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Email</b></td>
-                                <td className='w3-right'>{this.state.profile['Email']}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Sponsor Name</b></td>
-                                <td className='w3-right'>{this.state.profile['Sponsor name']}</td>
-                            </tr>
-                            <tr>
-                                <td><b>DOB</b></td>
-                                <td className='w3-right'>{this.state.profile['DOB']}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Gender</b></td>
-                                <td className='w3-right'>{this.state.profile['Gender']}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Term</b></td>
-                                <td className='w3-right'>{this.state.profile['Term']}</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div className='w3-rest w3-padding'>
-                        <div className='w3-row'>
-                            {
-                                this.state.subjects.map(arr=>{
-                                    return(
-                                        <div className='w3-half w3-padding'>
-                                            <div className="w3-light-grey w3-round">
-                                                <div className={"w3-container w3-padding w3-center w3-round w3-text-white "+arr['color']} style={{width: `${arr['value']}%`}}>{arr['name']}</div>
+        if(window.matchMedia("(max-width: 767px)").matches){
+            return(
+                <div>
+                    <div className="w3-row">
+                        <div className='w3-col s6 w3-btn w3-deep-orange' onClick={(e)=>this.tab('profiles','statistics')}>Profile</div>
+                        <div className='w3-col s6 w3-btn w3-deep-orange' onClick={(e)=>this.tab('statistics','profiles')}>Statistics</div>
+                        <div className='w3-col m4 l4' id='profiles'>
+                            <table className='w3-table-all'>
+                                <tr>
+                                    <td><b>Reg No</b></td>
+                                    <td className='w3-right'>{this.props['user']['id']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>User</b></td>
+                                    <td className='w3-right'>{this.props['user']['user']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Name</b></td>
+                                    <td className='w3-right'>{this.state.profile['First name']} {this.state.profile['Last name']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Email</b></td>
+                                    <td className='w3-right'>{this.state.profile['Email']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Sponsor Name</b></td>
+                                    <td className='w3-right'>{this.state.profile['Sponsor name']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>DOB</b></td>
+                                    <td className='w3-right'>{this.state.profile['DOB']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Gender</b></td>
+                                    <td className='w3-right'>{this.state.profile['Gender']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Term</b></td>
+                                    <td className='w3-right'>{this.state.profile['Term']}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div className='w3-rest w3-padding' id='statistics' style={{display: 'none'}}>
+                            <div className='w3-row'>
+                                {
+                                    this.state.subjects.map(arr=>{
+                                        return(
+                                            <div className='w3-half w3-padding'>
+                                                <div className="w3-light-grey w3-round">
+                                                    <div className={"w3-container w3-padding w3-center w3-round w3-text-white "+arr['color']} style={{width: `${arr['value']}%`}}>{arr['name']}</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                })
-                            }
+                                        )
+                                    })
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        )
+            )
+        }else{
+            return(
+                <div>
+                    <div className="w3-row">
+                        <div className='w3-col m4 l4'>
+                            <table className='w3-table-all'>
+                                <tr>
+                                    <td><b>Reg No</b></td>
+                                    <td className='w3-right'>{this.props['user']['id']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>User</b></td>
+                                    <td className='w3-right'>{this.props['user']['user']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Name</b></td>
+                                    <td className='w3-right'>{this.state.profile['First name']} {this.state.profile['Last name']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Email</b></td>
+                                    <td className='w3-right'>{this.state.profile['Email']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Sponsor Name</b></td>
+                                    <td className='w3-right'>{this.state.profile['Sponsor name']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>DOB</b></td>
+                                    <td className='w3-right'>{this.state.profile['DOB']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Gender</b></td>
+                                    <td className='w3-right'>{this.state.profile['Gender']}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Term</b></td>
+                                    <td className='w3-right'>{this.state.profile['Term']}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div className='w3-rest w3-padding'>
+                            <div className='w3-row'>
+                                {
+                                    this.state.subjects.map(arr=>{
+                                        return(
+                                            <div className='w3-half w3-padding'>
+                                                <div className="w3-light-grey w3-round">
+                                                    <div className={"w3-container w3-padding w3-center w3-round w3-text-white "+arr['color']} style={{width: `${arr['value']}%`}}>{arr['name']}</div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
     }
 }
 
