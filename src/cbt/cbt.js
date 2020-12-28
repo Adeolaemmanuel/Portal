@@ -62,6 +62,7 @@ class Admin extends Component {
         this.tab = this.tab.bind(this)
         this.submit = this.submit.bind(this)
         this.accordion = this.accordion.bind(this)
+        this.tabM = this.tabM.bind(this)
     }
 
 
@@ -83,6 +84,9 @@ class Admin extends Component {
             row[3].style.display = 'none'//  term
             row[4].style.display = 'none'//
             this.setState({back:'home', forward: 'class', arr: id, folder:{subject: id}})
+            let tabs = document.getElementsByClassName('tabs')
+            tabs[0].style.display = 'none'
+            tabs[1].style.display = 'none'
         }else if(route === 'class'){
             row[0].style.display = 'block'
             row[1].style.display = 'none'
@@ -90,6 +94,9 @@ class Admin extends Component {
             row[3].style.display = 'block'
             row[4].style.display = 'none'
             this.setState({back:'home', forward: 'term', arr: id, folder:{subject: this.state.folder.subject, class: id}})
+            let tabs = document.getElementsByClassName('tabs')
+            tabs[0].style.display = 'none'
+            tabs[1].style.display = 'none'
         }else if(route === 'term'){
             row[0].style.display = 'block'
             row[1].style.display = 'none'
@@ -97,6 +104,9 @@ class Admin extends Component {
             row[3].style.display = 'none'
             row[4].style.display = 'block'
             this.setState({back:'class', forward: 'cbt', arr: id, folder:{term: id, subject: this.state.folder.subject, class: this.state.folder.class, year: date.getFullYear()}})
+            let tabs = document.getElementsByClassName('tabs')
+            tabs[0].style.display = 'block'
+            tabs[1].style.display = 'block'
             this.getCbt(id)
         }else if(route === 'cbt'){
             row[0].style.display = 'block'
@@ -105,6 +115,9 @@ class Admin extends Component {
             row[3].style.display = 'none'
             row[4].style.display = 'block'
             this.setState({back:'term', forward: 'cbt', arr: id})
+            let tabs = document.getElementsByClassName('tabs')
+            tabs[0].style.display = 'block'
+            tabs[1].style.display = 'block'
         }
     }
     
@@ -159,108 +172,222 @@ class Admin extends Component {
         }
     }
 
+    tabM(show='CBT',hide='questions'){
+        if(show){
+            //console.log(show)
+            document.getElementById(show).style.display = 'block'
+            document.getElementById(hide).style.display = 'none'
+        }
+    }
+
     render() {
-        return (
-            <>
-                <div className='w3-row' style={{display: 'none'}}>
-                    <div className='w3-half' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}}>
-                        <img src={back} alt='' id="back" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}} style={{width:'100%', height: '40px'}} />
-                    </div>
-                    <div className='w3-half'>
-                        <img src={forward} alt='' id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
-                    </div>
-                </div>
-                <div className='w3-row' id='subjects'>
-                    {
-                        this.state.subject.map(arr=>{
-                            return(
-                                <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>
-                                    <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}  />
-                                    <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>{arr}</p>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-                <div className='w3-row' id='class' style={{display: 'none'}}>
-                    {
-                        this.state.class.map(arr=>{
-                            return(
-                                <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>
-                                    <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
-                                    <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>{arr}</p>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-                <div className='w3-row' id='term' style={{display: 'none'}}>
-                    {
-                        this.state.term.map(arr=>{
-                            return(
-                                <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>
-                                    <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'term', arr)}}  id={arr}  />
-                                    <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>{arr}</p>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-                <div className='w3-row' style={{display: 'none'}}>
-                    <div className='w3-half'>
-                        <div class="w3-bar w3-black">
-                            <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('obj')}>Objective</button>
-                            <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('theory')}>Therory</button>
+        if(window.matchMedia("(max-width: 767px)").matches){
+            return (
+                <>
+                    <div className='w3-row' style={{display: 'none'}}>
+                        <button className='w3-col s6' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}}>
+                            <img src={back} alt='' id="back" className='w3-margin-top'  style={{width:'100%', height: '40px'}} />
+                        </button>
+                        <div className='w3-col s6'>
+                            <img src={forward} alt='' id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
                         </div>
-                        <div id="obj" class="tab w3-container">
-                            <form onSubmit={(e)=>this.submit(e, this.state.folder)}>
-                                <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
-                                <div className='w3-row'>
-                                    <div className='w3-half w3-padding'>
-                                        <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 1' id='O1' />
-                                    </div>
-                                    <div className='w3-half w3-padding'>
-                                        <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 2' id='O2' />
-                                    </div>
-                                    <div className='w3-half w3-padding'>
-                                        <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 3' id='O3' />
-                                    </div>
-                                    <div className='w3-half w3-padding'>
-                                        <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 4' id='O4' />
-                                    </div>
-                                </div>
-                                <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Answer' id='answer' />
-                                <div className='w3-center w3-margin-top'>
-                                    <button className='w3-btn w3-deep-orange w3-round'>Submit</button>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div id="theory" class="tab" style={{display: 'none'}}>
-                        <textarea className='w3-input w3-margin-top' placeholder='Question...'></textarea>
                     </div>
-                    </div>
-                    <div class='w3-half w3-padding'>
+                    <div className='w3-col s6 w3-btn w3-deep-orange tabs' style={{display: 'none'}} onClick={(e)=>this.tabM('CBT','questions')}>Set CBT</div>
+                    <div className='w3-col s6 w3-btn w3-deep-orange tabs' style={{display: 'none'}}  onClick={(e)=>this.tabM('questions','CBT')}>Questions</div>
+                    <div className='w3-row' id='subjects'>
                         {
-                            this.state.cbt.map((arr,ind)=>{
+                            this.state.subject.map(arr=>{
                                 return(
-                                    <div>
-                                        <button onClick={(e)=>{this.accordion(e, ind)}} class="w3-button w3-center w3-block w3-margin-top">{arr['question']}</button>
-
-                                        <div id={ind} class="w3-container w3-row w3-hide">
-                                            <div className='w3-half w3-padding w3-border'>{arr['O1']}</div>
-                                            <div className='w3-half w3-padding w3-border'>{arr['O2']}</div>
-                                            <div className='w3-half w3-padding w3-border'>{arr['O3']}</div>
-                                            <div className='w3-half w3-padding w3-border'>{arr['O4']} </div>
-                                        </div>
+                                    <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>
+                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}  />
+                                        <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>{arr}</p>
                                     </div>
                                 )
                             })
                         }
                     </div>
-                </div>
-            </>
-        )
+                    <div className='w3-row' id='class' style={{display: 'none'}}>
+                        {
+                            this.state.class.map(arr=>{
+                                return(
+                                    <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>
+                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
+                                        <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>{arr}</p>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                    <div className='w3-row' id='term' style={{display: 'none'}}>
+                        {
+                            this.state.term.map(arr=>{
+                                return(
+                                    <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>
+                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'term', arr)}}  id={arr}  />
+                                        <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>{arr}</p>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                    <div className='w3-row' style={{display: 'none'}}>
+                        <div className='w3-half' id='CBT'>
+                            <div class="w3-bar w3-black">
+                                <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('obj')}>Objective</button>
+                                <button class="w3-bar-item w3-button w3-right" onClick={(e)=>this.tab('theory')}>Therory</button>
+                            </div>
+                            <div id="obj" class="tab w3-container">
+                                <form onSubmit={(e)=>this.submit(e, this.state.folder)}>
+                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
+                                    <div className='w3-row'>
+                                        <div className='w3-half w3-padding'>
+                                            <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 1' id='O1' />
+                                        </div>
+                                        <div className='w3-half w3-padding'>
+                                            <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 2' id='O2' />
+                                        </div>
+                                        <div className='w3-half w3-padding'>
+                                            <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 3' id='O3' />
+                                        </div>
+                                        <div className='w3-half w3-padding'>
+                                            <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 4' id='O4' />
+                                        </div>
+                                    </div>
+                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Answer' id='answer' />
+                                    <div className='w3-center w3-margin-top'>
+                                        <button className='w3-btn w3-deep-orange w3-round'>Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+    
+                            <div id="theory" class="tab" style={{display: 'none'}}>
+                            <textarea className='w3-input w3-margin-top' placeholder='Question...'></textarea>
+                        </div>
+                        </div>
+                        <div class='w3-half w3-padding' id='questions'>
+                            {
+                                this.state.cbt.map((arr,ind)=>{
+                                    return(
+                                        <div>
+                                            <button onClick={(e)=>{this.accordion(e, ind)}} class="w3-button w3-center w3-block w3-margin-top">{arr['question']}</button>
+    
+                                            <div id={ind} class="w3-container w3-row w3-hide">
+                                                <div className='w3-col s6 w3-padding w3-border'>{arr['O1']}</div>
+                                                <div className='w3-col s6 w3-padding w3-border'>{arr['O2']}</div>
+                                                <div className='w3-col s6 w3-padding w3-border'>{arr['O3']}</div>
+                                                <div className='w3-col s6 w3-padding w3-border'>{arr['O4']} </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
+                </>
+            )
+        }else{
+            return (
+                <>
+                    <div className='w3-row' style={{display: 'none'}}>
+                        <div className='w3-half' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}}>
+                            <img src={back} alt='' id="back" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}} style={{width:'100%', height: '40px'}} />
+                        </div>
+                        <div className='w3-half'>
+                            <img src={forward} alt='' id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
+                        </div>
+                    </div>
+                    <div className='w3-row' id='subjects'>
+                        {
+                            this.state.subject.map(arr=>{
+                                return(
+                                    <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>
+                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}  />
+                                        <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>{arr}</p>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                    <div className='w3-row' id='class' style={{display: 'none'}}>
+                        {
+                            this.state.class.map(arr=>{
+                                return(
+                                    <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>
+                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
+                                        <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>{arr}</p>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                    <div className='w3-row' id='term' style={{display: 'none'}}>
+                        {
+                            this.state.term.map(arr=>{
+                                return(
+                                    <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>
+                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'term', arr)}}  id={arr}  />
+                                        <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>{arr}</p>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                    <div className='w3-row' style={{display: 'none'}}>
+                        <div className='w3-half'>
+                            <div class="w3-bar w3-black">
+                                <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('obj')}>Objective</button>
+                                <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('theory')}>Therory</button>
+                            </div>
+                            <div id="obj" class="tab w3-container">
+                                <form onSubmit={(e)=>this.submit(e, this.state.folder)}>
+                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
+                                    <div className='w3-row'>
+                                        <div className='w3-half w3-padding'>
+                                            <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 1' id='O1' />
+                                        </div>
+                                        <div className='w3-half w3-padding'>
+                                            <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 2' id='O2' />
+                                        </div>
+                                        <div className='w3-half w3-padding'>
+                                            <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 3' id='O3' />
+                                        </div>
+                                        <div className='w3-half w3-padding'>
+                                            <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 4' id='O4' />
+                                        </div>
+                                    </div>
+                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Answer' id='answer' />
+                                    <div className='w3-center w3-margin-top'>
+                                        <button className='w3-btn w3-deep-orange w3-round'>Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+    
+                            <div id="theory" class="tab" style={{display: 'none'}}>
+                            <textarea className='w3-input w3-margin-top' placeholder='Question...'></textarea>
+                        </div>
+                        </div>
+                        <div class='w3-half w3-padding'>
+                            {
+                                this.state.cbt.map((arr,ind)=>{
+                                    return(
+                                        <div>
+                                            <button onClick={(e)=>{this.accordion(e, ind)}} class="w3-button w3-center w3-block w3-margin-top">{arr['question']}</button>
+    
+                                            <div id={ind} class="w3-container w3-row w3-hide">
+                                                <div className='w3-half w3-padding w3-border'>{arr['O1']}</div>
+                                                <div className='w3-half w3-padding w3-border'>{arr['O2']}</div>
+                                                <div className='w3-half w3-padding w3-border'>{arr['O3']}</div>
+                                                <div className='w3-half w3-padding w3-border'>{arr['O4']} </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
+                </>
+            )
+        }
     }
 
 }

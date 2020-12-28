@@ -401,6 +401,7 @@ class Admin extends React.Component{
 
         this.register = this.register.bind(this)
         this.search = this.search.bind(this)
+        this.tab = this.tab.bind(this)
     }
 
     componentDidMount(){
@@ -456,61 +457,125 @@ class Admin extends React.Component{
         })
     }
 
+    tab(show='registers',hide='registereds'){
+        if(show){
+            //console.log(show)
+            document.getElementById(show).style.display = 'block'
+            document.getElementById(hide).style.display = 'none'
+        }
+    }
+
     render(){
-        return(
-            <div>
-                <div className='w3-row'>
-                    <div className='w3-container'>
-                        <div className='w3-col s12 m6 l6 w3-center w3-padding top'>
-                            <div className='w3-center w3-margin-top'>
-                                <span className='w3-padding w3-deep-orange'>Register Students | Teachers</span>
+        if(window.matchMedia("").matches){
+            return(
+                <div>
+                    <div className='w3-row'>
+                        <div className='w3-col s6 w3-btn w3-deep-orange' onClick={(e)=>this.tab('registers','registereds')}>Resgiter User</div>
+                        <div className='w3-col s6 w3-btn w3-deep-orange' onClick={(e)=>this.tab('registereds','registers')}>Registered User</div>
+                        <div className='w3-container'>
+                            <div className='w3-col s12 m6 l6 w3-center w3-padding top' id='registers'>
+                                <form className='w3-padding w3-mobile w3-margin-top' onSubmit={this.register}>
+                                    <input type="text" className="w3-input w3-border w3-round" placeholder="Reg No:" id="idR" />
+                                    <select className='w3-input w3-border w3-round w3-margin-top' id='userR' >
+                                        <option disabled selected>User</option>
+                                        <option value='Student'>Student</option>
+                                        <option value='Teacher'>Teacher</option>
+                                    </select>
+                                    <input type="password" className="w3-input w3-border w3-round w3-margin-top" placeholder="password:" id="passR"  />
+                                    <button className="w3-block w3-deep-orange w3-btn w3-margin-top w3-round" >Register</button>
+                                </form>
                             </div>
-                            <form className='w3-padding w3-mobile w3-margin-top' onSubmit={this.register}>
-                                <input type="text" className="w3-input w3-border w3-round" placeholder="Reg No:" id="idR" />
-                                <select className='w3-input w3-border w3-round w3-margin-top' id='userR' >
-                                    <option disabled selected>User</option>
-                                    <option value='Student'>Student</option>
-                                    <option value='Teacher'>Teacher</option>
-                                </select>
-                                <input type="password" className="w3-input w3-border w3-round w3-margin-top" placeholder="password:" id="passR"  />
-                                <button className="w3-block w3-deep-orange w3-btn w3-margin-top w3-round" >Register</button>
-                            </form>
-                        </div>
-                        <div className='w3-col s12 m6 l6 w3-center w3-padding'>
-                            <div className='w3-center w3-margin-top'>
-                                <span className='w3-padding w3-deep-orange'>Search Registered User</span>
-                            </div>
-                            <div className='w3-margin-top'>
-                                <input className='w3-input w3-border w3-round' type="search" placeholder="Search user" id='search' onChange={this.search} />
-                            </div>
-                            <div className='w3-container' style={{marginTop: '50px'}} id='user'>
-                                <ul className='w3-ul w3-margin-top w3-container' style={{overflow: 'scroll', height:'400px'}}>
-                                <div className="w3-row">
-                                    <div className="w3-col s4 m4 l4"><b>REG NO</b></div>
-                                    <div className="w3-col s4 m4 l4"><b>USER</b></div>
-                                    <div className="w3-col s4 m4 l4"><b>PASSWORD</b></div>
+                            <div className='w3-col s12 m6 l6 w3-center w3-padding' id='registereds' style={{display: 'none'}}>
+                                <div className='w3-center w3-margin-top'>
+                                    <span className='w3-padding w3-deep-orange'>Search Registered User</span>
                                 </div>
-                                    {
-                                        this.state.users.map( arr => {
-                                                    
-                                            return (
-                                                <li className="w3-card w3-margin-top w3-padding" key={arr['regNo']}>
-                                                    <div className="w3-row">
-                                                        <div className="w3-col s4 m4 l4" key={arr['regNo']}>{arr['regNo']}</div>
-                                                        <div className="w3-col s4 m4 l4" key={arr['user']}>{arr['user']}</div>
-                                                        <div className="w3-col s4 m4 l4" key={arr['password']}>{arr['password']}</div>
-                                                    </div>
-                                                </li>
-                                            )
-                                        })
-                                    }
-                                </ul>
+                                <div className='w3-margin-top'>
+                                    <input className='w3-input w3-border w3-round' type="search" placeholder="Search user" id='search' onChange={this.search} />
+                                </div>
+                                <div className='w3-container' style={{marginTop: '50px'}} id='user'>
+                                    <ul className='w3-ul w3-margin-top w3-container' style={{overflow: 'scroll', height:'400px'}}>
+                                    <div className="w3-row">
+                                        <div className="w3-col s4 m4 l4"><b>REG NO</b></div>
+                                        <div className="w3-col s4 m4 l4"><b>USER</b></div>
+                                        <div className="w3-col s4 m4 l4"><b>PASSWORD</b></div>
+                                    </div>
+                                        {
+                                            this.state.users.map( arr => {
+                                                        
+                                                return (
+                                                    <li className="w3-card w3-margin-top w3-padding" key={arr['regNo']}>
+                                                        <div className="w3-row">
+                                                            <div className="w3-col s4 m4 l4" key={arr['regNo']}>{arr['regNo']}</div>
+                                                            <div className="w3-col s4 m4 l4" key={arr['user']}>{arr['user']}</div>
+                                                            <div className="w3-col s4 m4 l4" key={arr['password']}>{arr['password']}</div>
+                                                        </div>
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        )
+            )
+        }else{
+            return(
+                <div>
+                    <div className='w3-row'>
+                        <div className='w3-container'>
+                            <div className='w3-col s12 m6 l6 w3-center w3-padding top'>
+                                <div className='w3-center w3-margin-top'>
+                                    <span className='w3-padding w3-deep-orange'>Register Students | Teachers</span>
+                                </div>
+                                <form className='w3-padding w3-mobile w3-margin-top' onSubmit={this.register}>
+                                    <input type="text" className="w3-input w3-border w3-round" placeholder="Reg No:" id="idR" />
+                                    <select className='w3-input w3-border w3-round w3-margin-top' id='userR' >
+                                        <option disabled selected>User</option>
+                                        <option value='Student'>Student</option>
+                                        <option value='Teacher'>Teacher</option>
+                                    </select>
+                                    <input type="password" className="w3-input w3-border w3-round w3-margin-top" placeholder="password:" id="passR"  />
+                                    <button className="w3-block w3-deep-orange w3-btn w3-margin-top w3-round" >Register</button>
+                                </form>
+                            </div>
+                            <div className='w3-col s12 m6 l6 w3-center w3-padding'>
+                                <div className='w3-center w3-margin-top'>
+                                    <span className='w3-padding w3-deep-orange'>Search Registered User</span>
+                                </div>
+                                <div className='w3-margin-top'>
+                                    <input className='w3-input w3-border w3-round' type="search" placeholder="Search user" id='search' onChange={this.search} />
+                                </div>
+                                <div className='w3-container' style={{marginTop: '50px'}} id='user'>
+                                    <ul className='w3-ul w3-margin-top w3-container' style={{overflow: 'scroll', height:'400px'}}>
+                                    <div className="w3-row">
+                                        <div className="w3-col s4 m4 l4"><b>REG NO</b></div>
+                                        <div className="w3-col s4 m4 l4"><b>USER</b></div>
+                                        <div className="w3-col s4 m4 l4"><b>PASSWORD</b></div>
+                                    </div>
+                                        {
+                                            this.state.users.map( arr => {
+                                                        
+                                                return (
+                                                    <li className="w3-card w3-margin-top w3-padding" key={arr['regNo']}>
+                                                        <div className="w3-row">
+                                                            <div className="w3-col s4 m4 l4" key={arr['regNo']}>{arr['regNo']}</div>
+                                                            <div className="w3-col s4 m4 l4" key={arr['user']}>{arr['user']}</div>
+                                                            <div className="w3-col s4 m4 l4" key={arr['password']}>{arr['password']}</div>
+                                                        </div>
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
     }
     
 }
