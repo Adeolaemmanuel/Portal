@@ -341,7 +341,7 @@ class Admin extends Component {
                                 <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('obj')}>Objective</button>
                                 <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('theory')}>Therory</button>
                             </div>
-                            <div id="obj" class="tab w3-container">
+                            <div id="obj" class="tab w3-container" style={{display: 'none'}}>
                                 <form onSubmit={(e)=>this.submit(e, this.state.folder)}>
                                     <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
                                     <div className='w3-row'>
@@ -810,7 +810,7 @@ class Teacher extends Component {
                                 <button class="w3-bar-item w3-button" onClick={(e)=>this.tab('obj')}>Objective</button>
                                 <button class="w3-bar-item w3-button w3-right" onClick={(e)=>this.tab('theory')}>Therory</button>
                             </div>
-                            <div id="obj" class="tab w3-container">
+                            <div id="obj" class="tab w3-container" style={{display: 'none'}}>
                                 <form onSubmit={(e)=>this.submit(e, this.state.folder)}>
                                     <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
                                     <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Category' id='category' />
