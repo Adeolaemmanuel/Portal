@@ -916,8 +916,11 @@ class Student extends Component {
         let data = $(`#${this.index}`).serializeArray() 
         if(data.length === 1){
             console.log(this.index)
-            if((this.state.cbt - 1) === this.index){
-
+            if((this.state.cbt.length - 1) === this.index){
+                alert('Done')
+                let row = document.getElementsByClassName('w3-row');
+                row[6].style.display = 'block'
+                row[5].style.display = 'none'
             }else{
                 if(data[0].value === this.state.cbt[this.index].answer){
                     this.index = this.index + 1
@@ -1047,6 +1050,10 @@ class Student extends Component {
                             })
                         }
                     </div>
+                </div>
+                <div className='w3-row'>
+                    <p className='w3-center'>Done Will still work on this</p>
+                    
                 </div>
             </>
         )
