@@ -771,7 +771,7 @@ class Student extends Component {
         super(props);
         const cookies = new Cookies();
         getProfile()
-        console.log(data);
+        //console.log(data);
         this.state = {
             subject: ['Mathematics','English','Physics','Chemistry','French','Youruba','Bussiness Studies','Computer Science','Basic Technology','Home Economics','CRS','PHE','Acgricultural Science','Applied Arts','Civic Education','Basic Science','Futher Mathematics','Biology','Commerce','History','Goverment','Geography','Literature','Humanities','History'],
             class: ['JS1','JS2','JS3','SS1','SS2','SS3'],
@@ -889,9 +889,14 @@ class Student extends Component {
                         }
                         this.setState({cbt: [question[0]], answered: answered})
                         //console.log(cbt.data().questions)
+                        console.log(data)
+                        e.target.elements.O1.checked = false
+                        e.target.elements.O2.checked = false
+                        e.target.elements.O3.checked = false
+                        e.target.elements.O4.checked = false
                     }
                 })
-            }else{
+            }if(data.value !== this.state.cbt.answer){
                 db.collection('CBT').doc(`${this.state.folder.subject}|${this.state.folder.class}|${this.state.folder.term}|${this.state.year}`)
                 .get().then(cbt=>{
                     if(cbt.exists){
@@ -903,6 +908,11 @@ class Student extends Component {
                         }
                         this.setState({cbt: [question[0]], answered: answered})
                         //console.log(cbt.data().questions)
+                        console.log(this.state.answered)
+                        e.target.elements.O1.checked = false
+                        e.target.elements.O2.checked = false
+                        e.target.elements.O3.checked = false
+                        e.target.elements.O4.checked = false
                     }
                 })
             }
@@ -910,7 +920,6 @@ class Student extends Component {
         }else{
             alert('Please Choose just one answer')
         }
-        console.log(this.state.score)
     }
 
     render() {
@@ -981,19 +990,19 @@ class Student extends Component {
                             this.state.cbt.map((arr,ind)=>{
                                 return(
                                     <form onSubmit={this.answer} id='cbt'>
-                                        <div class="w3-button w3-center w3-block w3-margin-top">{arr['question']}</div>
+                                        <div class="w3-padding w3-center w3-block">{arr['question']}</div>
 
                                         <div id={ind} class="w3-container w3-row w3-margin-top">
                                             <div className='w3-col s6 m6 l6 w3-padding w3-border'>
                                                 <div className='w3-col s6 m6 l6 w3-padding'>
-                                                    <input type='checkbox' name='Option 1' id={arr['O1']} value={arr['O1']} />
+                                                    <input type='checkbox' name='Option 1' id='O1' value={arr['O1']} />
                                                 </div>
                                                 <label className='w3-col s6 m6 l6 w3-padding' htmlFor={arr['O1']}>{arr['O1']}</label>
                                             </div>
 
                                             <div className='w3-col s6 m6 l6 w3-padding w3-border'>
                                                 <div className='w3-col s6 m6 l6 w3-padding'>
-                                                    <input type='checkbox' name='Option 2'  id={arr['O2']}value={arr['O2']} />
+                                                    <input type='checkbox' name='Option 2'  id='O2' value={arr['O2']} />
                                                 </div>
                                                 <label className='w3-col s6 m6 l6 w3-padding' htmlFor={arr['O2']}>{arr['O2']}</label>
                                             </div>

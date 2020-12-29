@@ -82,7 +82,7 @@ class Admin extends React.Component {
         return(
             <div>
                 <nav className="w3-bar w3-deep-orange">
-                    <Link to='/user' className='w3-bar-item w3-margin-top w3-bold' style={{textDecoration:'none'}}>HOME</Link>
+                    <Link to='/User' className='w3-bar-item w3-margin-top w3-bold' style={{textDecoration:'none'}}>HOME</Link>
                     <div className='w3-right'>
                         <p className='w3-bar-item'>
                             {this.state.user}
@@ -120,7 +120,7 @@ class Student extends React.Component {
         return(
             <div>
                 <nav className="w3-bar w3-deep-orange">
-                    <Link to='/user' className='w3-bar-item w3-margin-top w3-bold' style={{textDecoration:'none'}}>HOME</Link>
+                    <Link to='/User' className='w3-bar-item w3-margin-top w3-bold' style={{textDecoration:'none'}}>HOME</Link>
                     <div className='w3-right'>
                         <p className='w3-bar-item'>
                             {this.state.user}
@@ -157,7 +157,7 @@ class Teacher extends React.Component {
         return(
             <div>
                 <nav className="w3-bar w3-deep-orange">
-                    <Link to='/user' className='w3-bar-item w3-margin-top w3-bold' style={{textDecoration:'none'}}>HOME</Link>
+                    <Link to='/User' className='w3-bar-item w3-margin-top w3-bold' style={{textDecoration:'none'}}>HOME</Link>
                     <div className='w3-right'>
                         <p className='w3-bar-item'>
                             {this.state.user}

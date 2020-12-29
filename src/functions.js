@@ -21,5 +21,17 @@ const getProfile = ()=>{
     })
 }
 
+const Modal = ()=>{
+    return(
+        <div className='w3-modal'>
+            <div className='w3-modal-content'>
+                <div className='w3-container'>
 
-export { getProfile, data }
+                </div>
+            </div>
+        </div>
+    )
+}
+
+
+export { getProfile, data,}
