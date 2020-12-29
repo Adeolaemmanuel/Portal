@@ -84,13 +84,13 @@ class Admin extends React.Component{
         let id = e.target.id
         let resultId = document.getElementById('resultId');
         let result =  document.getElementById('result')
-        let search =  document.getElementById('search')
-        let back =  document.getElementById('back')
+        let searchD =  document.getElementById('searchD')
+        let backD =  document.getElementById('backD')
         //console.log(id)
         resultId.style.display = 'none'
         result.style.display = 'block'
-        back.style.display = 'block'
-        search.style.display = 'none'
+        backD.style.display = 'block'
+        searchD.style.display = 'none'
         db.collection('Details').doc(this.state.userId).collection('subjects').doc(id).get()
         .then(a=>{
             this.setState({subjects: a.data().subjects})
