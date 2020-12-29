@@ -918,8 +918,10 @@ class Student extends Component {
             console.log(this.index)
             if((this.state.cbt.length - 1) === this.index){
                 alert('Done')
+                let row = document.getElementById('end')
                 let end = document.getElementById('end')
                 end.style.display = 'block'
+                row[5].style.display = 'none'
             }else{
                 if(data[0].value === this.state.cbt[this.index].answer){
                     this.index = this.index + 1
