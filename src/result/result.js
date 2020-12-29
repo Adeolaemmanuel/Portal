@@ -247,11 +247,11 @@ class Student extends React.Component{
                     <div className="w3-container w3-margin-top">
                         <div className='w3-container'>
                             <div className='w3-row'>
-                            <div className='w3-center w3-margin-top'>
-                                <span className='w3-padding w3-deep-orange'>Result | {this.state.id}</span>
-                            </div>
-                                <div className='w3-col s1 m1 l1'>
-                                    <img src={back} alt='' id="back" className='w3-margin-top' onClick={this.backFolder} style={{display: 'none', width:'100%', height: '40px'}} />
+                                <div className='w3-center w3-margin-top'>
+                                    <span className='w3-padding w3-deep-orange'>Result | {this.state.id}</span>
+                                </div>
+                                <div className='w3-padding'  id="backD" style={{display: 'none'}}>
+                                    <img src={back} alt='' className='w3-margin-top' onClick={this.backFolder} style={{width:'100%', height: '40px'}} />
                                 </div>
                                 <div className='w3-col s3 m4 l4'>
                                     {
