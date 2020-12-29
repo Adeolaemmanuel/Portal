@@ -41,6 +41,8 @@ class Result extends React.Component{
         }
     }
 }
+
+
 class Admin extends React.Component{
     constructor(props) {
         super(props);
@@ -99,12 +101,12 @@ class Admin extends React.Component{
     backFolder(){
         let resultId = document.getElementById('resultId');
         let result =  document.getElementById('result')
-        let search =  document.getElementById('search')
-        let back =  document.getElementById('back')
+        let searchD =  document.getElementById('searchD')
+        let backD =  document.getElementById('backD')
         resultId.style.display = 'block'
         result.style.display = 'none'
-        back.style.display = 'none'
-        search.style.display = 'block'
+        backD.style.display = 'none'
+        searchD.style.display = 'block'
     }
     
 
@@ -116,15 +118,11 @@ class Admin extends React.Component{
                         <div className="w3-padding">
                             <form onSubmit ={this.getSubject}>
                                 <input className='w3-input w3-border w3-round' type='text' id='id' placeholder="Input Reg" />
-                                <div className="w3-row">
-                                    <div className='w3-col s1 m1 l1'>
-                                        <img src={back} alt='' id="back" className='w3-margin-top' onClick={this.backFolder} style={{display: 'none', width:'100%', height: '40px'}} />
-                                    </div>
-                                    <div className='w3-rest'>
-                                        <div className='w3-center'>
-                                            <button className='w3-btn w3-deep-orange w3-round w3-margin-top w3-margin-left' id='search'>Search</button>
-                                        </div>
-                                    </div>
+                                <div className='w3-padding' id='back'>
+                                    <img src={back} alt='' className='w3-margin-top' onClick={this.backFolder} style={{display: 'none', width:'100%', height: '40px'}} />
+                                </div>
+                                <div className='w3-center'id='searchD'>
+                                    <button className='w3-btn w3-deep-orange w3-round w3-margin-top w3-margin-left' >Search</button>
                                 </div>
                             </form>
                         </div>
