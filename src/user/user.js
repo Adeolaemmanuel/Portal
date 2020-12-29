@@ -22,7 +22,7 @@ class User extends React.Component{
             id: cookie.get('id'),
             user: cookie.get('user'),
             password: cookie.get('password'),
-            url: this.props['url']
+            isLogged: this.props['isLogged']
         }
     }
 

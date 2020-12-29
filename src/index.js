@@ -14,32 +14,32 @@ import CBT from './cbt/cbt';
 import Notification from './notification/notification';
 import Chat from './chat/chat';
 import Settings from './settings/settings';
+import { Cookies } from 'react-cookie';
 
 class Index extends React.Component{
   constructor(props){
     super(props)
     this.state = {
       isLogged: false,
-      Home:{},
-      Profile: {
-        passedData:{}
-      }
     }
     this.stateTrigger = this.stateTrigger.bind(this);
+    console.log(this.state);
   }
 
+  cookies = new Cookies();
 
   stateTrigger(){}
 
 
   render(){
-    return(
+    if(this.state.isLogged === false){
+      return(
         <Router>
           <div>
             <Route path="/" exact component={ Home }>
               <Home settings={this.state} />
             </Route>
-            <Route path="/User" component={ User }>
+            <Route path="/User" isLogged={this.state.isLogged} component={ User }>
               <User />
             </Route>
             <Route path="/Dashboard" component={ Dashboard }>
@@ -71,7 +71,10 @@ class Index extends React.Component{
             </Route>
           </div>
         </Router>
-    )
+      )
+    }else{
+      <Home />
+    }
   }
 }
 
