@@ -6,7 +6,6 @@ import back from '../assets/img/arrow.svg'
 import forward from '../assets/img/right-arrow.svg'
 import { db, firebase, } from '../database'
 import $ from 'jquery'
-import { getProfile, data } from '../functions'
 
 export default  class CBT extends Component {
     constructor(props) {
@@ -770,8 +769,6 @@ class Student extends Component {
     constructor(props) {
         super(props);
         const cookies = new Cookies();
-        getProfile()
-        //console.log(data);
         this.state = {
             subject: ['Mathematics','English','Physics','Chemistry','French','Youruba','Bussiness Studies','Computer Science','Basic Technology','Home Economics','CRS','PHE','Acgricultural Science','Applied Arts','Civic Education','Basic Science','Futher Mathematics','Biology','Commerce','History','Goverment','Geography','Literature','Humanities','History'],
             class: ['JS1','JS2','JS3','SS1','SS2','SS3'],
@@ -784,6 +781,7 @@ class Student extends Component {
             cbt: [],
             score: 0,
             answered: [],
+            profile: {},
             year: 2020,
         }
 
@@ -793,6 +791,16 @@ class Student extends Component {
     }
 
     //Note: work on getting score score from CBT test
+
+    componentDidMount(){
+        this.getProfile()
+    }
+
+    questionSwitch(show=0,hide=1){
+        let cbt = document.getElementsByClassName('cbt')
+        cbt[show].style.display = 'block'
+        cbt[hide].style.display = 'none'
+    }
 
     folderClick(e,route,id){
         e.preventDefault();
@@ -838,7 +846,6 @@ class Student extends Component {
             row[3].style.display = 'none'
             row[4].style.display = 'block'
             this.setState({back:'home', forward: 'cbt'})
-
         }if(route === 'cbt'){
             row[0].style.display = 'block'
             row[1].style.display = 'none'
@@ -866,60 +873,62 @@ class Student extends Component {
         .get().then(cbt=>{
             if(cbt.exists){
                 let question = [...cbt.data().questions]
-                this.setState({cbt: [question[0]]})
+                this.setState({cbt: question})
                 console.log(cbt.data().questions)
             }
+            let CBT = document.getElementsByClassName('cbt')
+            for(let c=0; c<CBT.length; c++){
+                CBT[c].style.display = 'none'
+            }
+            CBT[0].style.display = 'block'
         })
     }
+
+    getProfile(){
+        db.collection('Users').doc(this.state.id).get().then(user=>{
+            this.setState({profile: user.data()})
+            //console.log(user.data());
+            let subjectId = user.data().subjectId
+            let len = subjectId.length
+            db.collection('Details').doc(this.state.id).collection('subjects').doc(subjectId[len-1]).get()
+            .then(sub=>{
+                //data.subjects = sub.data().subjects
+                //console.log(sub.data().subjects)
+            })
+            //console.log(subjectId[len -1])
+        })
+    }
+
+    index =  0;
+    score =  0;
 
     answer(e){
         e.preventDefault()
         let data = $('#cbt').serializeArray() 
+        let answered = []
         if(data.length === 1){
-            if(data.value === this.state.cbt.answer){
-                this.setState({score: this.state.score + 1})
-                db.collection('CBT').doc(`${this.state.folder.subject}|${this.state.folder.class}|${this.state.folder.term}|${this.state.year}`)
-                .get().then(cbt=>{
-                    if(cbt.exists){
-                        let question = [...cbt.data().questions]
-                        let answered = [...this.state.answered]
-                        answered.push(question.shift())
-                        for(let a=0; a<answered.length; a++){
-                            answered[a].score = 1;
-                        }
-                        this.setState({cbt: [question[0]], answered: answered})
-                        //console.log(cbt.data().questions)
-                        console.log(data)
-                        e.target.elements.O1.checked = false
-                        e.target.elements.O2.checked = false
-                        e.target.elements.O3.checked = false
-                        e.target.elements.O4.checked = false
-                    }
-                })
-            }if(data.value !== this.state.cbt.answer){
-                db.collection('CBT').doc(`${this.state.folder.subject}|${this.state.folder.class}|${this.state.folder.term}|${this.state.year}`)
-                .get().then(cbt=>{
-                    if(cbt.exists){
-                        let question = [...cbt.data().questions]
-                        let answered = [...this.state.answered]
-                        answered.push(question.shift())
-                        for(let a=0; a<answered.length; a++){
-                            answered[a].score = 0;
-                        }
-                        this.setState({cbt: [question[0]], answered: answered})
-                        //console.log(cbt.data().questions)
-                        console.log(this.state.answered)
-                        e.target.elements.O1.checked = false
-                        e.target.elements.O2.checked = false
-                        e.target.elements.O3.checked = false
-                        e.target.elements.O4.checked = false
-                    }
-                })
+            if(data[this.index].value === this.state.cbt[this.index].answer){
+                this.score+=1
+                data[this.index].score = this.score
+                this.index+=1
+                answered.push(data)
+                this.questionSwitch(this.index, this.index-1)
+            }
+            if(data[this.index].value !== this.state.cbt[this.index].answer){
+                data[this.index].score = 0;
+                this.index+=1
+                answered.push(data)
+                this.questionSwitch(this.index, this.index-1)  
+            }
+            if(this.state.cbt.length === this.index){
+                this.index = 0
+                this.questionSwitch(this.index)
             }
             
         }else{
             alert('Please Choose just one answer')
         }
+        console.log(answered)
     }
 
     render() {
@@ -973,7 +982,7 @@ class Student extends Component {
                     <div className='w3-display-container' style={{height: '400px'}}>
                         <div className='w3-display-middle'>
                             <div className='w3-container w3-center'>
-                                <p className='w3-padding'>Welcome {data.User['First name']} {data.User['Last name']}</p>
+                                <p className='w3-padding'>Welcome {this.state.profile['First name']} {this.state.profile['Last name']}</p>
                                 <p>Rules</p>
                                 <ul className='w3-padding' style={{listStyleType: 'decimal'}}>
                                     <li>Immidiately you click on Start you can't go back</li>
@@ -989,7 +998,7 @@ class Student extends Component {
                         {
                             this.state.cbt.map((arr,ind)=>{
                                 return(
-                                    <form onSubmit={this.answer} id='cbt'>
+                                    <form onSubmit={this.answer} id='cbt' className='cbt'>
                                         <div class="w3-padding w3-center w3-block">{arr['question']}</div>
 
                                         <div id={ind} class="w3-container w3-row w3-margin-top">
