@@ -65,6 +65,16 @@ class Admin extends React.Component {
         this.state = {
             user: cookies.get('user')
         }
+        this.logout = this.logout.bind(this)
+    }
+
+    cookies = new Cookies();
+    logout(){
+        this.cookies.remove('rem')
+        this.cookies.remove('id')
+        this.cookies.remove('user')
+        this.cookies.remove('password')
+        window.location.assign('/')
     }
 
 
@@ -77,7 +87,7 @@ class Admin extends React.Component {
                         <p className='w3-bar-item'>
                             {this.state.user}
                         </p>
-                        <img className='w3-bar-item' src={logout} alt={logout} style={{width: '100%', height: '50px'}} />
+                        <img className='w3-bar-item' src={logout} alt={logout} onClick={this.logout} style={{width: '100%', height: '50px'}} />
                     </div>
                 </nav>
             </div>
@@ -93,6 +103,16 @@ class Student extends React.Component {
         this.state = {
             user: cookies.get('user')
         }
+        this.logout = this.logout.bind(this)
+    }
+
+    cookies = new Cookies();
+    logout(){
+        this.cookies.remove('rem')
+        this.cookies.remove('id')
+        this.cookies.remove('user')
+        this.cookies.remove('password')
+        window.location.assign('/')
     }
 
 
@@ -105,7 +125,7 @@ class Student extends React.Component {
                         <p className='w3-bar-item'>
                             {this.state.user}
                         </p>
-                        <img className='w3-bar-item' src={logout} alt={logout} style={{width: '100%', height: '50px'}} />
+                        <img className='w3-bar-item' src={logout} alt={logout} onClick={this.logout} style={{width: '100%', height: '50px'}} />
                     </div>
                 </nav>
             </div>
@@ -120,6 +140,16 @@ class Teacher extends React.Component {
         this.state = {
             user: cookies.get('user')
         }
+        this.logout = this.logout.bind(this)
+    }
+
+    cookies = new Cookies();
+    logout(){
+        this.cookies.remove('rem')
+        this.cookies.remove('id')
+        this.cookies.remove('user')
+        this.cookies.remove('password')
+        window.location.assign('/')
     }
 
 
@@ -132,7 +162,7 @@ class Teacher extends React.Component {
                         <p className='w3-bar-item'>
                             {this.state.user}
                         </p>
-                        <img className='w3-bar-item w3-text-white' src={logout} alt={logout} style={{width: '70px', height: '70px'}} />
+                        <img className='w3-bar-item w3-text-white' src={logout} alt={logout} onClick={this.logout} style={{width: '70px', height: '70px'}} />
                     </div>
                 </nav>
             </div>
