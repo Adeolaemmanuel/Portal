@@ -918,9 +918,8 @@ class Student extends Component {
             console.log(this.index)
             if((this.state.cbt.length - 1) === this.index){
                 alert('Done')
-                let row = document.getElementsByClassName('w3-row');
-                row[6].style.display = 'block'
-                row[5].style.display = 'none'
+                let end = document.getElementById('end')
+                end.style.display = 'block'
             }else{
                 if(data[0].value === this.state.cbt[this.index].answer){
                     this.index = this.index + 1
@@ -990,7 +989,7 @@ class Student extends Component {
                         })
                     }
                 </div>
-                <div className='w3-row'>
+                <div className='w3-row' style={{display: 'none'}}>
                     <div className='w3-display-container' style={{height: '400px'}}>
                         <div className='w3-display-middle'>
                             <div className='w3-container w3-center'>
@@ -1051,7 +1050,7 @@ class Student extends Component {
                         }
                     </div>
                 </div>
-                <div className='w3-row'>
+                <div className='w3-padding' id='end' style={{display: 'none'}}>
                     <p className='w3-center'>Done Will still work on this</p>
                     
                 </div>
