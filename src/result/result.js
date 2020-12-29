@@ -118,8 +118,8 @@ class Admin extends React.Component{
                         <div className="w3-padding">
                             <form onSubmit ={this.getSubject}>
                                 <input className='w3-input w3-border w3-round' type='text' id='id' placeholder="Input Reg" />
-                                <div className='w3-padding' id='back'>
-                                    <img src={back} alt='' className='w3-margin-top' onClick={this.backFolder} style={{display: 'none', width:'100%', height: '40px'}} />
+                                <div className='w3-padding' id='backD' style={{display: 'none'}}>
+                                    <img src={back} alt='' className='w3-margin-top' onClick={this.backFolder} style={{width:'100%', height: '40px'}} />
                                 </div>
                                 <div className='w3-center'id='searchD'>
                                     <button className='w3-btn w3-deep-orange w3-round w3-margin-top w3-margin-left' >Search</button>
