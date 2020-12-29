@@ -34,4 +34,4 @@ const Modal = ()=>{
 }
 
 
-export { getProfile, data,}
+export { getProfile, data, Modal}
