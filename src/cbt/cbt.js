@@ -161,6 +161,13 @@ class Admin extends Component {
                 db.collection('CBT').doc(`${pram.subject}|${pram.class}|${pram.term}|${pram.year}`)
                 .set({questions: [data], closed: true})
                 .then(()=>{alert('Sent to database')})
+                data.question = ''
+                data.category = ''
+                data.O1 = ''
+                data.O2 = ''
+                data.O3 = ''
+                data.O4 = ''
+                data.answer = ''
             }
         })
     }
@@ -250,8 +257,8 @@ class Admin extends Component {
                             </div>
                             <div id="obj" class="tab w3-container">
                                 <form onSubmit={(e)=>this.submit(e, this.state.folder)}>
-                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
                                     <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Category' id='category' />
+                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
                                     <div className='w3-row'>
                                         <div className='w3-half w3-padding'>
                                             <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 1' id='O1' />
@@ -352,6 +359,7 @@ class Admin extends Component {
                             </div>
                             <div id="obj" class="tab w3-container" style={{display: 'none'}}>
                                 <form onSubmit={(e)=>this.submit(e, this.state.folder)}>
+                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Category' id='category' />
                                     <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
                                     <div className='w3-row'>
                                         <div className='w3-half w3-padding'>
@@ -611,8 +619,8 @@ class Teacher extends Component {
                             </div>
                             <div id="obj" class="tab w3-container" style={{display: 'none'}}>
                                 <form onSubmit={(e)=>this.submit(e, this.state.folder)}>
-                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
                                     <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Category' id='category' />
+                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
                                     <div className='w3-row'>
                                         <div className='w3-half w3-padding'>
                                             <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Option 1' id='O1' />
@@ -714,6 +722,7 @@ class Teacher extends Component {
                             </div>
                             <div id="obj" class="tab w3-container">
                                 <form onSubmit={(e)=>this.submit(e, this.state.folder)}>
+                                    <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Category' id='category' />
                                     <input className='w3-input w3-border w3-round w3-margin-top' placeholder='Question' id='question' />
                                     <div className='w3-row'>
                                         <div className='w3-half w3-padding'>
@@ -901,34 +910,34 @@ class Student extends Component {
 
     index =  0;
     score =  0;
-
+    answered = []
     answer(e){
         e.preventDefault()
-        let data = $('#cbt').serializeArray() 
-        let answered = []
+        let data = $(`#${this.index}`).serializeArray() 
         if(data.length === 1){
-            if(data[this.index].value === this.state.cbt[this.index].answer){
-                this.score+=1
-                data[this.index].score = this.score
-                this.index+=1
-                answered.push(data)
-                this.questionSwitch(this.index, this.index-1)
-            }
-            if(data[this.index].value !== this.state.cbt[this.index].answer){
-                data[this.index].score = 0;
-                this.index+=1
-                answered.push(data)
-                this.questionSwitch(this.index, this.index-1)  
-            }
-            if(this.state.cbt.length === this.index){
-                this.index = 0
-                this.questionSwitch(this.index)
+            console.log(this.index)
+            if((this.state.cbt - 1) === this.index){
+
+            }else{
+                if(data[0].value === this.state.cbt[this.index].answer){
+                    this.index = this.index + 1
+                    this.score+=1
+                    data[0].score = this.score
+                    this.answered.push(data)
+                    this.questionSwitch(this.index, this.index-1)
+                }
+                else{
+                    this.index = this.index + 1
+                    data[0].score = 0;
+                    this.answered.push(data)
+                    this.questionSwitch(this.index, this.index-1)  
+                }
             }
             
         }else{
             alert('Please Choose just one answer')
         }
-        console.log(answered)
+        console.log(this.answered)
     }
 
     render() {
@@ -998,7 +1007,7 @@ class Student extends Component {
                         {
                             this.state.cbt.map((arr,ind)=>{
                                 return(
-                                    <form onSubmit={this.answer} id='cbt' className='cbt'>
+                                    <form onSubmit={this.answer} id={ind} className='cbt'>
                                         <div class="w3-padding w3-center w3-block">{arr['question']}</div>
 
                                         <div id={ind} class="w3-container w3-row w3-margin-top">
