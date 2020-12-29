@@ -1,3 +1,7 @@
 .top{
     margin-top: 40px;
 }
+
+.resultId{
+    overflow-wrap: break-word;
+}
