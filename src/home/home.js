@@ -8,13 +8,16 @@ import { Redirect } from "react-router-dom";
 import { Cookies } from 'react-cookie'
 
 
+
 class Home extends React.Component{
     constructor(props){
         super(props)
+        const cookie =  new Cookies()
         this.state = {
             logged: this.props['settings']['isLogged'],
             user: {},
-            url: this.props['settings']['url']
+            id: cookie.get('id'),
+            rem: cookie.get('rem')
         }
         this.log = this.log.bind(this)
     }
@@ -33,7 +36,7 @@ class Home extends React.Component{
     }
 
     render(){
-        if(this.state.logged){
+        if(this.state.logged || this.state.rem){
             return(
                 <div>
                     <Redirect to='/User'>
@@ -58,13 +61,20 @@ class Login extends React.Component{
         this.state= {}
         this.log = this.log.bind(this)
     }
+
+    cookie =  new Cookies()
     
     
     log(e){
         e.preventDefault();
         var data = {
-            id:e.target.elements.id.value,
-            pass: e.target.elements.pass.value
+            id: e.target.elements.id.value,
+            pass: e.target.elements.pass.value,
+            rem: e.target.elements.remember.checked,
+        }
+
+        if(data.rem){
+            this.cookie.set('rem', data.rem)
         }
 
         db.collection('Users').doc(data.id).get().then(user=>{
@@ -81,21 +91,19 @@ class Login extends React.Component{
     render(){
         return (
             <div>
-                <div className="w3-container">
-                    <div className="w3-row">
-                        <div className="w3-col w3-hide-small m7 l7"><br /></div>
-                        <div className="w3-rest">
-                            <div className="w3-container topLog">
-                                <form onSubmit = {this.log}>
-                                    <input type="text" className="w3-input w3-border w3-round" placeholder="Reg No:" id="id" required />
-                                    <input type="password" className="w3-input w3-border w3-round w3-margin-top" placeholder="Password:" id="pass" required />
-                                    <div className='w3-center'>
-                                        <label>Remember Login</label>
-                                        <input type='checkbox' />
-                                    </div>
-                                    <button className="w3-block w3-deep-orange w3-btn w3-margin-top w3-round">Login</button>
-                                </form>
-                            </div>
+                <div className="w3-row">
+                    <div className="w3-col w3-hide-small s12 m8 l8"><br /></div>
+                    <div className="w3-rest w3-padding">
+                        <div className="topLog">
+                            <form onSubmit = {this.log}>
+                                <input type="text" className="w3-input w3-border w3-round" placeholder="Reg No:" id="id" required />
+                                <input type="password" className="w3-input w3-border w3-round w3-margin-top" placeholder="Password:" id="pass" required />
+                                <div className='w3-center'>
+                                    <input className=' w3-padding w3-margin-top' id='remember' type='checkbox' />
+                                    <label className='w3-half w3-padding' htmlFor='remember'>Remember Login</label>
+                                </div>
+                                <button className="w3-block w3-deep-orange w3-btn w3-margin-top w3-round">Login</button>
+                            </form>
                         </div>
                     </div>
                 </div>

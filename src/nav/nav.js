@@ -3,6 +3,7 @@ import '../index.css';
 import './nav.css';
 import { Link } from "react-router-dom";
 import { Cookies } from 'react-cookie'
+import logout from '../assets/img/logout.svg'
 
 class Nav extends React.Component{
     constructor(props){
@@ -76,6 +77,7 @@ class Admin extends React.Component {
                         <p className='w3-bar-item'>
                             {this.state.user}
                         </p>
+                        <img className='w3-bar-item' src={logout} alt={logout} style={{width: '100%', height: '50px'}} />
                     </div>
                 </nav>
             </div>
@@ -103,6 +105,7 @@ class Student extends React.Component {
                         <p className='w3-bar-item'>
                             {this.state.user}
                         </p>
+                        <img className='w3-bar-item' src={logout} alt={logout} style={{width: '100%', height: '50px'}} />
                     </div>
                 </nav>
             </div>
@@ -129,6 +132,7 @@ class Teacher extends React.Component {
                         <p className='w3-bar-item'>
                             {this.state.user}
                         </p>
+                        <img className='w3-bar-item w3-text-white' src={logout} alt={logout} style={{width: '70px', height: '70px'}} />
                     </div>
                 </nav>
             </div>
