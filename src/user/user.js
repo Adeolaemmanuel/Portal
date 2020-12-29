@@ -63,7 +63,7 @@ class Student extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={dashboard} alt="dashboard" className="svg" />
-                                    <h4><b>Dashboard</b></h4>
+                                    <h5><b>Dashboard</b></h5>
                                 </div>
                             </div>
                         </Link>
@@ -71,7 +71,7 @@ class Student extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={result} alt="result" className="svg" />
-                                    <h4><b>Result</b></h4>
+                                    <h5><b>Result</b></h5>
                                 </div>
                             </div>
                         </Link>
@@ -79,7 +79,7 @@ class Student extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={profile} alt="profile" className="svg" />
-                                    <h4><b>Profile</b></h4>
+                                    <h5><b>Profile</b></h5>
                                 </div>
                             </div>
                         </Link>
@@ -87,7 +87,7 @@ class Student extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={register} alt="register" className="svg" />
-                                    <h4><b>Register</b></h4>
+                                    <h5><b>Register</b></h5>
                                 </div>
                             </div>
                         </Link>
@@ -95,7 +95,7 @@ class Student extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={cbt} alt="profile" className="svg" />
-                                    <h4><b>CBT</b></h4>
+                                    <h5><b>CBT</b></h5>
                                 </div>
                             </div>
                         </Link>
@@ -103,7 +103,7 @@ class Student extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={chat} alt="profile" className="svg" />
-                                    <h4><b>Chat</b></h4>
+                                    <h5><b>Chat</b></h5>
                                 </div>
                             </div>
                         </Link>
@@ -123,7 +123,7 @@ class Teacher extends React.Component{
                     <div className="w3-col s6 m4 l4 w3-padding">
                         <div className="w3-card w3-padding w3-center w3-round">
                             <img src={result} alt="result" className="svg" />
-                            <h4><b>Result</b></h4>
+                            <h5><b>Result</b></h5>
                         </div>
                     </div>
                 </Link>
@@ -131,7 +131,7 @@ class Teacher extends React.Component{
                     <div className="w3-col s6 m4 l4 w3-padding">
                         <div className="w3-card w3-padding w3-center w3-round">
                             <img src={upload} alt="upload" className="svg" />
-                            <h4><b>Upload</b></h4>
+                            <h5><b>Upload</b></h5>
                         </div>
                     </div>
                 </Link>
@@ -139,7 +139,7 @@ class Teacher extends React.Component{
                     <div className="w3-col s6 m4 l4 w3-padding">
                         <div className="w3-card w3-padding w3-center w3-round">
                             <img src={profile} alt="profile" className="svg" />
-                            <h4><b>Profile</b></h4>
+                            <h5><b>Profile</b></h5>
                         </div>
                     </div>
                 </Link>
@@ -147,7 +147,7 @@ class Teacher extends React.Component{
                     <div className="w3-col s6 m4 l4 w3-padding">
                         <div className="w3-card w3-padding w3-center w3-round">
                             <img src={cbt} alt="profile" className="svg" />
-                            <h4><b>CBT</b></h4>
+                            <h5><b>CBT</b></h5>
                         </div>
                     </div>
                 </Link>
@@ -155,7 +155,7 @@ class Teacher extends React.Component{
                     <div className="w3-col s6 m4 l4 w3-padding">
                         <div className="w3-card w3-padding w3-center w3-round">
                             <img src={chat} alt="profile" className="svg" />
-                            <h4><b>Chat</b></h4>
+                            <h5><b>Chat</b></h5>
                         </div>
                     </div>
                 </Link>
@@ -174,7 +174,7 @@ class Admin extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={register} alt="register" className="svg" />
-                                    <h4><b>Register</b></h4>
+                                    <h5><b>Register</b></h5>
                                 </div>
                             </div>
                         </Link>
@@ -182,7 +182,7 @@ class Admin extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={result} alt="result" className="svg" />
-                                    <h4><b>Result</b></h4>
+                                    <h5><b>Result</b></h5>
                                 </div>
                             </div>
                         </Link>
@@ -190,7 +190,7 @@ class Admin extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={profile} alt="profile" className="svg" />
-                                    <h4><b>Profile</b></h4>
+                                    <h5><b>Profile</b></h5>
                                 </div>
                             </div>
                         </Link>
@@ -198,7 +198,7 @@ class Admin extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={upload} alt="upload" className="svg" />
-                                    <h4><b>Upload</b></h4>
+                                    <h5><b>Upload</b></h5>
                                 </div>
                             </div>
                         </Link>
@@ -206,7 +206,7 @@ class Admin extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={cbt} alt="profile" className="svg" />
-                                    <h4><b>CBT</b></h4>
+                                    <h5><b>CBT</b></h5>
                                 </div>
                             </div>
                         </Link>
@@ -214,7 +214,7 @@ class Admin extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={not} alt="profile" className="svg" />
-                                    <h4><b>Notifications</b></h4>
+                                    <h5><b>Notifications</b></h5>
                                 </div>
                             </div>
                         </Link>
@@ -222,7 +222,7 @@ class Admin extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={chat} alt="profile" className="svg" />
-                                    <h4><b>Chat</b></h4>
+                                    <h5><b>Chat</b></h5>
                                 </div>
                             </div>
                         </Link>
@@ -230,7 +230,7 @@ class Admin extends React.Component{
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
                                     <img src={settings} alt="profile" className="svg" />
-                                    <h4><b>Settings</b></h4>
+                                    <h5><b>Settings</b></h5>
                                 </div>
                             </div>
                         </Link>
