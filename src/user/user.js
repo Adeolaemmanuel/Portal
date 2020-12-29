@@ -1,5 +1,4 @@
 import React from 'react';
-import '../index.css';
 import './user.css';
 import Nav from '../nav/nav';
 import dashboard from '../assets/img/dashboard.svg';
@@ -58,7 +57,7 @@ class Student extends React.Component{
     render(){
         return (
             <div>
-                <div className="w3-container w3-margin-right top">
+                <div className="w3-container w3-margin-right w3-margin-top">
                     <div className="w3-row">
                         <Link to="/Dashboard">
                             <div className="w3-col s6 m4 l4 w3-padding">
@@ -119,7 +118,7 @@ class Student extends React.Component{
 class Teacher extends React.Component{
     render(){
         return(
-            <div className='w3-row top'>
+            <div className='w3-row w3-margin-top'>
                 <Link to="/Result">
                     <div className="w3-col s6 m4 l4 w3-padding">
                         <div className="w3-card w3-padding w3-center w3-round">
@@ -169,7 +168,7 @@ class Admin extends React.Component{
     render(){
         return(
             <div>
-                <div className="w3-container w3-margin-right top">
+                <div className="w3-container w3-margin-right w3-margin-top">
                     <div className="w3-row">
                         <Link to="/Register">
                             <div className="w3-col s6 m4 l4 w3-padding">

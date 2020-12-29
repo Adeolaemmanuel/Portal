@@ -1,5 +1,4 @@
 import React from 'react';
-import '../index.css';
 import './upload.css';
 import Nav from '../nav/nav';
 import { Cookies } from 'react-cookie'

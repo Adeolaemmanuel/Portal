@@ -1,5 +1,4 @@
 import React from 'react';
-import '../index.css';
 import './home.css';
 import Nav from '../nav/nav';
 import { db } from '../database'

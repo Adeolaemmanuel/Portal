@@ -1,5 +1,4 @@
 import React from 'react';
-import '../index.css';
 import './register.css';
 import Nav from '../nav/nav';
 import { db, firebase } from '../database'
