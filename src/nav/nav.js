@@ -87,7 +87,7 @@ class Admin extends React.Component {
                         <p className='w3-bar-item'>
                             {this.state.user}
                         </p>
-                        <img className='w3-bar-item' src={logout} alt={logout} onClick={this.logout} style={{width: '100%', height: '50px'}} />
+                        <img className='w3-bar-item' src={logout} alt={logout} onClick={this.logout} style={{width: '70px', height: '70px'}} />
                     </div>
                 </nav>
             </div>
@@ -125,7 +125,7 @@ class Student extends React.Component {
                         <p className='w3-bar-item'>
                             {this.state.user}
                         </p>
-                        <img className='w3-bar-item' src={logout} alt={logout} onClick={this.logout} style={{width: '100%', height: '50px'}} />
+                        <img className='w3-bar-item' src={logout} alt={logout} onClick={this.logout} style={{width: '70px', height: '70px'}} />
                     </div>
                 </nav>
             </div>
