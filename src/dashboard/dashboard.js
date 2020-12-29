@@ -217,7 +217,7 @@ class User extends React.Component{
                                 <span className='w3-padding w3-deep-orange'>Notifications</span>
                             </div>
 
-                            <div id='created' className='w3-margin-top'>
+                            <div id='created' className='w3-margin-bottom'>
                                 {
                                     this.state.notifications.map((arr, ind)=>{
                                         return(

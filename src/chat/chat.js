@@ -92,7 +92,7 @@ class Admin extends Component{
             }
             console.log(chat)
             db.collection('Admin').doc('Chats').collection(data[0]['value']).doc('chat').set({messages: firebase.firestore.FieldValue.arrayUnion(chat)})
-            .then(()=>{alert('sent')})
+            .then(()=>{alert('Sent')})
         }
         
     }
@@ -113,7 +113,7 @@ class Admin extends Component{
                         chats[id]['Chat'].push(chat.Chat)
                         //console.log(chats[id])
                         db.collection('Admin').doc('Chats').collection(data[2].value).doc('chat').set({messages: firebase.firestore.FieldValue.arrayUnion(chats[id])})
-                        .then(()=>{alert('sent')})
+                        .then(()=>{alert('Sent')})
                     }
                 })
             }
@@ -297,7 +297,7 @@ class Student extends Component{
                 chat.Chat= [{mesage: data[x].value, sender: this.state.id}]
             }
             db.collection('Admin').doc('Chats').collection(this.state.id).doc('chat').set({messages: firebase.firestore.FieldValue.arrayUnion(chat)})
-            .then(()=>{alert('sent')})
+            .then(()=>{alert('Sent')})
         }
         //console.log(data)
     }
@@ -319,7 +319,7 @@ class Student extends Component{
                         chats[id]['Chat'].push(chat.Chat)
                         //console.log(chats[id])
                         db.collection('Admin').doc('Chats').collection(this.state.id).doc('chat').set({messages: firebase.firestore.FieldValue.arrayUnion(chats[id])})
-                        .then(()=>{alert('sent')})
+                        .then(()=>{alert('Sent')})
                     }
                 })
             }
@@ -485,7 +485,7 @@ class Teacher extends Component{
                 chat.Chat= [{mesage: data[x].value, sender: this.state.id}]
             }
             db.collection('Admin').doc('Chats').collection(this.state.id).doc('chat').set({messages: firebase.firestore.FieldValue.arrayUnion(chat)})
-            .then(()=>{alert('sent')})
+            .then(()=>{alert('Sent')})
         }
         //console.log(data)
     }
@@ -506,7 +506,7 @@ class Teacher extends Component{
                         chats[id]['Chat'].push(chat.Chat)
                         //console.log(chats[id])
                         db.collection('Admin').doc('Chats').collection(this.state.id).doc('chat').set({messages: firebase.firestore.FieldValue.arrayUnion(chats[id])})
-                        .then(()=>{alert('sent')})
+                        .then(()=>{alert('Sent')})
                     }
                 })
             }

@@ -161,7 +161,7 @@ class Upload extends React.Component{
                                             <div className='w3-col s6 m4 l4 w3-padding' id={arr} onClick={this.subjectId}>
                                                 <div className='w3-padding w3-card w3-margin-top' id={arr} onClick={this.subjectId} >
                                                     <img src={folder} alt='' id={arr} onClick={this.subjectId}  style={{width:'100%', height:'60px'}} />
-                                                    <div className='w3-padding w3-center w3-bold resultId' id={arr} onClick={this.subjectId} style={{width:'100%'}}>{arr}</div>
+                                                    <div className='w3-padding w3-center w3-bold w3-small resultId' id={arr} onClick={this.subjectId} style={{width:'100%'}}>{arr}</div>
                                                 </div>
                                             </div>
                                         )
