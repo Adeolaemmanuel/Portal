@@ -63,12 +63,16 @@ class Admin extends React.Component{
     getProfile(e){
         e.preventDefault()
         let id = e.target.elements.search.value
-        db.collection('Users').doc(id).get().then(user=>{
-            if(user.exists){
-                console.log(user.data())
-                this.setState({profile: user.data(), profileId: id})
-            }
-        })
+        if(id){
+            db.collection('Users').doc(id).get().then(user=>{
+                if(user.exists){
+                    console.log(user.data())
+                    this.setState({profile: user.data(), profileId: id})
+                }
+            })
+        }else{
+            alert('Input Reg No')
+        }
         console.log(this.state.profile)
         return id
     }
@@ -85,7 +89,7 @@ class Admin extends React.Component{
         }
         console.log(data);
         if(this.state.profile >= 0){ alert('Search for user')}
-        else{
+        else if(data.firstname && data.lastname && data.sponsorname && data.gender && data.email && data.dob){
             db.collection('Users').doc(this.state.profileId).update({
                 'First name': data.firstname,
                 'Last name': data.lastname,
@@ -101,6 +105,8 @@ class Admin extends React.Component{
                     }
                 })
             }).catch(e=>{console.log(e)})
+        }else{
+            alert('Some fields are missing')
         }
     }
 
@@ -292,7 +298,9 @@ class Admin extends React.Component{
                                             <input type="date"  className='w3-input w3-border w3-round' id='dob' />   
                                         </div>
                                     </div>
-                                    <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
+                                    <div className='w3-padding w3-center w3-margin-bottom w3-margin-top'>
+                                        <button className='w3-btn w3-round w3-deep-orange' style={{width: '400px'}}>Submit</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -363,7 +371,7 @@ class Student extends React.Component{
     
 
     render(){
-        if(window.matchMedia("(max-width: 767px)")){
+        if(window.matchMedia("(max-width: 767px)").matches){
             return (
                 <div className='w3-row'>
                     <div className='w3-col s6 w3-btn w3-deep-orange' onClick={(e)=>this.tab('profiles','results')}>Profile</div>
@@ -520,7 +528,9 @@ class Student extends React.Component{
                                         <input type="date" value={this.state.profile['DOB']} className='w3-input w3-border w3-round' id='dob' />   
                                     </div>
                                 </div>
-                                <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
+                                <div className='w3-padding w3-center w3-margin-bottom w3-margin-top'>
+                                    <button className='w3-btn w3-round w3-deep-orange' style={{width: '400px'}}>Submit</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -737,7 +747,9 @@ class Teacher extends React.Component{
                                         <input type="date" value={this.state.profile['DOB']} className='w3-input w3-border w3-round' id='dob' />   
                                     </div>
                                 </div>
-                                <button className='w3-btn w3-margin-bottom w3-margin-top w3-round w3-block w3-deep-orange'>Submit</button>
+                                <div className='w3-padding w3-center w3-margin-bottom w3-margin-top'>
+                                    <button className='w3-btn w3-round w3-deep-orange' style={{width: '400px'}}>Submit</button>
+                                </div>
                             </form>
                         </div>
                     </div>

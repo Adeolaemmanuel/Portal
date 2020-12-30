@@ -4,7 +4,7 @@ import Nav from '../nav/nav';
 import { db, firebase } from '../database'
 import { Cookies } from 'react-cookie'
 import $ from 'jquery'
-import { MdFolder } from "react-icons/md";
+import { FcFolder } from "react-icons/fc";
 
 class Register extends React.Component{
     constructor(props){
@@ -191,12 +191,12 @@ class Student extends React.Component{
                         <div className='w3-col s6 w3-btn w3-deep-orange' onClick={(e)=>this.tab('registers','folders')}>Register Course</div>
 
                         <div className='w3-row' id='folders'>
-                            <div className='w3-container'>
+                            <div className='w3-container w3-center'>
                                 {
                                     this.state.class.map(arr=>{
                                         return (
-                                            <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center class' id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>
-                                                <MdFolder style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.getSubject(e, 'class', arr)}} />
+                                            <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center class'  style={{width: '300px',display: 'inline-block'}} id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>
+                                                <FcFolder style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.getSubject(e, 'class', arr)}} />
                                                 <p  id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>{arr}</p>
                                             </div>
                                         )
@@ -212,12 +212,12 @@ class Student extends React.Component{
                                                 })
                                             }
                                         </select>  
-                                        <button className='w3-btn w3-margin-top w3-orange' onClick={(e)=>{this.getSubject(e, 'term')}}>Submit</button>       
+                                        <button className='w3-btn w3-margin-top w3-deep-orange w3-text-white' onClick={(e)=>{this.getSubject(e, 'term')}}>Next</button>       
                                 </div>
                                 <form id='year' style={{display:'none'}}>
                                     <div className='w3-card w3-padding w3-round w3-margin-top w3-center'>
                                         <input type='number' className='w3-input w3-border' placeholder='Year' id='num' />
-                                        <button className='w3-btn w3-margin-top w3-orange' onClick={(e)=>{this.getSubject(e, 'sub')}}>Submit</button>
+                                        <button className='w3-btn w3-margin-top w3-deep-orange' onClick={(e)=>{this.getSubject(e, 'sub')}}>Submit</button>
                                     </div>
                                 </form>
                                 {
@@ -225,7 +225,7 @@ class Student extends React.Component{
                                         if(this.state.regSub.length === 0){
                                             return(
                                                 <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center sub' style={{display:'none'}}>
-                                                    <MdFolder style={{width: '70px', height: '70px'}} alt=''  id={arr} />
+                                                    <FcFolder style={{width: '70px', height: '70px'}} alt=''  id={arr} />
                                                     <p key={arr}>{arr}</p>
                                                 </div>
                                             )
@@ -291,12 +291,12 @@ class Student extends React.Component{
                             <div className='w3-center w3-margin-top'>
                                 <span className='w3-padding w3-deep-orange'>Registered Subjetcs</span>
                             </div>
-                            <div className='w3-container'>
+                            <div className='w3-container w3-center'>
                                 {
                                     this.state.class.map(arr=>{
                                         return (
-                                            <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center class' id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>
-                                                <MdFolder style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.getSubject(e, 'class', arr)}} />
+                                            <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center class' style={{width: '300px',display: 'inline-block'}} id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>
+                                                <FcFolder style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.getSubject(e, 'class', arr)}} />
                                                 <p  id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>{arr}</p>
                                             </div>
                                         )
@@ -325,7 +325,7 @@ class Student extends React.Component{
                                         if(this.state.regSub.length === 0){
                                             return(
                                                 <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center sub' style={{display:'none'}}>
-                                                    <MdFolder style={{width: '70px', height: '70px'}}  id={arr} />
+                                                    <FcFolder style={{width: '70px', height: '70px'}}  id={arr} />
                                                     <p key={arr}>{arr}</p>
                                                 </div>
                                             )

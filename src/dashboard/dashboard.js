@@ -316,7 +316,7 @@ class User extends React.Component{
                                         return(
                                             <div className='w3-half w3-padding'>
                                                 <div className="w3-light-grey w3-round">
-                                                    <div className={"w3-container w3-padding w3-center w3-bold w3-card w3-round w3-text-black "+arr['color']} style={{width: `${arr['value']}%`}}>{arr['name']}</div>
+                                                    <div className={"w3-container w3-padding w3-center w3-bold w3-card anim w3-round w3-text-black "+arr['color']} style={{width: `${arr['value']}%`}}>{arr['name']}</div>
                                                 </div>
                                             </div>
                                         )
