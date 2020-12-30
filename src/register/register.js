@@ -4,7 +4,7 @@ import Nav from '../nav/nav';
 import { db, firebase } from '../database'
 import { Cookies } from 'react-cookie'
 import $ from 'jquery'
-import folder from '../assets/img/folder.svg'
+import { MdFolder } from "react-icons/md";
 
 class Register extends React.Component{
     constructor(props){
@@ -196,7 +196,7 @@ class Student extends React.Component{
                                     this.state.class.map(arr=>{
                                         return (
                                             <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center class' id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>
-                                                <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.getSubject(e, 'class', arr)}} />
+                                                <MdFolder style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.getSubject(e, 'class', arr)}} />
                                                 <p  id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>{arr}</p>
                                             </div>
                                         )
@@ -225,7 +225,7 @@ class Student extends React.Component{
                                         if(this.state.regSub.length === 0){
                                             return(
                                                 <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center sub' style={{display:'none'}}>
-                                                    <img src={folder} style={{width: '70px', height: '70px'}} alt=''  id={arr} />
+                                                    <MdFolder style={{width: '70px', height: '70px'}} alt=''  id={arr} />
                                                     <p key={arr}>{arr}</p>
                                                 </div>
                                             )
@@ -296,7 +296,7 @@ class Student extends React.Component{
                                     this.state.class.map(arr=>{
                                         return (
                                             <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center class' id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>
-                                                <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.getSubject(e, 'class', arr)}} />
+                                                <MdFolder style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.getSubject(e, 'class', arr)}} />
                                                 <p  id={arr} key='' onClick={(e)=>{this.getSubject(e, 'class', arr)}}>{arr}</p>
                                             </div>
                                         )
@@ -325,7 +325,7 @@ class Student extends React.Component{
                                         if(this.state.regSub.length === 0){
                                             return(
                                                 <div className='w3-card w3-padding w3-round w3-margin-top w3-bold w3-border w3-center sub' style={{display:'none'}}>
-                                                    <img src={folder} style={{width: '70px', height: '70px'}} alt=''  id={arr} />
+                                                    <MdFolder style={{width: '70px', height: '70px'}}  id={arr} />
                                                     <p key={arr}>{arr}</p>
                                                 </div>
                                             )

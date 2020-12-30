@@ -3,8 +3,8 @@ import './result.css';
 import Nav from '../nav/nav';
 import { db} from '../database'
 import { Cookies } from 'react-cookie'
-import folder from '../assets/img/folder.svg'
-import back from '../assets/img/left-arrow.svg'
+import { IoArrowBackOutline } from "react-icons/io5";
+import { MdFolder } from "react-icons/md";
 
 class Result extends React.Component{
     constructor(props){
@@ -119,7 +119,7 @@ class Admin extends React.Component{
                             <form onSubmit ={this.getSubject}>
                                 <input className='w3-input w3-border w3-round' type='text' id='id' placeholder="Input Reg" />
                                 <div className='w3-padding' id='backD' style={{display: 'none'}}>
-                                    <img src={back} alt='' className='w3-margin-top' onClick={this.backFolder} style={{width:'100%', height: '40px'}} />
+                                    <MdFolder className='w3-margin-top' onClick={this.backFolder} style={{width:'100%', height: '40px'}} />
                                 </div>
                                 <div className='w3-center'id='searchD'>
                                     <button className='w3-btn w3-deep-orange w3-round w3-margin-top w3-margin-left' >Search</button>
@@ -149,7 +149,7 @@ class Admin extends React.Component{
                                         return(
                                             <div className='w3-col s6 m4 l4 w3-padding' id={arr} onClick={this.subjectId}>
                                                 <div className='w3-padding w3-card w3-margin-top' id={arr} onClick={this.subjectId} >
-                                                    <img src={folder} alt='' id={arr} onClick={this.subjectId}  style={{width:'100%', height:'60px'}} />
+                                                    <MdFolder id={arr} onClick={this.subjectId}  style={{width:'100%', height:'60px'}} />
                                                     <div className='w3-padding w3-center w3-bold w3-small resultId' id={arr} onClick={this.subjectId} style={{width:'100%'}}>{arr}</div>
                                                 </div>
                                             </div>
@@ -219,7 +219,7 @@ class Student extends React.Component{
         let id = e.target.id
         let resultId = document.getElementById('resultId');
         let result =  document.getElementById('result')
-        let back =  document.getElementById('back')
+        let back =  document.getElementById('backD')
         //console.log(id)
         resultId.style.display = 'none'
         result.style.display = 'block'
@@ -234,7 +234,7 @@ class Student extends React.Component{
     backFolder(){
         let resultId = document.getElementById('resultId');
         let result =  document.getElementById('result')
-        let back =  document.getElementById('back')
+        let back =  document.getElementById('backD')
         resultId.style.display = 'block'
         result.style.display = 'none'
         back.style.display = 'none'
@@ -251,7 +251,7 @@ class Student extends React.Component{
                                     <span className='w3-padding w3-deep-orange'>Result | {this.state.id}</span>
                                 </div>
                                 <div className='w3-padding'  id="backD" style={{display: 'none'}}>
-                                    <img src={back} alt='' className='w3-margin-top' onClick={this.backFolder} style={{width:'100%', height: '40px'}} />
+                                    <IoArrowBackOutline className='w3-margin-top' onClick={this.backFolder} style={{width:'100%', height: '40px'}} />
                                 </div>
                                 <div className='w3-col s3 m4 l4'>
                                     {
@@ -272,7 +272,7 @@ class Student extends React.Component{
                                         return(
                                             <div className='w3-col s6 m4 l4 w3-padding' id={arr} onClick={this.subjectId}>
                                                 <div className='w3-padding w3-card w3-margin-top' id={arr} onClick={this.subjectId} >
-                                                    <img src={folder} alt='' id={arr} onClick={this.subjectId}  style={{width:'100%', height:'60px'}} />
+                                                    <MdFolder id={arr} onClick={this.subjectId}  style={{width:'100%', height:'60px'}} />
                                                     <div className='w3-padding w3-center w3-bold resultId w3-small' id={arr} onClick={this.subjectId} style={{width:'100%'}}>{arr}</div>
                                                 </div>
                                             </div>
@@ -386,7 +386,7 @@ class Teacher extends React.Component{
                             <form onSubmit ={this.getSubject}>
                                 <input className='w3-input w3-border w3-round' type='text' id='id' placeholder="Input Reg" />
                                 <div className='w3-padding' id='backD' style={{display: 'none'}}>
-                                    <img src={back} alt='' className='w3-margin-top' onClick={this.backFolder} style={{width:'100%', height: '40px'}} />
+                                    <IoArrowBackOutline className='w3-margin-top' onClick={this.backFolder} style={{width:'100%', height: '40px'}} />
                                 </div>
                                 <div className='w3-center'id='searchD'>
                                     <button className='w3-btn w3-deep-orange w3-round w3-margin-top w3-margin-left' >Search</button>
@@ -416,7 +416,7 @@ class Teacher extends React.Component{
                                         return(
                                             <div className='w3-col s6 m4 l4 w3-padding' id={arr} onClick={this.subjectId}>
                                                 <div className='w3-padding w3-card w3-margin-top' id={arr} onClick={this.subjectId} >
-                                                    <img src={folder} alt='' id={arr} onClick={this.subjectId}  style={{width:'100%', height:'60px'}} />
+                                                    <MdFolder id={arr} onClick={this.subjectId}  style={{width:'100%', height:'60px'}} />
                                                     <div className='w3-padding w3-center w3-bold w3-small resultId' id={arr} onClick={this.subjectId} style={{width:'100%'}}>{arr}</div>
                                                 </div>
                                             </div>

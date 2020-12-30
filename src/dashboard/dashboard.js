@@ -93,7 +93,24 @@ class User extends React.Component{
                         //this.setState({subjects: sub.data().subjects})
                         //console.log(sub.data().subjects)
                     })
-                    console.log(this.pr)
+                    console.log(this.present)
+                })
+            }
+        }
+        if(pram === 'backward'){
+            this.present = this.present - 1
+            if(this.present !== this.total){
+                db.collection('Users').doc(this.state.id).get().then(user=>{
+                    let subjectId = user.data().subjectId
+                    this.total = subjectId.length
+                    //if(t)
+                    //this.present = subjectId.indexOf(subjectId[this.total-1]);
+                    db.collection('Details').doc(this.state.id).collection('subjects').doc(subjectId[this.present]).get()
+                    .then(sub=>{
+                        //this.setState({subjects: sub.data().subjects})
+                        //console.log(sub.data().subjects)
+                    })
+                    console.log(this.present)
                 })
             }
         }
