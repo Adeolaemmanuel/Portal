@@ -79,12 +79,11 @@ class User extends React.Component{
 
     total //original length
     present
-    index = 0
 
     changeStats(pram){
         if(pram === 'forward'){
             this.present = this.present + 1
-            if(this.present !== this.total || this.present >= this.total){
+            if(this.present <= this.total){
                 db.collection('Users').doc(this.state.id).get().then(user=>{
                     let subjectId = user.data().subjectId
                     this.total = subjectId.length
@@ -100,10 +99,10 @@ class User extends React.Component{
                 })
             }
         }
-        console.log(this.present);
+        
         if(pram === 'backward'){
             this.present = this.present - 1
-            if(this.present !== -1){
+            if(this.present <= 0){
                 db.collection('Users').doc(this.state.id).get().then(user=>{
                     let subjectId = user.data().subjectId
                     this.total = subjectId.length
@@ -307,8 +306,8 @@ class User extends React.Component{
                             <div className='w3-container'>
                                 <div className='w3-row' id='statsInfo' style={{display:'none'}}>
                                     <nav className='w3-bar'>
-                                        <BsFillCaretLeftFill className='w3-bar-item w3-padding w3-deep-orange' onClick={(e)=>{this.changeStats('backward')}} style={{width:'50px', height: '50px'}} />
-                                        <BsFillCaretRightFill className='w3-bar-item w3-right w3-padding w3-deep-orange' onClick={(e)=>{this.changeStats('forward')}} style={{width:'50px', height: '50px'}} />
+                                        <BsFillCaretLeftFill id='right' className='w3-bar-item w3-padding w3-deep-orange' onClick={(e)=>{this.changeStats('backward')}} style={{width:'50px', height: '50px'}} />
+                                        <BsFillCaretRightFill id='left' className='w3-bar-item w3-right w3-padding w3-deep-orange' onClick={(e)=>{this.changeStats('forward')}} style={{width:'50px', height: '50px'}} />
                                     </nav>
                                     <div className='w3-col m4 l4 w3-center w3-margin-top'>
                                         <span className='w3-padding w3-deep-orange'>Details</span>
