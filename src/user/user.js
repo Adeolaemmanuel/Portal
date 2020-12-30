@@ -1,17 +1,13 @@
 import React from 'react';
 import './user.css';
 import Nav from '../nav/nav';
-import dashboard from '../assets/img/dashboard.svg';
-import profile from '../assets/img/profile-user.svg';
-import result from '../assets/img/result.svg';
-import register from '../assets/img/stamped.svg';
-import upload from '../assets/img/upload.svg';
+import { FaUserPlus } from "react-icons/fa";
 import cbt from '../assets/img/online-test.svg';
 import settings from '../assets/img/settings.svg';
-import not from '../assets/img/not.svg';
-import chat from '../assets/img/chat.svg';
+import { VscBellDot } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { Cookies } from 'react-cookie'
+import { FcManager,FcComboChart,FcViewDetails,FcFaq,FcUpload } from "react-icons/fc";
 
 
 class User extends React.Component{
@@ -62,7 +58,7 @@ class Student extends React.Component{
                         <Link to="/Dashboard">
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
-                                    <img src={dashboard} alt="dashboard" className="svg" />
+                                    <FcComboChart alt="dashboard" className="svg" />
                                     <h5><b>Dashboard</b></h5>
                                 </div>
                             </div>
@@ -70,7 +66,7 @@ class Student extends React.Component{
                         <Link to="/Result">
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
-                                    <img src={result} alt="result" className="svg" />
+                                    <FcViewDetails alt="result" className="svg" />
                                     <h5><b>Result</b></h5>
                                 </div>
                             </div>
@@ -78,7 +74,7 @@ class Student extends React.Component{
                         <Link to='/Profile'>
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
-                                    <img src={profile} alt="profile" className="svg" />
+                                    <FcManager className="svg" />
                                     <h5><b>Profile</b></h5>
                                 </div>
                             </div>
@@ -86,7 +82,7 @@ class Student extends React.Component{
                         <Link to='Register'>
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
-                                    <img src={register} alt="register" className="svg" />
+                                    <FaUserPlus className="svg" />
                                     <h5><b>Register</b></h5>
                                 </div>
                             </div>
@@ -102,7 +98,7 @@ class Student extends React.Component{
                         <Link to='/Chat'>
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
-                                    <img src={chat} alt="profile" className="svg" />
+                                    <FcFaq alt="profile" className="svg" />
                                     <h5><b>Chat</b></h5>
                                 </div>
                             </div>
@@ -122,7 +118,7 @@ class Teacher extends React.Component{
                 <Link to="/Result">
                     <div className="w3-col s6 m4 l4 w3-padding">
                         <div className="w3-card w3-padding w3-center w3-round">
-                            <img src={result} alt="result" className="svg" />
+                            <FcViewDetails alt="result" className="svg" />
                             <h5><b>Result</b></h5>
                         </div>
                     </div>
@@ -130,7 +126,7 @@ class Teacher extends React.Component{
                 <Link to='/Upload'>
                     <div className="w3-col s6 m4 l4 w3-padding">
                         <div className="w3-card w3-padding w3-center w3-round">
-                            <img src={upload} alt="upload" className="svg" />
+                            <FcUpload className="svg" />
                             <h5><b>Upload</b></h5>
                         </div>
                     </div>
@@ -138,7 +134,7 @@ class Teacher extends React.Component{
                 <Link to='/Profile'>
                     <div className="w3-col s6 m4 l4 w3-padding">
                         <div className="w3-card w3-padding w3-center w3-round">
-                            <img src={profile} alt="profile" className="svg" />
+                            <FcManager alt="profile" className="svg" />
                             <h5><b>Profile</b></h5>
                         </div>
                     </div>
@@ -154,7 +150,7 @@ class Teacher extends React.Component{
                 <Link to='/Chat'>
                     <div className="w3-col s6 m4 l4 w3-padding">
                         <div className="w3-card w3-padding w3-center w3-round">
-                            <img src={chat} alt="profile" className="svg" />
+                            <FcFaq alt="profile" className="svg" />
                             <h5><b>Chat</b></h5>
                         </div>
                     </div>
@@ -173,7 +169,7 @@ class Admin extends React.Component{
                         <Link to="/Register">
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
-                                    <img src={register} alt="register" className="svg" />
+                                    <FaUserPlus className="svg" />
                                     <h5><b>Register</b></h5>
                                 </div>
                             </div>
@@ -181,7 +177,7 @@ class Admin extends React.Component{
                         <Link to="/Result">
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
-                                    <img src={result} alt="result" className="svg" />
+                                    <FcViewDetails alt="result" className="svg" />
                                     <h5><b>Result</b></h5>
                                 </div>
                             </div>
@@ -189,7 +185,7 @@ class Admin extends React.Component{
                         <Link to='/Profile'>
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
-                                    <img src={profile} alt="profile" className="svg" />
+                                    <FcManager alt="profile" className="svg" />
                                     <h5><b>Profile</b></h5>
                                 </div>
                             </div>
@@ -197,7 +193,7 @@ class Admin extends React.Component{
                         <Link to='/Upload'>
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
-                                    <img src={upload} alt="upload" className="svg" />
+                                    <FcUpload className="svg" />
                                     <h5><b>Upload</b></h5>
                                 </div>
                             </div>
@@ -213,7 +209,7 @@ class Admin extends React.Component{
                         <Link to='/Notification'>
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
-                                    <img src={not} alt="profile" className="svg" />
+                                    <VscBellDot  className="svg" />
                                     <h5><b>Notifications</b></h5>
                                 </div>
                             </div>
@@ -221,7 +217,7 @@ class Admin extends React.Component{
                         <Link to='/Chat'>
                             <div className="w3-col s6 m4 l4 w3-padding">
                                 <div className="w3-card w3-padding w3-center w3-round">
-                                    <img src={chat} alt="profile" className="svg" />
+                                    <FcFaq alt="profile" className="svg" />
                                     <h5><b>Chat</b></h5>
                                 </div>
                             </div>

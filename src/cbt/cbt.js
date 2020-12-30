@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import Nav from '../nav/nav'
-import folder from '../assets/img/folder.svg'
+import { IoArrowBackOutline, IoArrowForwardOutline } from "react-icons/io5";
+import { FcFolder } from "react-icons/fc";
 import { Cookies } from 'react-cookie'
-import back from '../assets/img/left-arrow.svg'
-import forward from '../assets/img/right-arrow.svg'
 import { db, firebase, } from '../database'
 import $ from 'jquery'
 
@@ -205,10 +204,10 @@ class Admin extends Component {
                 <>
                     <div className='w3-row' style={{display: 'none'}}>
                         <div className='w3-col s6' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}}>
-                            <img src={back} alt='' id="back" className='w3-margin-top'  style={{width:'100%', height: '40px'}} />
+                            <IoArrowBackOutline id="back" className='w3-margin-top'  style={{width:'100%', height: '40px'}} />
                         </div>
                         <div className='w3-col s6'>
-                            <img src={forward} alt='' id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
+                            <IoArrowForwardOutline id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
                         </div>
                     </div>
                     <div className='w3-col s6 w3-btn w3-deep-orange tabs' style={{display: 'none'}} onClick={(e)=>this.tabM('CBT','questions',true)}>Set CBT</div>
@@ -218,7 +217,7 @@ class Admin extends Component {
                             this.state.subject.map(arr=>{
                                 return(
                                     <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>
-                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}  />
+                                        <FcFolder style={{width: '70px', height: '70px'}}  key={arr}  id={arr} onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}  />
                                         <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>{arr}</p>
                                     </div>
                                 )
@@ -230,7 +229,7 @@ class Admin extends Component {
                             this.state.class.map(arr=>{
                                 return(
                                     <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>
-                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
+                                        <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                         <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>{arr}</p>
                                     </div>
                                 )
@@ -242,7 +241,7 @@ class Admin extends Component {
                             this.state.term.map(arr=>{
                                 return(
                                     <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>
-                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'term', arr)}}  id={arr}  />
+                                        <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                         <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>{arr}</p>
                                     </div>
                                 )
@@ -309,10 +308,10 @@ class Admin extends Component {
                 <>
                     <div className='w3-row' style={{display: 'none'}}>
                         <div className='w3-half' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}}>
-                            <img src={back} alt='' id="back" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}} style={{width:'100%', height: '40px'}} />
+                            <IoArrowBackOutline id="back" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}} style={{width:'100%', height: '40px'}} />
                         </div>
                         <div className='w3-half'>
-                            <img src={forward} alt='' id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
+                            <IoArrowForwardOutline id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
                         </div>
                     </div>
                     <div className='w3-row' id='subjects'>
@@ -320,7 +319,7 @@ class Admin extends Component {
                             this.state.subject.map(arr=>{
                                 return(
                                     <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>
-                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}  />
+                                        <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                         <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>{arr}</p>
                                     </div>
                                 )
@@ -332,7 +331,7 @@ class Admin extends Component {
                             this.state.class.map(arr=>{
                                 return(
                                     <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>
-                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
+                                        <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                         <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>{arr}</p>
                                     </div>
                                 )
@@ -344,7 +343,7 @@ class Admin extends Component {
                             this.state.term.map(arr=>{
                                 return(
                                     <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>
-                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'term', arr)}}  id={arr}  />
+                                        <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                         <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>{arr}</p>
                                     </div>
                                 )
@@ -567,10 +566,10 @@ class Teacher extends Component {
                 <>
                     <div className='w3-row' style={{display: 'none'}}>
                         <div className='w3-col s6' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}}>
-                            <img src={back} alt='' id="back" className='w3-margin-top'  style={{width:'100%', height: '40px'}} />
+                            <IoArrowBackOutline id="back" className='w3-margin-top'  style={{width:'100%', height: '40px'}} />
                         </div>
                         <div className='w3-col s6'>
-                            <img src={forward} alt='' id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
+                            <IoArrowForwardOutline id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
                         </div>
                     </div>
                     <div className='w3-col s6 w3-btn w3-deep-orange tabs' style={{display: 'none'}} onClick={(e)=>this.tabM('CBT','questions',true)}>Set CBT</div>
@@ -580,7 +579,7 @@ class Teacher extends Component {
                             this.state.subject.map(arr=>{
                                 return(
                                     <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>
-                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}  />
+                                        <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                         <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>{arr}</p>
                                     </div>
                                 )
@@ -592,7 +591,7 @@ class Teacher extends Component {
                             this.state.class.map(arr=>{
                                 return(
                                     <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>
-                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
+                                        <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                         <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>{arr}</p>
                                     </div>
                                 )
@@ -604,7 +603,7 @@ class Teacher extends Component {
                             this.state.term.map(arr=>{
                                 return(
                                     <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>
-                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'term', arr)}}  id={arr}  />
+                                        <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                         <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>{arr}</p>
                                     </div>
                                 )
@@ -672,10 +671,10 @@ class Teacher extends Component {
                 <>
                     <div className='w3-row' style={{display: 'none'}}>
                         <div className='w3-half' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}}>
-                            <img src={back} alt='' id="back" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}} style={{width:'100%', height: '40px'}} />
+                            <IoArrowBackOutline id="back" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}} style={{width:'100%', height: '40px'}} />
                         </div>
                         <div className='w3-half'>
-                            <img src={forward} alt='' id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
+                            <IoArrowForwardOutline id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
                         </div>
                     </div>
                     <div className='w3-row' id='subjects'>
@@ -683,7 +682,7 @@ class Teacher extends Component {
                             this.state.subject.map(arr=>{
                                 return(
                                     <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>
-                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}  />
+                                        <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                         <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>{arr}</p>
                                     </div>
                                 )
@@ -695,7 +694,7 @@ class Teacher extends Component {
                             this.state.class.map(arr=>{
                                 return(
                                     <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>
-                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
+                                        <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                         <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>{arr}</p>
                                     </div>
                                 )
@@ -707,7 +706,7 @@ class Teacher extends Component {
                             this.state.term.map(arr=>{
                                 return(
                                     <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>
-                                        <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'term', arr)}}  id={arr}  />
+                                        <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                         <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>{arr}</p>
                                     </div>
                                 )
@@ -949,10 +948,10 @@ class Student extends Component {
             <>
                 <div className='w3-row' style={{display: 'none'}}>
                     <div className='w3-col s6' onClick={(e)=>{this.folderClick(e, this.state.back, this.state.folder)}}>
-                        <img src={back} alt='' id="back" className='w3-margin-top'  style={{width:'100%', height: '40px'}} />
+                        <IoArrowBackOutline id="back" className='w3-margin-top'  style={{width:'100%', height: '40px'}} />
                     </div>
                     <div className='w3-col s6'>
-                        <img src={forward} alt='' id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
+                        <IoArrowForwardOutline id="forward" className='w3-margin-top' onClick={(e)=>{this.folderClick(e, this.state.forward, this.state.arr)}} style={{width:'100%', height: '40px'}} />
                     </div>
                 </div>
                 <div className='w3-row' id='subjects'>
@@ -960,7 +959,7 @@ class Student extends Component {
                         this.state.subject.map(arr=>{
                             return(
                                 <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>
-                                    <img src={folder} style={{width: '70px', height: '70px'}} alt='' key=''  id={arr} onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}  />
+                                    <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                     <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'subjects', arr)}}>{arr}</p>
                                 </div>
                             )
@@ -972,7 +971,7 @@ class Student extends Component {
                         this.state.class.map(arr=>{
                             return(
                                 <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>
-                                    <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
+                                    <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                     <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'class', arr)}}>{arr}</p>
                                 </div>
                             )
@@ -984,7 +983,7 @@ class Student extends Component {
                         this.state.term.map(arr=>{
                             return(
                                 <div className='w3-col s6 m4 l4 w3-padding w3-center w3-border' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>
-                                    <img src={folder} style={{width: '70px', height: '70px'}} alt='' key='' onClick={(e)=>{this.folderClick(e, 'term', arr)}}  id={arr}  />
+                                    <FcFolder style={{width: '70px', height: '70px'}} key={arr} onClick={(e)=>{this.folderClick(e, 'class', arr)}}  id={arr}  />
                                     <p className='w3-bold' onClick={(e)=>{this.folderClick(e, 'term', arr)}}>{arr}</p>
                                 </div>
                             )
