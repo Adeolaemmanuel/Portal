@@ -45,6 +45,7 @@ class User extends React.Component{
             id: cookie.get('id'),
             subjects: [],
             notifications: [],
+            details: {}
         }
         this.tab = this.tab.bind(this)
         this.accordion = this.accordion.bind(this)
@@ -63,13 +64,14 @@ class User extends React.Component{
             })
             let subjectId = user.data().subjectId
             let len = subjectId.length
-            this.present = subjectId.length
+            this.present = subjectId.length-1
             db.collection('Details').doc(this.state.id).collection('subjects').doc(subjectId[len-1]).get()
             .then(sub=>{
                 this.setState({subjects: sub.data().subjects})
+                this.setState({details: {term: sub.data().term, class: sub.data().class}})
                 let statsInfo = document.getElementById('statsInfo')
                 statsInfo.style.display = 'block'
-                //console.log(sub.data().subjects)
+                console.log(sub.data().subjects)
             })
             //console.log(subjectId[len -1])
         })
@@ -81,8 +83,8 @@ class User extends React.Component{
 
     changeStats(pram){
         if(pram === 'forward'){
-            if(this.present !== this.total){
-                this.present = this.present + 1
+            this.present = this.present + 1
+            if(this.present !== this.total || this.present >= this.total){
                 db.collection('Users').doc(this.state.id).get().then(user=>{
                     let subjectId = user.data().subjectId
                     this.total = subjectId.length
@@ -90,16 +92,18 @@ class User extends React.Component{
                     //this.present = subjectId.indexOf(subjectId[this.total-1]);
                     db.collection('Details').doc(this.state.id).collection('subjects').doc(subjectId[this.present]).get()
                     .then(sub=>{
-                        //this.setState({subjects: sub.data().subjects})
-                        //console.log(sub.data().subjects)
+                        this.setState({subjects: sub.data().subjects})
+                        this.setState({details: {term: sub.data().term, class: sub.data().class}})
+                        console.log(sub.data().subjects)
                     })
                     console.log(this.present)
                 })
             }
         }
+        console.log(this.present);
         if(pram === 'backward'){
             this.present = this.present - 1
-            if(this.present !== this.total){
+            if(this.present !== -1){
                 db.collection('Users').doc(this.state.id).get().then(user=>{
                     let subjectId = user.data().subjectId
                     this.total = subjectId.length
@@ -107,8 +111,9 @@ class User extends React.Component{
                     //this.present = subjectId.indexOf(subjectId[this.total-1]);
                     db.collection('Details').doc(this.state.id).collection('subjects').doc(subjectId[this.present]).get()
                     .then(sub=>{
-                        //this.setState({subjects: sub.data().subjects})
-                        //console.log(sub.data().subjects)
+                        this.setState({subjects: sub.data().subjects})
+                        this.setState({details: {term: sub.data().term, class: sub.data().class}})
+                        console.log(sub.data().subjects)
                     })
                     console.log(this.present)
                 })
@@ -307,9 +312,9 @@ class User extends React.Component{
                                     </nav>
                                     <div className='w3-col m4 l4 w3-center w3-margin-top'>
                                         <span className='w3-padding w3-deep-orange'>Details</span>
-                                        <p className='w3-padding w3-card w3-round'>{this.state.profile['Class']}</p>
-                                        <p className='w3-padding w3-card w3-round'>{this.state.profile['Term']}</p>
-                                        <p className='w3-padding w3-card w3-round'>{this.state.profile['Year']}</p>
+                                        <p className='w3-padding w3-card w3-round'>{this.state.details['class']}</p>
+                                        <p className='w3-padding w3-card w3-round'>{this.state.details['term']}</p>
+                                        <p className='w3-padding w3-card w3-round'>{this.state.details['year']}</p>
                                     </div>
                                 </div>
                             </div>
