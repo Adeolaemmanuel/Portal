@@ -63,9 +63,9 @@ class User extends React.Component{
                 profile: user.data()
             })
             let subjectId = user.data().subjectId
-            let len = subjectId.length
-            this.present = subjectId.length-1
-            db.collection('Details').doc(this.state.id).collection('subjects').doc(subjectId[len-1]).get()
+            this.total = subjectId.length
+            this.present = subjectId.length-2
+            db.collection('Details').doc(this.state.id).collection('subjects').doc(subjectId[this.present]).get()
             .then(sub=>{
                 this.setState({subjects: sub.data().subjects})
                 this.setState({details: {term: sub.data().term, class: sub.data().class}})
@@ -82,7 +82,11 @@ class User extends React.Component{
 
     changeStats(pram){
         if(pram === 'forward'){
-            this.present = this.present + 1
+            if(this.present === this.total -1){
+                this.present = (this.total -1) - 1
+            }else{
+                this.present = this.present + 1
+            }
             if(this.present <= this.total){
                 db.collection('Users').doc(this.state.id).get().then(user=>{
                     let subjectId = user.data().subjectId
@@ -98,11 +102,13 @@ class User extends React.Component{
                     console.log(this.present)
                 })
             }
-        }
-        
-        if(pram === 'backward'){
-            this.present = this.present - 1
-            if(this.present <= 0){
+        }else if(pram === 'backward'){
+            if(this.present < 0){
+                this.present = this.total -1
+            }else{
+                this.present = this.present - 1
+            }
+            if(this.present >= 0){
                 db.collection('Users').doc(this.state.id).get().then(user=>{
                     let subjectId = user.data().subjectId
                     this.total = subjectId.length
@@ -227,8 +233,8 @@ class User extends React.Component{
                             <div className='w3-container'>
                                 <div className='w3-row' id='statsInfo' style={{display:'none'}}>
                                     <nav className='w3-bar'>
-                                        <BsFillCaretLeftFill id='right' className='w3-bar-item w3-padding w3-deep-orange' onClick={(e)=>{this.changeStats('backward')}} style={{width:'50px', height: '50px'}} />
-                                        <BsFillCaretRightFill id='left' className='w3-bar-item w3-right w3-padding w3-deep-orange' onClick={(e)=>{this.changeStats('forward')}} style={{width:'50px', height: '50px'}} />
+                                        <BsFillCaretLeftFill id='right' className='w3-bar-item w3-btn w3-padding w3-deep-orange' onClick={(e)=>{this.changeStats('backward')}} style={{width:'50px', height: '50px'}} />
+                                        <BsFillCaretRightFill id='left' className='w3-bar-item w3-btn w3-right w3-padding w3-deep-orange' onClick={(e)=>{this.changeStats('forward')}} style={{width:'50px', height: '50px'}} />
                                     </nav>
                                     <div className='w3-col m4 l4 w3-center w3-margin-top'>
                                         <span className='w3-padding w3-deep-orange'>Details</span>
