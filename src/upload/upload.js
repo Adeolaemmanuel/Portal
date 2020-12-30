@@ -5,7 +5,7 @@ import { Cookies } from 'react-cookie'
 import { db } from '../database'
 import $ from 'jquery'
 import folder from '../assets/img/folder.svg'
-import back from '../assets/img/arrow.svg'
+import back from '../assets/img/left-arrow.svg'
 
 class Upload extends React.Component{
     constructor(props){

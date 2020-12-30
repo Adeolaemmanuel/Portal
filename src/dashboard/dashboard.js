@@ -4,6 +4,7 @@ import Nav from '../nav/nav';
 //import { Link } from "react-router-dom";
 import { db } from '../database'
 import { Cookies } from 'react-cookie'
+import { BsFillCaretLeftFill,BsFillCaretRightFill } from "react-icons/bs";
 
 class Dashboard extends React.Component{
     constructor(props){
@@ -28,6 +29,12 @@ class Dashboard extends React.Component{
     }
 }
 
+/**
+ * Rules
+ * statitics +arr['color'] is set atomatically while uploading data from Restul(Adimn, Teacher),
+ * if you are going tamper with it find a better solution, always remeber to inculed
+ * the space after  "
+ */
 class User extends React.Component{
 
     constructor(props) {
@@ -41,6 +48,7 @@ class User extends React.Component{
         }
         this.tab = this.tab.bind(this)
         this.accordion = this.accordion.bind(this)
+        this.changeStats = this.changeStats.bind(this)
     }
 
     componentDidMount(){
@@ -55,13 +63,40 @@ class User extends React.Component{
             })
             let subjectId = user.data().subjectId
             let len = subjectId.length
+            this.present = subjectId.length
             db.collection('Details').doc(this.state.id).collection('subjects').doc(subjectId[len-1]).get()
             .then(sub=>{
                 this.setState({subjects: sub.data().subjects})
+                let statsInfo = document.getElementById('statsInfo')
+                statsInfo.style.display = 'block'
                 //console.log(sub.data().subjects)
             })
             //console.log(subjectId[len -1])
         })
+    }
+
+    total //original length
+    present
+    index = 0
+
+    changeStats(pram){
+        if(pram === 'forward'){
+            if(this.present !== this.total){
+                this.present = this.present + 1
+                db.collection('Users').doc(this.state.id).get().then(user=>{
+                    let subjectId = user.data().subjectId
+                    this.total = subjectId.length
+                    //if(t)
+                    //this.present = subjectId.indexOf(subjectId[this.total-1]);
+                    db.collection('Details').doc(this.state.id).collection('subjects').doc(subjectId[this.present]).get()
+                    .then(sub=>{
+                        //this.setState({subjects: sub.data().subjects})
+                        //console.log(sub.data().subjects)
+                    })
+                    console.log(this.pr)
+                })
+            }
+        }
     }
     
     tab(show='profiles',hide='statistics'){
@@ -161,7 +196,7 @@ class User extends React.Component{
                                         return(
                                             <div className='w3-half w3-padding'>
                                                 <div className="w3-light-grey w3-round">
-                                                    <div className={"w3-container w3-padding w3-center w3-round w3-text-white "+arr['color']} style={{width: `${arr['value']}%`}}>{arr['name']}</div>
+                                                    <div className={"w3-container w3-padding w3-center w3-round w3-text-black "+arr['color']} style={{width: `${arr['value']}%`}}>{arr['name']}</div>
                                                 </div>
                                             </div>
                                         )
@@ -240,12 +275,26 @@ class User extends React.Component{
                                         return(
                                             <div className='w3-half w3-padding'>
                                                 <div className="w3-light-grey w3-round">
-                                                    <div className={"w3-container w3-padding w3-center w3-round w3-text-white "+arr['color']} style={{width: `${arr['value']}%`}}>{arr['name']}</div>
+                                                    <div className={"w3-container w3-padding w3-center w3-bold w3-card w3-round w3-text-black "+arr['color']} style={{width: `${arr['value']}%`}}>{arr['name']}</div>
                                                 </div>
                                             </div>
                                         )
                                     })
                                 }
+                            </div>
+                            <div className='w3-container'>
+                                <div className='w3-row' id='statsInfo' style={{display:'none'}}>
+                                    <nav className='w3-bar'>
+                                        <BsFillCaretLeftFill className='w3-bar-item w3-padding w3-deep-orange' onClick={(e)=>{this.changeStats('backward')}} style={{width:'50px', height: '50px'}} />
+                                        <BsFillCaretRightFill className='w3-bar-item w3-right w3-padding w3-deep-orange' onClick={(e)=>{this.changeStats('forward')}} style={{width:'50px', height: '50px'}} />
+                                    </nav>
+                                    <div className='w3-col m4 l4 w3-center w3-margin-top'>
+                                        <span className='w3-padding w3-deep-orange'>Details</span>
+                                        <p className='w3-padding w3-card w3-round'>{this.state.profile['Class']}</p>
+                                        <p className='w3-padding w3-card w3-round'>{this.state.profile['Term']}</p>
+                                        <p className='w3-padding w3-card w3-round'>{this.state.profile['Year']}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

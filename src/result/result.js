@@ -4,7 +4,7 @@ import Nav from '../nav/nav';
 import { db} from '../database'
 import { Cookies } from 'react-cookie'
 import folder from '../assets/img/folder.svg'
-import back from '../assets/img/arrow.svg'
+import back from '../assets/img/left-arrow.svg'
 
 class Result extends React.Component{
     constructor(props){
