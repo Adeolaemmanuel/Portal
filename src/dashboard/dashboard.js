@@ -224,6 +224,20 @@ class User extends React.Component{
                                     })
                                 }
                             </div>
+                            <div className='w3-container'>
+                                <div className='w3-row' id='statsInfo' style={{display:'none'}}>
+                                    <nav className='w3-bar'>
+                                        <BsFillCaretLeftFill id='right' className='w3-bar-item w3-padding w3-deep-orange' onClick={(e)=>{this.changeStats('backward')}} style={{width:'50px', height: '50px'}} />
+                                        <BsFillCaretRightFill id='left' className='w3-bar-item w3-right w3-padding w3-deep-orange' onClick={(e)=>{this.changeStats('forward')}} style={{width:'50px', height: '50px'}} />
+                                    </nav>
+                                    <div className='w3-col m4 l4 w3-center w3-margin-top'>
+                                        <span className='w3-padding w3-deep-orange'>Details</span>
+                                        <p className='w3-padding w3-card w3-round'>{this.state.details['class']}</p>
+                                        <p className='w3-padding w3-card w3-round'>{this.state.details['term']}</p>
+                                        <p className='w3-padding w3-card w3-round'>{this.state.details['year']}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
